@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 
 export function HeroSection() {
   return (
@@ -26,19 +25,9 @@ export function HeroSection() {
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            The first end-to-end platform for Cochrane-aligned risk-of-bias assessment. Identify selection, performance, detection, attrition, and reporting bias—then correct it before regulatory submission.
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
+            The first end-to-end platform for Cochrane-aligned risk-of-bias assessment. Identify selection, performance, detection, attrition, and reporting bias then correct it before regulatory submission.
           </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" href="#contact">
-              Request a Demo
-            </Button>
-            <Button size="lg" variant="outline" href="#solution">
-              Learn More
-            </Button>
-          </div>
         </div>
       </Container>
 

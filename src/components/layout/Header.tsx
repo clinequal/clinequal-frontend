@@ -43,8 +43,8 @@ export function Header() {
                 {link.label}
               </a>
             ))}
-            <Button size="sm" href="#contact">
-              Get in Touch
+            <Button size="sm" href="/demo">
+              Try Demo
             </Button>
           </div>
 
@@ -93,8 +93,8 @@ export function Header() {
                   {link.label}
                 </a>
               ))}
-              <Button size="sm" href="#contact" className="w-full">
-                Get in Touch
+              <Button size="sm" href="/demo" className="w-full">
+                Try Demo
               </Button>
             </div>
           </div>

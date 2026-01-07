@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 
@@ -29,13 +30,41 @@ const achievements = [
 ];
 
 const collaborators = [
-  { name: "Politecnico di Milano", short: "PoliMi" },
-  { name: "Università di Napoli Federico II", short: "UniNA" },
-  { name: "Luxembourg Institute of Science and Technology", short: "LIST" },
-  { name: "Linköping University", short: "LiU" },
-  { name: "University of Luxembourg", short: "Uni.lu" },
-  { name: "KTH Royal Institute of Technology", short: "KTH" },
-  { name: "Karolinska Institute", short: "KI" },
+  {
+    name: "Politecnico di Milano",
+    logo: "/academic_logos/logo_university_Politecnico_Milano_128.png",
+    url: "https://www.polimi.it/",
+  },
+  {
+    name: "Università di Napoli Federico II",
+    logo: "/academic_logos/logo_university_Federico_II_128.png",
+    url: "https://www.unina.it/",
+  },
+  {
+    name: "Luxembourg Institute of Science and Technology",
+    logo: "/academic_logos/logo_LIST_128.png",
+    url: "https://www.list.lu/",
+  },
+  {
+    name: "Linköping University",
+    logo: "/academic_logos/logo_university_Linkoping_University_128.png",
+    url: "https://liu.se/",
+  },
+  {
+    name: "University of Luxembourg",
+    logo: "/academic_logos/logo_university_Universite_du_Luxembourg_128.png",
+    url: "https://uni.lu/",
+  },
+  {
+    name: "KTH Royal Institute of Technology",
+    logo: "/academic_logos/logo_university_KTH_Royal_Institute_of_Technology_128.svg",
+    url: "https://www.kth.se/",
+  },
+  {
+    name: "Karolinska Institute",
+    logo: "/academic_logos/logo_university_Karolinska_Institute_128.png",
+    url: "https://ki.se/",
+  },
 ];
 
 export function TrustSection() {
@@ -75,23 +104,24 @@ export function TrustSection() {
           <h3 className="text-xl font-semibold text-center mb-8 text-slate-300">
             Academic Collaborations
           </h3>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
             {collaborators.map((collaborator) => (
-              <div
-                key={collaborator.short}
-                className="text-center group"
+              <a
+                key={collaborator.name}
+                href={collaborator.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block opacity-70 hover:opacity-100 transition-opacity"
                 title={collaborator.name}
               >
-                {/* TODO: Replace with actual university logos */}
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 group-hover:border-primary/50 group-hover:text-primary transition-colors">
-                  <span className="text-xs md:text-sm font-semibold">
-                    {collaborator.short}
-                  </span>
-                </div>
-                <p className="mt-2 text-xs text-slate-500 max-w-[100px] mx-auto hidden md:block">
-                  {collaborator.name}
-                </p>
-              </div>
+                <Image
+                  src={collaborator.logo}
+                  alt={collaborator.name}
+                  width={80}
+                  height={80}
+                  className="h-16 md:h-20 w-auto object-contain brightness-0 invert"
+                />
+              </a>
             ))}
           </div>
         </div>

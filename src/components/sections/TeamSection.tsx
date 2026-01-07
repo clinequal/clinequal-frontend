@@ -8,35 +8,35 @@ const team = [
     role: "CEO",
     expertise: "PhD Industrial Engineering (KTH), 10+ years AI/ML, serial entrepreneur",
     linkedin: "https://www.linkedin.com/in/andreadegiorgio/",
-    image: "/team/andrea.jpg",
+    image: "/team/andrea.jpeg",
   },
   {
     name: "Felicia Burtscher",
     role: "CPO",
     expertise: "MSc Bioinformatics (Imperial), MBA, 10+ years healthcare data science",
     linkedin: "https://www.linkedin.com/in/felicia-burtscher/",
-    image: "/team/felicia.jpg",
+    image: "/team/felicia.jpeg",
   },
   {
     name: "Pasquale Junior Montò",
     role: "CTO",
     expertise: "Software engineer, Apple Developer Academy alumnus, AI module lead",
     linkedin: "https://www.linkedin.com/in/pasqjr/",
-    image: "/team/pasquale.jpg",
+    image: "/team/pasquale.jpeg",
   },
   {
     name: "Enrico De Cupertinis",
     role: "CCO",
     expertise: "Doctor in Design for Community, branding & digital marketing expert",
     linkedin: "https://www.linkedin.com/in/enrico-de-cupertinis-b7a4b71ba/",
-    image: "/team/enrico.jpg",
+    image: "/team/enrico.PNG",
   },
   {
     name: "Eleonora Di Napoli",
     role: "CFO",
     expertise: "Master's Economics, Management & Sustainability, ESG specialist",
     linkedin: "https://www.linkedin.com/in/eleonora-di-napoli-4b1b57254/",
-    image: "/team/eleonora.jpg",
+    image: "/team/eleonora.jpeg",
   },
 ];
 
@@ -60,7 +60,7 @@ export function TeamSection() {
                   src={member.image}
                   alt={member.name}
                   fill
-                  className="object-cover"
+                  className={`object-cover ${member.name === "Enrico De Cupertinis" ? "object-top" : ""}`}
                   sizes="128px"
                 />
               </div>
