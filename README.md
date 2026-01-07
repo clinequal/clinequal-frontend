@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clinequal Frontend
+
+Marketing website and demo platform for Clinequal - AI-powered clinical trial bias detection.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript 5
+- **Styling:** Tailwind CSS 4
+- **Font:** Inter (Google Fonts)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── (marketing)/          # Marketing pages (/, /demo, /privacy-policy, etc.)
+│   │   ├── page.tsx          # Homepage
+│   │   ├── demo/             # Demo page (coming soon)
+│   │   ├── privacy-policy/
+│   │   └── terms-and-conditions/
+│   ├── globals.css           # Design system & Tailwind config
+│   └── layout.tsx            # Root layout
+├── components/
+│   ├── layout/               # Header, Footer
+│   ├── sections/             # Page sections (Hero, Problem, Solution, etc.)
+│   └── ui/                   # Primitives (Button, Container, Section)
+public/
+├── team/                     # Team headshots
+├── academic_logos/           # University/institution logos
+├── Logo.svg                  # Clinequal logo
+└── Payoff.svg                # Clinequal icon
+```
 
-## Learn More
+## Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run start    # Start production server
+npm run lint     # Run ESLint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Design System
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Colors and tokens are defined in `src/app/globals.css`:
 
-## Deploy on Vercel
+- **Primary:** #2F80ED (Clinequal blue)
+- **Neutrals:** Slate scale
+- **Font:** Inter
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Adding Content
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Team Members
+Edit `src/components/sections/TeamSection.tsx` - update the `team` array.
+
+### Academic Collaborators
+Edit `src/components/sections/TrustSection.tsx` - update the `collaborators` array.
+
+### Achievements
+Edit `src/components/sections/TrustSection.tsx` - update the `achievements` array.
