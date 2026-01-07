@@ -48,7 +48,7 @@ export function TrustSection() {
             Recognition & Achievements
           </h2>
           <p className="text-lg text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            Validated by leading innovation programs across Europe and the US.
+            Selected from 495 applicants for Fit4Start Luxembourg. Winner of the US-Italy Hackathon and Startcup Campania Social Impact Prize.
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -73,7 +73,7 @@ export function TrustSection() {
         {/* Collaborators */}
         <div>
           <h3 className="text-xl font-semibold text-center mb-8 text-slate-300">
-            Research Collaborators
+            Academic Collaborations
           </h3>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {collaborators.map((collaborator) => (

@@ -1,37 +1,42 @@
+import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 
-// TODO: Update with actual team data and photos
 const team = [
   {
-    name: "Team Member 1",
-    role: "AI/ML Lead",
-    expertise: "Machine Learning & Data Science",
-    linkedin: "#",
+    name: "Andrea de Giorgio",
+    role: "CEO",
+    expertise: "PhD Industrial Engineering (KTH), 10+ years AI/ML, serial entrepreneur",
+    linkedin: "https://www.linkedin.com/in/andreadegiorgio/",
+    image: "/team/andrea.jpg",
   },
   {
-    name: "Team Member 2",
-    role: "Software Lead",
-    expertise: "Software Engineering & Architecture",
-    linkedin: "#",
+    name: "Felicia Burtscher",
+    role: "CPO",
+    expertise: "MSc Bioinformatics (Imperial), MBA, 10+ years healthcare data science",
+    linkedin: "https://www.linkedin.com/in/felicia-burtscher/",
+    image: "/team/felicia.jpg",
   },
   {
-    name: "Team Member 3",
-    role: "Regulatory Lead",
-    expertise: "Clinical Trials & Regulatory Affairs",
-    linkedin: "#",
+    name: "Pasquale Junior Montò",
+    role: "CTO",
+    expertise: "Software engineer, Apple Developer Academy alumnus, AI module lead",
+    linkedin: "https://www.linkedin.com/in/pasqjr/",
+    image: "/team/pasquale.jpg",
   },
   {
-    name: "Team Member 4",
-    role: "Design Lead",
-    expertise: "Product Design & UX",
-    linkedin: "#",
+    name: "Enrico De Cupertinis",
+    role: "CCO",
+    expertise: "Doctor in Design for Community, branding & digital marketing expert",
+    linkedin: "https://www.linkedin.com/in/enrico-de-cupertinis-b7a4b71ba/",
+    image: "/team/enrico.jpg",
   },
   {
-    name: "Team Member 5",
-    role: "Finance Lead",
-    expertise: "Finance & Business Development",
-    linkedin: "#",
+    name: "Eleonora Di Napoli",
+    role: "CFO",
+    expertise: "Master's Economics, Management & Sustainability, ESG specialist",
+    linkedin: "https://www.linkedin.com/in/eleonora-di-napoli-4b1b57254/",
+    image: "/team/eleonora.jpg",
   },
 ];
 
@@ -40,33 +45,24 @@ export function TeamSection() {
     <Section background="white" id="team">
       <Container>
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Team</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Leadership Team</h2>
           <p className="text-lg text-slate-600">
-            {/* TODO: Refine with pharma-web-copywriter */}
-            A multidisciplinary team combining expertise in AI, clinical research,
-            regulatory affairs, and software engineering.
+            Expertise spanning AI/ML, bioinformatics, healthcare data science, software engineering, and regulatory compliance. Advised by scientists in the top 2% most cited globally.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
           {team.map((member) => (
             <div key={member.name} className="text-center group">
-              {/* Photo placeholder */}
-              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-slate-100 border-2 border-slate-200 group-hover:border-primary transition-colors flex items-center justify-center">
-                {/* TODO: Replace with actual photos */}
-                <svg
-                  className="w-12 h-12 text-slate-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
+              {/* Photo */}
+              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-slate-100 border-2 border-slate-200 group-hover:border-primary transition-colors overflow-hidden relative">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover"
+                  sizes="128px"
+                />
               </div>
               <h3 className="font-semibold text-slate-900">{member.name}</h3>
               <p className="text-primary text-sm font-medium">{member.role}</p>

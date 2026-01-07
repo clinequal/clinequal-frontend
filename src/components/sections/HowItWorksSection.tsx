@@ -4,33 +4,33 @@ import { Container } from "@/components/ui/Container";
 const steps = [
   {
     number: "01",
-    title: "Detect",
-    description: "Upload your trial data and our AI identifies potential biases across demographics, geography, and more.",
+    title: "Detect Bias",
+    description: "Automated scanning across all five Cochrane domains: selection bias in randomization, performance bias from blinding gaps, detection bias in outcome assessment, attrition patterns, and reporting inconsistencies.",
   },
   {
     number: "02",
-    title: "Quantify",
-    description: "See exactly how significant each bias is and its potential impact on your trial outcomes.",
+    title: "Quantify Impact",
+    description: "Fairness metrics measure the magnitude and statistical significance of each bias type. Visualizations show how bias may inflate or deflate treatment effect estimates.",
   },
   {
     number: "03",
-    title: "Explain",
-    description: "Understand the root causes of bias with clear explanations your team and regulators can understand.",
+    title: "Explain Root Causes",
+    description: "Explainable AI traces bias to specific protocol decisions: allocation methods, blinding procedures, outcome definitions, dropout patterns, or selective reporting practices.",
   },
   {
     number: "04",
-    title: "Correct",
-    description: "Apply statistical corrections and get recommendations for addressing enrollment gaps.",
+    title: "Correct Datasets",
+    description: "Evidence-based correction strategies: statistical weighting, sensitivity analyses, imputation methods for missing data, and recommendations for protocol amendments.",
   },
   {
     number: "05",
-    title: "Simulate",
-    description: "Model how corrections will affect your trial outcomes before making changes.",
+    title: "Simulate Scenarios",
+    description: "What-if modeling: 'How do results change if we adjust for attrition bias?' or 'What if allocation concealment was improved?' Test corrections before implementation.",
   },
   {
     number: "06",
-    title: "Report",
-    description: "Generate comprehensive reports ready for regulatory submissions and stakeholder review.",
+    title: "Generate Reports",
+    description: "Cochrane-aligned risk-of-bias reports ready for EMA/FDA submission. Full audit trails, 24+ languages, GDPR and MDR compliance built in.",
   },
 ];
 
@@ -40,11 +40,10 @@ export function HowItWorksSection() {
       <Container>
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            The Clinequal Process
+            From Dataset Upload to Regulatory Submission
           </h2>
           <p className="text-lg text-slate-600">
-            {/* TODO: Refine with pharma-web-copywriter */}
-            Six steps from raw data to regulatory-ready documentation.
+            Six integrated modules transform biased trial data into defensible, representative datasets with full documentation for submission.
           </p>
         </div>
 

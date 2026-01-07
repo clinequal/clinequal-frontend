@@ -21,15 +21,13 @@ export function HeroSection() {
 
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Equitable Clinical Trials
-            <span className="text-primary"> Start with Better Data</span>
+            Detect, Quantify, and Correct
+            <span className="text-primary"> Clinical Trial Bias</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            {/* TODO: Refine with pharma-web-copywriter */}
-            Clinequal detects and corrects bias in clinical trial datasets,
-            ensuring your research represents all patient populations fairly.
+            The first end-to-end platform for Cochrane-aligned risk-of-bias assessment. Identify selection, performance, detection, attrition, and reporting bias—then correct it before regulatory submission.
           </p>
 
           {/* CTA Buttons */}

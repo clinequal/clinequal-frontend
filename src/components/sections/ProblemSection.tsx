@@ -4,15 +4,38 @@ import { Container } from "@/components/ui/Container";
 const stats = [
   {
     value: "80%+",
-    label: "of clinical trials have biased datasets",
+    label: "of clinical trials contain systematic bias",
   },
   {
-    value: "75%",
-    label: "of participants are white in US trials",
+    value: "$17M-$200M",
+    label: "cost per protocol modification",
   },
   {
-    value: "$2.6B",
-    label: "average cost of bringing a drug to market",
+    value: "30%",
+    label: "potential cost reduction with bias correction",
+  },
+];
+
+const biasTypes = [
+  {
+    name: "Selection Bias",
+    description: "Flawed randomization or allocation concealment affecting group assignment",
+  },
+  {
+    name: "Performance Bias",
+    description: "Inadequate blinding causing behavioral differences between groups",
+  },
+  {
+    name: "Detection Bias",
+    description: "Outcome measurement influenced by knowledge of treatment assignment",
+  },
+  {
+    name: "Attrition Bias",
+    description: "Non-random patient withdrawals skewing study results",
+  },
+  {
+    name: "Reporting Bias",
+    description: "Selective reporting of statistically significant outcomes only",
   },
 ];
 
@@ -22,14 +45,10 @@ export function ProblemSection() {
       <Container>
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            The Bias Problem in Clinical Trials
+            Risk of Bias Threatens Trial Validity
           </h2>
           <p className="text-lg text-slate-600">
-            {/* TODO: Refine with pharma-web-copywriter */}
-            Clinical trial data often fails to represent the diversity of real-world
-            patient populations. This leads to treatments that may not work
-            equally well for everyone—and regulatory scrutiny that can delay
-            approvals.
+            Bias in clinical trials goes beyond demographic underrepresentation. The Cochrane framework identifies five systematic bias types that compromise scientific validity, inflate or deflate treatment effects, and trigger regulatory rejection.
           </p>
         </div>
 
@@ -48,23 +67,33 @@ export function ProblemSection() {
           ))}
         </div>
 
+        {/* Bias Types */}
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-center mb-6">Five Types of Systematic Bias</h3>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {biasTypes.map((bias) => (
+              <div key={bias.name} className="p-4 rounded-lg bg-slate-50 text-center">
+                <h4 className="font-semibold text-slate-900 mb-1 text-sm">{bias.name}</h4>
+                <p className="text-xs text-slate-500">{bias.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Impact */}
         <div className="bg-slate-900 text-white rounded-2xl p-8 md:p-12">
-          <h3 className="text-2xl font-bold mb-4">Why This Matters</h3>
+          <h3 className="text-2xl font-bold mb-4">Business and Clinical Impact</h3>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-semibold text-primary mb-2">For Patients</h4>
+              <h4 className="font-semibold text-primary mb-2">Financial Risk</h4>
               <p className="text-slate-300">
-                Underrepresented populations may receive treatments that weren&apos;t
-                properly tested for their demographic, leading to adverse effects
-                or reduced efficacy.
+                Protocol modifications due to bias cost $17.3M (Phase I) to $200M (Phase III). Studies with high risk of bias show exaggerated treatment effects that fail to replicate, wasting development investment.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-primary mb-2">For Sponsors</h4>
+              <h4 className="font-semibold text-primary mb-2">Regulatory Scrutiny</h4>
               <p className="text-slate-300">
-                FDA and EMA increasingly require diversity data. Bias in your
-                trial can mean delays, additional studies, or failed approvals.
+                FDA and EMA require risk-of-bias assessments aligned with Cochrane methodology. Trials with inadequate randomization, blinding, or selective reporting face rejection or demands for additional studies.
               </p>
             </div>
           </div>
