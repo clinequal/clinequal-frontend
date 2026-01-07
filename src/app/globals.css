@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* ============================================
+   CLINEQUAL DESIGN SYSTEM
+   ============================================ */
+
+:root {
+  /* Primary Brand Colors */
+  --primary: #2F80ED;
+  --primary-dark: #1E6FD9;
+  --primary-light: #5BA0F5;
+
+  /* Neutral Scale (Slate) */
+  --slate-50: #F8FAFC;
+  --slate-100: #F1F5F9;
+  --slate-200: #E2E8F0;
+  --slate-300: #CBD5E1;
+  --slate-400: #94A3B8;
+  --slate-500: #64748B;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1E293B;
+  --slate-900: #0F172A;
+
+  /* Semantic Colors */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  /* Light Mode Defaults */
+  --background: var(--slate-50);
+  --background-alt: #FFFFFF;
+  --foreground: var(--slate-900);
+  --foreground-muted: var(--slate-500);
+
+  /* Section Backgrounds */
+  --section-light: #FFFFFF;
+  --section-gray: var(--slate-50);
+  --section-dark: var(--slate-900);
+  --section-primary: var(--primary);
+}
+
+@theme inline {
+  /* Colors */
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* Dark mode preparation (not active yet, but ready) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--slate-900);
+    --background-alt: var(--slate-800);
+    --foreground: var(--slate-50);
+    --foreground-muted: var(--slate-400);
+  }
+}
+
+/* Base Styles */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
