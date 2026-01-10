@@ -3,9 +3,9 @@ import { Container } from "@/components/ui/Container";
 
 const features = [
   {
-    title: "Risk-of-Bias Scanner",
+    title: "Bias Scanner",
     description:
-      "Automated detection across all five Cochrane bias domains: selection, performance, detection, attrition, and reporting bias. Identifies randomization flaws, blinding gaps, outcome inconsistencies, and selective reporting.",
+      "Automated detection of demographic imbalances and methodological flaws: population underrepresentation, randomization issues, blinding gaps, attrition patterns, and selective reporting.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -35,7 +35,7 @@ const features = [
   {
     title: "Regulatory Compliance",
     description:
-      "Cochrane-aligned risk-of-bias reports ready for EMA and FDA submission. Full audit trails, GDPR/MDR compliance, ISO 27001 security. Documentation in 24+ languages for multicenter trials.",
+      "Audit-ready reports for EMA and FDA submission, aligned with Cochrane standards. Full audit trails, GDPR/MDR compliance, ISO 27001 security. Documentation in 24+ languages.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

@@ -18,16 +18,24 @@ const stats = [
 
 const biasTypes = [
   {
+    name: "Demographic Bias",
+    description:
+      "Underrepresentation of women, elderly, children, and ethnic minorities in trial populations",
+  },
+  {
     name: "Selection Bias",
-    description: "Flawed randomization or allocation concealment affecting group assignment",
+    description:
+      "Flawed randomization or allocation concealment affecting group assignment",
   },
   {
     name: "Performance Bias",
-    description: "Inadequate blinding causing behavioral differences between groups",
+    description:
+      "Inadequate blinding causing behavioral differences between groups",
   },
   {
     name: "Detection Bias",
-    description: "Outcome measurement influenced by knowledge of treatment assignment",
+    description:
+      "Outcome measurement influenced by knowledge of treatment assignment",
   },
   {
     name: "Attrition Bias",
@@ -45,10 +53,10 @@ export function ProblemSection() {
       <Container>
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Risk of Bias Threatens Trial Validity
+            Bias Threatens Trial Validity
           </h2>
           <p className="text-lg text-slate-600">
-            Bias in clinical trials goes beyond demographic underrepresentation. The Cochrane framework identifies five systematic bias types that compromise scientific validity, inflate or deflate treatment effects, and trigger regulatory rejection.
+            From demographic underrepresentation to methodological flaws, bias compromises scientific validity, distorts treatment effects, and triggers regulatory rejection. Most issues remain invisible until submission—when it's too late.
           </p>
         </div>
 
@@ -69,12 +77,26 @@ export function ProblemSection() {
 
         {/* Bias Types */}
         <div className="mb-12">
-          <h3 className="text-xl font-semibold text-center mb-6">Five Types of Systematic Bias</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {biasTypes.map((bias) => (
-              <div key={bias.name} className="p-4 rounded-lg bg-slate-50 text-center">
-                <h4 className="font-semibold text-slate-900 mb-1 text-sm">{bias.name}</h4>
-                <p className="text-xs text-slate-500">{bias.description}</p>
+          <h3 className="text-xl font-semibold text-center mb-8">
+            Types of Bias We Detect
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {biasTypes.map((bias, index) => (
+              <div
+                key={bias.name}
+                className="p-6 rounded-xl bg-slate-50 border-l-4 border-primary hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start gap-4">
+                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">
+                      {bias.name}
+                    </h4>
+                    <p className="text-slate-600 text-sm">{bias.description}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -93,7 +115,7 @@ export function ProblemSection() {
             <div>
               <h4 className="font-semibold text-primary mb-2">Regulatory Scrutiny</h4>
               <p className="text-slate-300">
-                FDA and EMA require risk-of-bias assessments aligned with Cochrane methodology. Trials with inadequate randomization, blinding, or selective reporting face rejection or demands for additional studies.
+                FDA and EMA increasingly require documented evidence of representative enrollment and robust methodology. Trials with inadequate randomization, poor blinding, or unrepresentative populations face rejection.
               </p>
             </div>
           </div>

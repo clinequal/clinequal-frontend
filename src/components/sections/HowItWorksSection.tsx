@@ -5,7 +5,7 @@ const steps = [
   {
     number: "01",
     title: "Detect Bias",
-    description: "Automated scanning across all five Cochrane domains: selection bias in randomization, performance bias from blinding gaps, detection bias in outcome assessment, attrition patterns, and reporting inconsistencies.",
+    description: "Automated scanning for demographic imbalances (gender, age, ethnicity) and methodological issues: randomization flaws, blinding gaps, attrition patterns, and reporting inconsistencies.",
   },
   {
     number: "02",
@@ -30,7 +30,7 @@ const steps = [
   {
     number: "06",
     title: "Generate Reports",
-    description: "Cochrane-aligned risk-of-bias reports ready for EMA/FDA submission. Full audit trails, 24+ languages, GDPR and MDR compliance built in.",
+    description: "Regulatory-ready documentation for EMA/FDA submission, aligned with Cochrane methodology. Full audit trails, 24+ languages, GDPR and MDR compliance built in.",
   },
 ];
 

@@ -17,10 +17,10 @@ export function CTASection() {
           <p className="text-white/90 mb-6">
             Email us at{" "}
             <a
-              href="mailto:andrea@clinequal.com"
+              href="mailto:info@clinequal.com"
               className="underline font-medium hover:text-white"
             >
-              andrea@clinequal.com
+              info@clinequal.com
             </a>
           </p>
 

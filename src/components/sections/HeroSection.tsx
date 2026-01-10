@@ -26,7 +26,7 @@ export function HeroSection() {
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
-            The first end-to-end platform for Cochrane-aligned risk-of-bias assessment. Identify selection, performance, detection, attrition, and reporting bias then correct it before regulatory submission.
+            The first end-to-end platform for clinical trial bias management. From demographic underrepresentation to methodological flaws, detect issues early and correct them before regulatory submission.
           </p>
         </div>
       </Container>
