@@ -7,8 +7,10 @@ export function DemoCTASection() {
     <Section background="gray">
       <Container>
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            See It in Action
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+              See It in Action
+            </span>
           </h2>
           <p className="text-lg text-slate-600 mb-6">
             Explore bias detection on sample clinical trial datasets. No signup
