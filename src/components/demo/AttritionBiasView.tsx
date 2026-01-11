@@ -6,12 +6,16 @@ import {
   depressionTrialAttritionBias,
   depressionTrialInsight,
   depressionTrialSample,
+  depressionTrialContext,
 } from "@/lib/demo";
 import { ScrollReveal, WalkthroughSection } from "./ScrollReveal";
 import { DataTable } from "./DataTable";
 import { PatientJourney } from "./PatientJourney";
 import { StatCard } from "./StatCard";
 import { BarChart } from "./BarChart";
+import { BusinessImpact } from "./BusinessImpact";
+import { DemoCTA } from "./DemoCTA";
+import { RegulatoryBadge, RegulatoryNote } from "./RegulatoryBadge";
 
 interface AttritionBiasViewProps {
   onBack: () => void;
@@ -23,21 +27,22 @@ const tableData = depressionTrialSample.map((p) => ({
   age: p.age,
   gender: p.gender,
   income: p.incomeLevel,
-  completed: p.completed ? "Yes" : "Dropped",
-  remission: p.remission ? "Yes" : "No",
+  status: p.completed ? "Completed" : "Discontinued",
+  outcome: p.completed ? (p.remission ? "Remission" : "No Remission") : "—",
 }));
 
-// Patient journey data
-const journeyPatients = depressionTrialSample.map((p) => ({
+// Patient journey data with deterministic weeks
+const journeyPatients = depressionTrialSample.map((p, i) => ({
   id: p.id,
   incomeLevel: p.incomeLevel,
-  weeksInStudy: p.completed ? 12 : Math.floor(Math.random() * 8) + 2,
+  weeksInStudy: p.completed ? 12 : [2, 3, 4, 5, 6, 7, 8][i % 7],
   completed: p.completed,
 }));
 
 export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
   const stats = depressionTrialStats;
   const insight = depressionTrialInsight;
+  const context = depressionTrialContext;
 
   return (
     <div className="space-y-4">
@@ -56,74 +61,84 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
           <h1 className="text-xl font-bold text-slate-900">
             {depressionTrialMetadata.name}
           </h1>
+          <p className="text-sm text-slate-500">{context.indication}</p>
         </div>
-        <span className="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
-          Attrition Bias
-        </span>
+        <div className="flex flex-col items-end gap-1">
+          <span className="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
+            Attrition Bias Detected
+          </span>
+          <span className="text-xs text-slate-400">{context.phase} • {context.therapeuticArea}</span>
+        </div>
       </div>
 
-      {/* Section 1: Meet the Data */}
+      {/* Section 1: Trial Overview */}
       <WalkthroughSection
-        title="The Trial"
-        subtitle="A 12-week depression treatment study with 200 enrolled patients."
+        title="Trial Overview"
+        subtitle={depressionTrialMetadata.description}
       >
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
-          <StatCard label="Enrolled" value={stats.totalPatients} />
-          <StatCard label="Duration" value="12 weeks" />
-          <StatCard label="Primary Outcome" value="Remission" subtext="Depression score improvement" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <StatCard label="Patients Enrolled" value={stats.totalPatients} />
+          <StatCard label="Sites" value={context.sites} subtext={context.countries.join(", ")} />
+          <StatCard label="Duration" value="12 weeks" subtext={context.primaryEndpoint} />
+          <StatCard label="Regulatory Target" value={context.regulatoryTarget} />
         </div>
 
         <p className="text-slate-600 text-sm mb-4">
-          This synthetic dataset mirrors patterns from the STAR*D trial, one of the largest
-          depression treatment studies ever conducted. Here&apos;s a sample:
+          Review patient disposition and outcomes:
         </p>
 
         <DataTable
           columns={[
-            { key: "id", label: "ID" },
+            { key: "id", label: "Subject ID" },
             { key: "age", label: "Age" },
-            { key: "gender", label: "Gender" },
-            { key: "income", label: "Income", highlight: true },
-            { key: "completed", label: "Status", highlight: true },
-            { key: "remission", label: "Remission" },
+            { key: "gender", label: "Sex" },
+            { key: "income", label: "SES", highlight: true },
+            { key: "status", label: "Disposition", highlight: true },
+            { key: "outcome", label: "Primary Endpoint" },
           ]}
           data={tableData}
-          highlightColumn="completed"
+          highlightColumn="status"
           highlightValues={{
-            Yes: "bg-green-100 text-green-700",
-            Dropped: "bg-red-100 text-red-700",
+            Completed: "bg-green-100 text-green-700",
+            Discontinued: "bg-red-100 text-red-700",
           }}
           maxRows={10}
         />
       </WalkthroughSection>
 
-      {/* Section 2: Watch Who Leaves */}
+      {/* Section 2: Patient Journeys */}
       <WalkthroughSection
-        title="Who Completes the Study?"
-        subtitle="Watch each patient's journey through the 12-week trial."
+        title="Patient Disposition Over Time"
+        subtitle="Visualize when and which patients discontinue the study."
       >
         <div className="bg-white border border-slate-200 rounded-xl p-6">
           <PatientJourney patients={journeyPatients} maxWeeks={12} />
         </div>
 
         <ScrollReveal delay={400} className="mt-4">
-          <p className="text-sm text-slate-500 text-center">
-            Notice how dropouts cluster among low-income patients (red lines).
-          </p>
+          <RegulatoryNote>
+            ICH E9 Guidelines require sensitivity analyses to assess the impact of missing data
+            and discontinuations on primary efficacy conclusions.
+          </RegulatoryNote>
         </ScrollReveal>
       </WalkthroughSection>
 
-      {/* Section 3: The Pattern */}
+      {/* Section 3: Differential Attrition */}
       <WalkthroughSection
-        title="Dropout by Income Level"
-        subtitle="The attrition is not random — it follows a clear pattern."
+        title="Differential Attrition Analysis"
+        subtitle="Dropout rates vary significantly across socioeconomic subgroups."
       >
+        <div className="flex flex-wrap gap-2 mb-4">
+          <RegulatoryBadge type="ich" text="E9(R1) estimands framework" />
+          <RegulatoryBadge type="cochrane" text="High risk - attrition bias" />
+        </div>
+
         <div className="bg-white border border-slate-200 rounded-xl p-6">
           <BarChart
             data={[
-              { label: "Low Income", value: stats.byIncomeLevel.low.dropoutRate, color: "#ef4444" },
-              { label: "Middle Income", value: stats.byIncomeLevel.middle.dropoutRate, color: "#f59e0b" },
-              { label: "High Income", value: stats.byIncomeLevel.high.dropoutRate, color: "#22c55e" },
+              { label: "Low SES", value: stats.byIncomeLevel.low.dropoutRate, color: "#ef4444" },
+              { label: "Middle SES", value: stats.byIncomeLevel.middle.dropoutRate, color: "#f59e0b" },
+              { label: "High SES", value: stats.byIncomeLevel.high.dropoutRate, color: "#22c55e" },
             ]}
             maxValue={60}
           />
@@ -134,15 +149,15 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
             <div className="flex gap-3">
               <div className="shrink-0 mt-0.5">
                 <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
                 <p className="text-purple-900 font-medium">
-                  Low-income patients drop out at nearly 5x the rate of high-income patients.
+                  Low-SES patients discontinue at ~5x the rate of high-SES patients.
                 </p>
                 <p className="text-purple-800 text-sm mt-1">
-                  48% vs ~0% — this differential attrition will distort the study&apos;s conclusions.
+                  This non-random attrition introduces systematic bias that inflates apparent treatment efficacy.
                 </p>
               </div>
             </div>
@@ -150,16 +165,16 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         </ScrollReveal>
       </WalkthroughSection>
 
-      {/* Section 4: The Hidden Effect */}
+      {/* Section 4: Efficacy Impact */}
       <WalkthroughSection
-        title="The Hidden Effect"
-        subtitle="How dropout patterns inflate reported effectiveness."
+        title="Impact on Efficacy Conclusions"
+        subtitle="How differential attrition inflates reported treatment effectiveness."
       >
         <div className="bg-white border border-slate-200 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* Completers Only */}
             <div className="text-center">
-              <div className="text-sm text-slate-500 mb-2">If we only count completers...</div>
+              <div className="text-xs text-slate-500 uppercase tracking-wide mb-2">Completers Analysis</div>
               <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-green-100 mb-3">
                 <span className="text-4xl font-bold text-green-700">
                   {insight.reportedRate.toFixed(0)}%
@@ -167,31 +182,21 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
               </div>
               <div className="text-slate-700 font-medium">Remission Rate</div>
               <div className="text-sm text-slate-500 mt-1">
-                {stats.remissionRates.completersOnly.remitted} of {stats.remissionRates.completersOnly.total}
-              </div>
-            </div>
-
-            {/* Arrow */}
-            <div className="hidden md:flex items-center justify-center">
-              <div className="flex flex-col items-center">
-                <svg className="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-                <span className="text-xs text-slate-400 mt-1">vs.</span>
+                {stats.remissionRates.completersOnly.remitted}/{stats.remissionRates.completersOnly.total} patients
               </div>
             </div>
 
             {/* ITT */}
-            <div className="text-center md:col-start-2">
-              <div className="text-sm text-slate-500 mb-2">If we count everyone enrolled...</div>
+            <div className="text-center">
+              <div className="text-xs text-slate-500 uppercase tracking-wide mb-2">Intention-to-Treat</div>
               <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-amber-100 mb-3">
                 <span className="text-4xl font-bold text-amber-700">
                   {insight.actualRate.toFixed(0)}%
                 </span>
               </div>
-              <div className="text-slate-700 font-medium">Remission Rate (ITT)</div>
+              <div className="text-slate-700 font-medium">Remission Rate</div>
               <div className="text-sm text-slate-500 mt-1">
-                {stats.remissionRates.intentionToTreat.remitted} of {stats.remissionRates.intentionToTreat.total}
+                {stats.remissionRates.intentionToTreat.remitted}/{stats.remissionRates.intentionToTreat.total} patients
               </div>
             </div>
           </div>
@@ -200,44 +205,58 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         <ScrollReveal delay={300} className="mt-6">
           <div className="bg-red-50 border border-red-200 rounded-xl p-5">
             <h4 className="font-medium text-red-900 mb-2">
-              A {stats.remissionRates.difference.toFixed(0)} percentage point gap
+              {stats.remissionRates.difference.toFixed(0)} percentage point efficacy inflation
             </h4>
             <p className="text-red-800 text-sm">
-              The &quot;completers only&quot; analysis makes the treatment appear {((insight.inflationFactor - 1) * 100).toFixed(0)}% more effective
-              than it actually is. Patients who struggle most with treatment — often those with fewer resources —
-              simply disappear from the analysis.
+              {insight.implication}
+            </p>
+            <p className="text-red-700 text-xs mt-2">
+              FDA reviewers routinely request ITT analyses and sensitivity analyses for missing data.
+              Unexplained discrepancies between completer and ITT results raise regulatory concerns.
             </p>
           </div>
         </ScrollReveal>
       </WalkthroughSection>
 
-      {/* Section 5: Detailed Breakdown */}
+      {/* Section 5: Business Impact */}
       <WalkthroughSection
-        title="By the Numbers"
-        subtitle="How attrition affects each income group differently."
+        title="Business Impact Assessment"
+        subtitle="The cost of discovering attrition bias at submission."
+      >
+        <BusinessImpact
+          riskLevel="high"
+          riskDescription="FDA may issue Complete Response Letter requesting additional analyses or new studies in underrepresented populations."
+          costRange="$5M - $15M"
+          costDescription="Post-hoc analyses, advisory committee prep, potential bridging studies"
+          detectionPoint="Week 6"
+          detectionComparison="vs. discovered during FDA review (12-18 months delay)"
+          regulatoryNote="The STAR*D trial's initial 67% remission rate was revised to 35% after ITT reanalysis — a difference that reshaped clinical guidelines. Early detection prevents such revisions."
+        />
+      </WalkthroughSection>
+
+      {/* Section 6: Detailed Analysis */}
+      <WalkthroughSection
+        title="Subgroup Analysis"
+        subtitle="Efficacy estimates by socioeconomic stratum."
       >
         <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left py-3 px-4 font-medium text-slate-600">Group</th>
-                <th className="text-right py-3 px-4 font-medium text-slate-600">Enrolled</th>
+                <th className="text-left py-3 px-4 font-medium text-slate-600">Subgroup</th>
+                <th className="text-right py-3 px-4 font-medium text-slate-600">N</th>
                 <th className="text-right py-3 px-4 font-medium text-slate-600">Completed</th>
-                <th className="text-right py-3 px-4 font-medium text-slate-600">Dropout</th>
-                <th className="text-right py-3 px-4 font-medium text-slate-600">
-                  <span className="text-green-600">Completers</span>
-                </th>
-                <th className="text-right py-3 px-4 font-medium text-slate-600">
-                  <span className="text-amber-600">ITT</span>
-                </th>
+                <th className="text-right py-3 px-4 font-medium text-slate-600">Attrition</th>
+                <th className="text-right py-3 px-4 font-medium text-green-600">Completers</th>
+                <th className="text-right py-3 px-4 font-medium text-amber-600">ITT</th>
               </tr>
             </thead>
             <tbody>
               {depressionTrialAttritionBias.map((row) => (
                 <tr key={row.group} className="border-b border-slate-100">
                   <td className="py-3 px-4 font-medium">{row.group}</td>
-                  <td className="py-3 px-4 text-right">{row.totalPatients}</td>
-                  <td className="py-3 px-4 text-right">{row.completedPatients}</td>
+                  <td className="py-3 px-4 text-right text-slate-600">{row.totalPatients}</td>
+                  <td className="py-3 px-4 text-right text-slate-600">{row.completedPatients}</td>
                   <td className="py-3 px-4 text-right">
                     <span className={`font-medium ${
                       row.dropoutRate > 30 ? "text-red-600" :
@@ -259,21 +278,29 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         </div>
 
         <p className="text-sm text-slate-500 mt-4">
-          <strong>ITT (Intention-to-Treat):</strong> Counts all enrolled patients, treating dropouts as treatment failures.
-          This is the more conservative and realistic estimate of real-world effectiveness.
+          <strong>ITT (Intention-to-Treat):</strong> Conservative estimate treating all discontinuations
+          as treatment failures. Required by FDA for primary efficacy analysis per ICH E9 guidelines.
         </p>
       </WalkthroughSection>
 
-      {/* Section 6: Summary */}
-      <WalkthroughSection title="Summary">
+      {/* Section 7: Summary */}
+      <WalkthroughSection title="Bias Assessment Summary">
         <div className="bg-slate-900 text-white rounded-xl p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-semibold">Clinequal Analysis</h4>
+            <span className="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">High Risk</span>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             <div className="text-center">
               <div className="text-3xl font-bold text-red-400">
                 {stats.droppedPatients}
               </div>
               <div className="text-slate-400 text-sm mt-1">
-                Patients lost to follow-up
+                Patients discontinued
+              </div>
+              <div className="text-xs text-slate-500 mt-2">
+                {stats.overallDropoutRate.toFixed(0)}% attrition rate
               </div>
             </div>
             <div className="text-center">
@@ -281,7 +308,10 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
                 {stats.remissionRates.difference.toFixed(0)}pp
               </div>
               <div className="text-slate-400 text-sm mt-1">
-                Effectiveness inflation
+                Efficacy inflation
+              </div>
+              <div className="text-xs text-slate-500 mt-2">
+                completer vs. ITT gap
               </div>
             </div>
             <div className="text-center">
@@ -289,26 +319,30 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
                 ~5x
               </div>
               <div className="text-slate-400 text-sm mt-1">
-                Dropout disparity (low vs high income)
+                Differential attrition
+              </div>
+              <div className="text-xs text-slate-500 mt-2">
+                low vs. high SES
               </div>
             </div>
           </div>
 
-          <div className="border-t border-slate-700 pt-4">
-            <p className="text-slate-300 text-sm mb-2">
-              <strong className="text-white">The takeaway:</strong> {insight.implication}
-            </p>
+          <div className="border-t border-slate-700 pt-4 flex items-center justify-between">
             <p className="text-slate-400 text-xs">
-              <strong>Source:</strong> {depressionTrialMetadata.citation}
+              <strong className="text-slate-300">Data source:</strong> {depressionTrialMetadata.source}
             </p>
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <span className="w-2 h-2 bg-purple-500 rounded-full" />
+              Cochrane RoB: Attrition Bias
+            </div>
           </div>
         </div>
       </WalkthroughSection>
 
-      {/* Scroll indicator */}
-      <div className="text-center py-8 text-slate-400 text-sm">
-        — End of analysis —
-      </div>
+      {/* CTA Section */}
+      <WalkthroughSection>
+        <DemoCTA />
+      </WalkthroughSection>
     </div>
   );
 }

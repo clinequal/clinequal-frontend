@@ -9,3 +9,6 @@ export { ScrollReveal, WalkthroughSection } from "./ScrollReveal";
 export { DataTable } from "./DataTable";
 export { PatientGrid } from "./PatientGrid";
 export { PatientJourney } from "./PatientJourney";
+export { BusinessImpact } from "./BusinessImpact";
+export { DemoCTA } from "./DemoCTA";
+export { RegulatoryBadge, RegulatoryNote } from "./RegulatoryBadge";

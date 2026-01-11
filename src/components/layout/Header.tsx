@@ -7,10 +7,10 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
 const navLinks = [
-  { label: "Problem", href: "#problem" },
-  { label: "Solution", href: "#solution" },
-  { label: "Team", href: "#team" },
-  { label: "Contact", href: "#contact" },
+  { label: "Problem", href: "/#problem" },
+  { label: "Solution", href: "/#solution" },
+  { label: "Team", href: "/#team" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Header() {
@@ -35,13 +35,13 @@ export function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-slate-600 hover:text-slate-900 font-medium transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <Button size="sm" href="/demo">
               Try Demo
@@ -84,14 +84,14 @@ export function Header() {
           <div className="md:hidden py-4 border-t border-slate-200">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   className="text-slate-600 hover:text-slate-900 font-medium py-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <Button size="sm" href="/demo" className="w-full">
                 Try Demo

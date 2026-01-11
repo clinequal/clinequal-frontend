@@ -4,6 +4,7 @@ export {
   heartDiseaseDemographicBias,
   heartDiseaseInsight,
   heartDiseaseSample,
+  heartDiseaseTrialContext,
 } from "./heart-disease";
 
 export {
@@ -13,22 +14,27 @@ export {
   depressionTrialInsight,
   dropoutTimeline,
   depressionTrialSample,
+  depressionTrialContext,
 } from "./depression-trial";
 
 // Dataset registry for the demo selector
 export const datasets = [
   {
     id: "heart-disease-uci",
-    name: "Heart Disease Study",
+    name: "Cardiovascular Phase III",
     biasType: "demographic" as const,
-    shortDescription: "Gender representation in cardiovascular research",
+    shortDescription: "Demographic imbalance in multi-center RCT",
+    phase: "Phase III",
+    patients: 920,
     icon: "heart",
   },
   {
     id: "depression-trial-synthetic",
-    name: "Depression Treatment Trial",
+    name: "CNS Phase II/III - MDD",
     biasType: "attrition" as const,
-    shortDescription: "How dropout patterns mask treatment effectiveness",
+    shortDescription: "Differential attrition masking efficacy",
+    phase: "Phase II/III",
+    patients: 200,
     icon: "brain",
   },
 ];

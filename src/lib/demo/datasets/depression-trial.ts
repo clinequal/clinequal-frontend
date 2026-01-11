@@ -2,12 +2,12 @@ import type { DatasetMetadata, AttritionBiasResult } from "../types";
 
 export const depressionTrialMetadata: DatasetMetadata = {
   id: "depression-trial-synthetic",
-  name: "Depression Treatment Trial",
+  name: "CNS Phase II/III - Antidepressant Efficacy",
   description:
-    "Synthetic dataset modeled on STAR*D trial patterns. Demonstrates how differential attrition by socioeconomic status masks true treatment effectiveness.",
-  source: "Synthetic (based on published STAR*D patterns)",
+    "Randomized, double-blind, placebo-controlled trial evaluating a novel SSRI for major depressive disorder in adults.",
+  source: "Simulated (based on published STAR*D patterns)",
   citation:
-    "Patterns based on: Trivedi et al. (2006). The Sequenced Treatment Alternatives to Relieve Depression (STAR*D) Study. Am J Psychiatry.",
+    "Patterns based on: Trivedi et al. (2006). STAR*D Study. Am J Psychiatry. Recontextualized for demonstration.",
   biasType: "attrition",
   sampleSize: 200,
   variables: [
@@ -22,6 +22,19 @@ export const depressionTrialMetadata: DatasetMetadata = {
     "completed",
     "remission",
   ],
+};
+
+// Trial context for business framing
+export const depressionTrialContext = {
+  phase: "Phase II/III",
+  therapeuticArea: "CNS / Psychiatry",
+  indication: "Major Depressive Disorder (MDD)",
+  sites: 12,
+  countries: ["USA"],
+  enrollmentPeriod: "2021-2023",
+  sponsor: "Simulated Pharma Co.",
+  regulatoryTarget: "FDA",
+  primaryEndpoint: "HAM-D remission at Week 12",
 };
 
 // Pre-computed statistics

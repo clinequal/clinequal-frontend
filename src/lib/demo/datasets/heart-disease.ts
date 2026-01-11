@@ -2,13 +2,13 @@ import type { DatasetMetadata, DemographicBiasResult } from "../types";
 
 export const heartDiseaseMetadata: DatasetMetadata = {
   id: "heart-disease-uci",
-  name: "Heart Disease Dataset",
+  name: "Cardiovascular Phase III Trial",
   description:
-    "Combined heart disease dataset from Cleveland, Hungary, Switzerland, and Long Beach VA hospitals. Demonstrates gender bias in cardiovascular research.",
-  source: "UCI Machine Learning Repository",
+    "Multi-center randomized controlled trial evaluating a novel lipid-lowering therapy for coronary artery disease prevention.",
+  source: "Simulated from UCI Heart Disease Repository",
   sourceUrl: "https://archive.ics.uci.edu/dataset/45/heart+disease",
   citation:
-    "Janosi, A., Steinbrunn, W., Pfisterer, M., & Detrano, R. (1988). Heart Disease. UCI Machine Learning Repository.",
+    "Data patterns based on: Janosi et al. (1988). Heart Disease. UCI ML Repository. Recontextualized for demonstration.",
   biasType: "demographic",
   sampleSize: 920,
   variables: [
@@ -27,6 +27,18 @@ export const heartDiseaseMetadata: DatasetMetadata = {
     "thalassemia",
     "heart disease",
   ],
+};
+
+// Trial context for business framing
+export const heartDiseaseTrialContext = {
+  phase: "Phase III",
+  therapeuticArea: "Cardiovascular",
+  indication: "Coronary Artery Disease Prevention",
+  sites: 4,
+  countries: ["USA", "Hungary", "Switzerland"],
+  enrollmentPeriod: "2019-2022",
+  sponsor: "Simulated Pharma Co.",
+  regulatoryTarget: "FDA / EMA",
 };
 
 // Pre-computed statistics from the full dataset

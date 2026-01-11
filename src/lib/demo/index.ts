@@ -15,12 +15,14 @@ export {
   heartDiseaseDemographicBias,
   heartDiseaseInsight,
   heartDiseaseSample,
+  heartDiseaseTrialContext,
   depressionTrialMetadata,
   depressionTrialStats,
   depressionTrialAttritionBias,
   depressionTrialInsight,
   dropoutTimeline,
   depressionTrialSample,
+  depressionTrialContext,
 } from "./datasets";
 
 // Analysis functions

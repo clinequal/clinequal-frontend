@@ -29,11 +29,23 @@ const icons = {
   ),
 };
 
-const biasTypeLabels = {
-  demographic: "Demographic Bias",
-  attrition: "Attrition Bias",
-  selection: "Selection Bias",
-  other: "Other Bias",
+const biasTypeConfig = {
+  demographic: {
+    label: "Demographic Bias",
+    color: "bg-amber-100 text-amber-700",
+  },
+  attrition: {
+    label: "Attrition Bias",
+    color: "bg-purple-100 text-purple-700",
+  },
+  selection: {
+    label: "Selection Bias",
+    color: "bg-blue-100 text-blue-700",
+  },
+  other: {
+    label: "Other Bias",
+    color: "bg-slate-100 text-slate-700",
+  },
 };
 
 export function DatasetSelector({ onSelect }: DatasetSelectorProps) {
@@ -41,39 +53,56 @@ export function DatasetSelector({ onSelect }: DatasetSelectorProps) {
     <div className="space-y-6">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-slate-900 mb-2">
-          Choose a Dataset to Analyze
+          Select a Trial to Analyze
         </h2>
         <p className="text-slate-600">
-          Each dataset demonstrates a different type of bias found in clinical research.
+          Explore how Clinequal detects and quantifies bias in clinical trial data.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-        {datasets.map((dataset) => (
-          <button
-            key={dataset.id}
-            onClick={() => onSelect(dataset.id)}
-            className="group p-6 rounded-xl border-2 border-slate-200 bg-white hover:border-primary hover:shadow-lg transition-all text-left"
-          >
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
-                {icons[dataset.icon as keyof typeof icons]}
+      <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+        {datasets.map((dataset) => {
+          const biasConfig = biasTypeConfig[dataset.biasType];
+
+          return (
+            <button
+              key={dataset.id}
+              onClick={() => onSelect(dataset.id)}
+              className="group p-6 rounded-xl border-2 border-slate-200 bg-white hover:border-primary hover:shadow-lg transition-all text-left"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                  {icons[dataset.icon as keyof typeof icons]}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-medium text-slate-500">{dataset.phase}</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="text-xs text-slate-500">{dataset.patients} patients</span>
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors">
+                    {dataset.name}
+                  </h3>
+                  <p className="text-sm text-slate-500 mt-1">
+                    {dataset.shortDescription}
+                  </p>
+                  <div className="mt-3 flex items-center gap-2">
+                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${biasConfig.color}`}>
+                      {biasConfig.label}
+                    </span>
+                    <span className="text-xs text-red-600 font-medium">High Risk</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors">
-                  {dataset.name}
-                </h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  {dataset.shortDescription}
-                </p>
-                <span className="inline-block mt-2 text-xs font-medium px-2 py-1 rounded-full bg-slate-100 text-slate-600">
-                  {biasTypeLabels[dataset.biasType]}
-                </span>
-              </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          );
+        })}
       </div>
+
+      <p className="text-center text-xs text-slate-500 max-w-md mx-auto">
+        These examples use simulated data based on real clinical trial patterns.
+        The full platform analyzes your actual trial data.
+      </p>
     </div>
   );
 }
