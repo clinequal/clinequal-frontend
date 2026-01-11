@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 interface Patient {
   id: string;
@@ -21,13 +21,40 @@ const incomeColors = {
 };
 
 export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps) {
-  const [animationWeek, setAnimationWeek] = useState(0);
+  const [currentWeek, setCurrentWeek] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const handlePrevWeek = useCallback(() => {
+    setCurrentWeek((prev) => Math.max(0, prev - 1));
+    setIsPlaying(false);
+  }, []);
+
+  const handleNextWeek = useCallback(() => {
+    setCurrentWeek((prev) => Math.min(maxWeeks, prev + 1));
+    setIsPlaying(false);
+  }, [maxWeeks]);
+
+  const handleSliderChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentWeek(Number(e.target.value));
+    setIsPlaying(false);
+  }, []);
+
+  const togglePlayPause = useCallback(() => {
+    if (currentWeek >= maxWeeks) {
+      setCurrentWeek(0);
+      setIsPlaying(true);
+    } else {
+      setIsPlaying((prev) => !prev);
+    }
+  }, [currentWeek, maxWeeks]);
 
   useEffect(() => {
+    if (!isPlaying) return;
+
     const interval = setInterval(() => {
-      setAnimationWeek((prev) => {
+      setCurrentWeek((prev) => {
         if (prev >= maxWeeks) {
-          clearInterval(interval);
+          setIsPlaying(false);
           return maxWeeks;
         }
         return prev + 1;
@@ -35,7 +62,9 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
     }, 400);
 
     return () => clearInterval(interval);
-  }, [maxWeeks]);
+  }, [isPlaying, maxWeeks]);
+
+  const animationWeek = currentWeek;
 
   // Sort patients: completed first, then by dropout week
   const sortedPatients = [...patients].sort((a, b) => {
@@ -62,24 +91,76 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
 
   return (
     <div>
-      {/* Week indicator */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-medium text-slate-700">
-            Week {animationWeek} of {maxWeeks}
+      {/* Week controls */}
+      <div className="flex items-center gap-3 mb-4 p-3 bg-slate-50 rounded-lg">
+        {/* Play/Pause */}
+        <button
+          onClick={togglePlayPause}
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white hover:bg-primary-dark transition-colors"
+          aria-label={isPlaying ? "Pause" : "Play"}
+        >
+          {isPlaying ? (
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <rect x="6" y="4" width="4" height="16" />
+              <rect x="14" y="4" width="4" height="16" />
+            </svg>
+          ) : (
+            <svg className="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          )}
+        </button>
+
+        {/* Prev */}
+        <button
+          onClick={handlePrevWeek}
+          disabled={currentWeek === 0}
+          className="w-7 h-7 flex items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          aria-label="Previous week"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        {/* Slider */}
+        <div className="flex-1 flex items-center gap-3">
+          <input
+            type="range"
+            min={0}
+            max={maxWeeks}
+            value={currentWeek}
+            onChange={handleSliderChange}
+            className="flex-1 h-2 bg-slate-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
+          />
+          <span className="text-sm font-medium text-slate-700 w-24 text-right">
+            Week {currentWeek} / {maxWeeks}
           </span>
-          <div className="w-32 h-2 bg-slate-200 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-primary transition-all duration-300"
-              style={{ width: `${(animationWeek / maxWeeks) * 100}%` }}
-            />
-          </div>
         </div>
 
+        {/* Next */}
+        <button
+          onClick={handleNextWeek}
+          disabled={currentWeek === maxWeeks}
+          className="w-7 h-7 flex items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          aria-label="Next week"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Stats bar */}
+      <div className="flex items-center justify-between mb-4">
         <div className="text-sm">
           <span className="text-slate-500">Dropped: </span>
           <span className="font-medium text-red-600">{statsAtWeek.dropped}</span>
           <span className="text-slate-400"> / {patients.length}</span>
+        </div>
+        <div className="text-sm">
+          <span className="text-slate-500">Remaining: </span>
+          <span className="font-medium text-green-600">{statsAtWeek.remaining}</span>
         </div>
       </div>
 
