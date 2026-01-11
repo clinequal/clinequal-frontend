@@ -1,0 +1,201 @@
+patient_id,age,gender,race,income_level,education,treatment_arm,baseline_severity,weeks_in_study,completed,remission
+P001,34,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P002,45,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P003,52,Female,Black,Middle,Some College,Treatment,Severe,12,true,false
+P004,28,Male,Hispanic,Low,High School,Treatment,Moderate,4,false,false
+P005,61,Female,White,High,Graduate,Placebo,Mild,12,true,true
+P006,39,Male,Black,Low,High School,Treatment,Severe,3,false,false
+P007,55,Female,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P008,23,Male,Hispanic,Low,High School,Placebo,Moderate,2,false,false
+P009,47,Female,Asian,High,Graduate,Treatment,Mild,12,true,true
+P010,31,Male,White,Middle,Some College,Treatment,Moderate,12,true,false
+P011,42,Female,Black,Middle,High School,Placebo,Severe,6,false,false
+P012,58,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P013,26,Female,Hispanic,Low,Some College,Treatment,Moderate,5,false,false
+P014,49,Male,White,Middle,Graduate,Placebo,Mild,12,true,true
+P015,35,Female,Black,Low,High School,Treatment,Severe,3,false,false
+P016,63,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P017,29,Female,White,Middle,Some College,Treatment,Moderate,12,true,true
+P018,44,Male,Hispanic,Low,High School,Placebo,Moderate,4,false,false
+P019,51,Female,Asian,High,Graduate,Treatment,Mild,12,true,true
+P020,37,Male,Black,Middle,Bachelor,Treatment,Severe,7,false,false
+P021,24,Female,White,Low,High School,Treatment,Moderate,12,true,false
+P022,56,Male,White,High,Graduate,Placebo,Moderate,12,true,true
+P023,41,Female,Hispanic,Middle,Some College,Treatment,Moderate,12,true,false
+P024,33,Male,Black,Low,High School,Treatment,Severe,2,false,false
+P025,59,Female,White,High,Bachelor,Treatment,Mild,12,true,true
+P026,27,Male,White,Middle,Some College,Placebo,Moderate,12,true,false
+P027,48,Female,Black,Middle,High School,Treatment,Severe,5,false,false
+P028,36,Male,Hispanic,Low,High School,Treatment,Moderate,12,true,false
+P029,62,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P030,30,Male,Asian,Middle,Bachelor,Placebo,Mild,12,true,true
+P031,43,Female,White,Middle,Some College,Treatment,Moderate,12,true,true
+P032,25,Male,Black,Low,High School,Treatment,Severe,3,false,false
+P033,54,Female,White,High,Bachelor,Placebo,Moderate,12,true,true
+P034,38,Male,Hispanic,Middle,Some College,Treatment,Moderate,8,false,false
+P035,46,Female,White,High,Graduate,Treatment,Mild,12,true,true
+P036,32,Male,White,Low,High School,Treatment,Moderate,12,true,false
+P037,57,Female,Black,Middle,Bachelor,Placebo,Severe,12,true,false
+P038,22,Male,Hispanic,Low,High School,Treatment,Moderate,2,false,false
+P039,50,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P040,40,Male,Asian,Middle,Bachelor,Treatment,Mild,12,true,true
+P041,28,Female,Black,Low,Some College,Placebo,Severe,12,true,false
+P042,64,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P043,35,Female,Hispanic,Middle,High School,Treatment,Moderate,6,false,false
+P044,53,Male,White,High,Graduate,Placebo,Mild,12,true,true
+P045,26,Female,White,Low,High School,Treatment,Moderate,12,true,false
+P046,47,Male,Black,Middle,Some College,Treatment,Severe,12,true,false
+P047,39,Female,White,Middle,Bachelor,Placebo,Moderate,12,true,true
+P048,31,Male,Hispanic,Low,High School,Treatment,Moderate,4,false,false
+P049,60,Female,Asian,High,Graduate,Treatment,Mild,12,true,true
+P050,42,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P051,24,Female,Black,Low,High School,Placebo,Severe,12,true,false
+P052,55,Male,White,Middle,Some College,Treatment,Moderate,12,true,true
+P053,37,Female,Hispanic,Low,Some College,Treatment,Moderate,5,false,false
+P054,49,Male,White,High,Graduate,Placebo,Mild,12,true,true
+P055,29,Female,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P056,44,Male,Black,Middle,High School,Treatment,Severe,7,false,false
+P057,33,Female,Hispanic,Low,High School,Placebo,Moderate,12,true,false
+P058,58,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P059,41,Female,Asian,High,Graduate,Treatment,Mild,12,true,true
+P060,27,Male,White,Low,Some College,Treatment,Moderate,12,true,false
+P061,52,Female,White,Middle,Bachelor,Placebo,Moderate,12,true,true
+P062,36,Male,Black,Low,High School,Treatment,Severe,3,false,false
+P063,63,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P064,23,Male,Hispanic,Low,High School,Placebo,Moderate,12,true,false
+P065,48,Female,White,High,Bachelor,Treatment,Mild,12,true,true
+P066,34,Male,White,Middle,Some College,Treatment,Moderate,12,true,false
+P067,56,Female,Black,Middle,Bachelor,Treatment,Severe,12,true,false
+P068,30,Male,Hispanic,Low,High School,Treatment,Moderate,5,false,false
+P069,45,Female,White,High,Graduate,Placebo,Moderate,12,true,true
+P070,38,Male,Asian,Middle,Bachelor,Treatment,Mild,12,true,true
+P071,25,Female,White,Low,High School,Treatment,Moderate,12,true,false
+P072,61,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P073,43,Female,Hispanic,Middle,Some College,Placebo,Moderate,12,true,true
+P074,32,Male,Black,Low,High School,Treatment,Severe,4,false,false
+P075,54,Female,White,High,Graduate,Treatment,Mild,12,true,true
+P076,28,Male,White,Middle,Some College,Treatment,Moderate,12,true,true
+P077,46,Female,Black,Middle,High School,Treatment,Severe,8,false,false
+P078,37,Male,Hispanic,Low,High School,Placebo,Moderate,12,true,false
+P079,59,Female,White,High,Bachelor,Treatment,Moderate,12,true,true
+P080,40,Male,White,Middle,Graduate,Treatment,Mild,12,true,true
+P081,26,Female,Asian,Low,Some College,Placebo,Moderate,12,true,false
+P082,51,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P083,35,Female,Black,Low,High School,Treatment,Severe,2,false,false
+P084,62,Male,White,High,Graduate,Placebo,Mild,12,true,true
+P085,29,Female,Hispanic,Middle,Some College,Treatment,Moderate,12,true,false
+P086,47,Male,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P087,24,Female,White,Low,High School,Treatment,Moderate,4,false,false
+P088,53,Male,Black,Middle,Some College,Placebo,Severe,12,true,false
+P089,39,Female,White,High,Graduate,Treatment,Mild,12,true,true
+P090,31,Male,Hispanic,Low,High School,Treatment,Moderate,12,true,false
+P091,57,Female,White,High,Bachelor,Treatment,Moderate,12,true,true
+P092,42,Male,Asian,Middle,Graduate,Placebo,Moderate,12,true,true
+P093,27,Female,Black,Low,High School,Treatment,Severe,3,false,false
+P094,64,Male,White,High,Bachelor,Treatment,Mild,12,true,true
+P095,36,Female,White,Middle,Some College,Treatment,Moderate,12,true,true
+P096,23,Male,Hispanic,Low,High School,Placebo,Moderate,12,true,false
+P097,50,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P098,44,Male,Black,Middle,Bachelor,Treatment,Severe,7,false,false
+P099,33,Female,White,Low,Some College,Treatment,Moderate,12,true,false
+P100,58,Male,White,High,Bachelor,Placebo,Mild,12,true,true
+P101,41,Female,Hispanic,Middle,High School,Treatment,Moderate,12,true,false
+P102,28,Male,White,Middle,Some College,Treatment,Moderate,12,true,true
+P103,55,Female,Asian,High,Graduate,Treatment,Mild,12,true,true
+P104,37,Male,Black,Low,High School,Placebo,Severe,4,false,false
+P105,49,Female,White,High,Bachelor,Treatment,Moderate,12,true,true
+P106,30,Male,White,Low,High School,Treatment,Moderate,12,true,false
+P107,63,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P108,25,Male,Hispanic,Low,Some College,Treatment,Moderate,4,false,false
+P109,46,Female,White,Middle,Bachelor,Placebo,Mild,12,true,true
+P110,34,Male,Black,Middle,High School,Treatment,Severe,5,false,false
+P111,52,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P112,38,Male,White,Middle,Some College,Treatment,Moderate,12,true,false
+P113,26,Female,Hispanic,Low,High School,Placebo,Moderate,12,true,false
+P114,60,Male,White,High,Bachelor,Treatment,Mild,12,true,true
+P115,43,Female,Asian,Middle,Graduate,Treatment,Moderate,12,true,true
+P116,29,Male,Black,Low,High School,Treatment,Severe,2,false,false
+P117,56,Female,White,High,Bachelor,Placebo,Moderate,12,true,true
+P118,35,Male,White,Middle,Some College,Treatment,Moderate,12,true,true
+P119,22,Female,Hispanic,Low,High School,Treatment,Moderate,12,true,false
+P120,48,Male,White,High,Graduate,Treatment,Mild,12,true,true
+P121,40,Female,Black,Middle,Bachelor,Treatment,Severe,8,false,false
+P122,32,Male,White,Low,Some College,Placebo,Moderate,12,true,false
+P123,59,Female,White,High,Bachelor,Treatment,Moderate,12,true,true
+P124,27,Male,Hispanic,Low,High School,Treatment,Moderate,4,false,false
+P125,51,Female,White,Middle,Graduate,Treatment,Mild,12,true,true
+P126,44,Male,Asian,High,Bachelor,Placebo,Moderate,12,true,true
+P127,36,Female,Black,Low,High School,Treatment,Severe,3,false,false
+P128,61,Male,White,High,Graduate,Treatment,Moderate,12,true,true
+P129,24,Female,White,Middle,Some College,Treatment,Moderate,12,true,true
+P130,53,Male,Hispanic,Middle,Bachelor,Placebo,Moderate,12,true,false
+P131,39,Female,White,High,Bachelor,Treatment,Mild,12,true,true
+P132,28,Male,Black,Low,High School,Treatment,Severe,2,false,false
+P133,57,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P134,33,Male,White,Low,Some College,Placebo,Moderate,12,true,false
+P135,46,Female,Hispanic,Middle,High School,Treatment,Moderate,12,true,false
+P136,31,Male,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P137,62,Female,Asian,High,Graduate,Treatment,Mild,12,true,true
+P138,37,Male,Black,Middle,Some College,Treatment,Severe,7,false,false
+P139,25,Female,White,Low,High School,Treatment,Moderate,12,true,false
+P140,50,Male,White,High,Bachelor,Placebo,Moderate,12,true,true
+P141,42,Female,White,Middle,Graduate,Treatment,Mild,12,true,true
+P142,29,Male,Hispanic,Low,High School,Treatment,Moderate,5,false,false
+P143,64,Female,White,High,Bachelor,Treatment,Moderate,12,true,true
+P144,34,Male,White,Middle,Some College,Placebo,Moderate,12,true,false
+P145,55,Female,Black,Middle,Bachelor,Treatment,Severe,12,true,false
+P146,23,Male,White,Low,High School,Treatment,Moderate,12,true,false
+P147,47,Female,White,High,Graduate,Treatment,Mild,12,true,true
+P148,38,Male,Hispanic,Low,Some College,Treatment,Moderate,4,false,false
+P149,58,Female,Asian,High,Bachelor,Placebo,Moderate,12,true,true
+P150,41,Male,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P151,26,Female,Black,Low,High School,Treatment,Severe,12,true,false
+P152,52,Male,White,High,Graduate,Treatment,Moderate,12,true,true
+P153,35,Female,White,Middle,Some College,Treatment,Moderate,12,true,true
+P154,30,Male,Hispanic,Low,High School,Placebo,Moderate,12,true,false
+P155,63,Female,White,High,Bachelor,Treatment,Mild,12,true,true
+P156,43,Male,Black,Middle,High School,Treatment,Severe,6,false,false
+P157,28,Female,White,Low,Some College,Treatment,Moderate,12,true,false
+P158,56,Male,White,High,Graduate,Placebo,Moderate,12,true,true
+P159,39,Female,Hispanic,Middle,Bachelor,Treatment,Moderate,12,true,false
+P160,24,Male,White,Low,High School,Treatment,Moderate,12,true,false
+P161,49,Female,Asian,High,Bachelor,Treatment,Mild,12,true,true
+P162,36,Male,White,Middle,Some College,Treatment,Moderate,12,true,true
+P163,60,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P164,32,Male,Black,Low,High School,Placebo,Severe,2,false,false
+P165,54,Female,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P166,27,Male,Hispanic,Low,High School,Treatment,Moderate,4,false,false
+P167,45,Female,White,High,Graduate,Treatment,Mild,12,true,true
+P168,37,Male,White,Middle,Some College,Placebo,Moderate,12,true,true
+P169,22,Female,Black,Low,High School,Treatment,Severe,12,true,false
+P170,59,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P171,44,Female,Hispanic,Middle,Bachelor,Treatment,Moderate,12,true,false
+P172,31,Male,White,Low,Some College,Treatment,Moderate,12,true,false
+P173,61,Female,Asian,High,Graduate,Placebo,Mild,12,true,true
+P174,33,Male,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P175,25,Female,Black,Low,High School,Treatment,Severe,2,false,false
+P176,48,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P177,40,Female,White,Middle,Graduate,Treatment,Mild,12,true,true
+P178,29,Male,Hispanic,Low,High School,Placebo,Moderate,12,true,false
+P179,57,Female,White,High,Bachelor,Treatment,Moderate,12,true,true
+P180,34,Male,Black,Middle,Some College,Treatment,Severe,6,false,false
+P181,51,Female,White,High,Graduate,Treatment,Moderate,12,true,true
+P182,38,Male,White,Low,High School,Treatment,Moderate,12,true,false
+P183,62,Female,White,High,Bachelor,Placebo,Mild,12,true,true
+P184,26,Male,Hispanic,Low,Some College,Treatment,Moderate,4,false,false
+P185,46,Female,Asian,Middle,Graduate,Treatment,Moderate,12,true,true
+P186,35,Male,White,Middle,Bachelor,Treatment,Moderate,12,true,true
+P187,23,Female,Black,Low,High School,Treatment,Severe,12,true,false
+P188,53,Male,White,High,Graduate,Treatment,Mild,12,true,true
+P189,41,Female,White,Middle,Some College,Placebo,Moderate,12,true,true
+P190,28,Male,Hispanic,Low,High School,Treatment,Moderate,3,false,false
+P191,58,Female,White,High,Bachelor,Treatment,Moderate,12,true,true
+P192,36,Male,Black,Middle,High School,Treatment,Severe,5,false,false
+P193,64,Female,White,High,Graduate,Treatment,Mild,12,true,true
+P194,30,Male,White,Low,Some College,Placebo,Moderate,12,true,false
+P195,47,Female,Hispanic,Middle,Bachelor,Treatment,Moderate,12,true,false
+P196,39,Male,White,High,Bachelor,Treatment,Moderate,12,true,true
+P197,24,Female,White,Low,High School,Treatment,Moderate,12,true,false
+P198,55,Male,Asian,High,Graduate,Treatment,Mild,12,true,true
+P199,42,Female,Black,Middle,Some College,Treatment,Severe,8,false,false
+P200,32,Male,White,Middle,Bachelor,Placebo,Moderate,12,true,true
