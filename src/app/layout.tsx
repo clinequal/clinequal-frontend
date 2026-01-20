@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "pharma",
   ],
   icons: {
-    icon: "/Logo.svg",
+    icon: "/Payoff.svg",
   },
 };
 
