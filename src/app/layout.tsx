@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Clinequal | Equitable Clinical Trials Through AI",
+  title: "Clinequal",
   description:
     "Clinequal detects and corrects bias in clinical trial data, ensuring equitable healthcare outcomes for all populations.",
   keywords: [
@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     "machine learning",
     "pharma",
   ],
+  icons: {
+    icon: "/Logo.svg",
+  },
 };
 
 export default function RootLayout({
