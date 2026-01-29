@@ -8,6 +8,8 @@ interface TrialSearchProps {
   onBack: () => void;
 }
 
+const PAGE_SIZE = 10;
+
 const statusColors: Record<string, string> = {
   COMPLETED: "bg-green-100 text-green-700",
   RECRUITING: "bg-blue-100 text-blue-700",
@@ -59,14 +61,20 @@ export function TrialSearch({ onSelect, onBack }: TrialSearchProps) {
   const [results, setResults] = useState<SearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   const handleSearch = useCallback(async (searchQuery: string, page: number = 1) => {
     if (!searchQuery.trim()) return;
     setLoading(true);
     setError(null);
+    setCurrentPage(page);
     try {
       const data = await searchTrials(searchQuery.trim(), page);
       setResults(data);
+      if (data.totalCount > 0) {
+        setTotalCount(data.totalCount);
+      }
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to search trials. Is the backend running?"
@@ -79,6 +87,8 @@ export function TrialSearch({ onSelect, onBack }: TrialSearchProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setCurrentPage(1);
+    setTotalCount(0);
     handleSearch(query);
   };
 
@@ -161,11 +171,11 @@ export function TrialSearch({ onSelect, onBack }: TrialSearchProps) {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-slate-600">
-              <span className="font-medium">{results.totalCount.toLocaleString()}</span> trials found
+              <span className="font-medium">{totalCount.toLocaleString()}</span> trials found
             </p>
-            {results.totalCount > results.pageSize && (
+            {totalCount > PAGE_SIZE && (
               <p className="text-xs text-slate-400">
-                Page {results.page} of {Math.ceil(results.totalCount / results.pageSize)}
+                Page {currentPage} of {Math.ceil(totalCount / PAGE_SIZE)}
               </p>
             )}
           </div>
@@ -183,21 +193,21 @@ export function TrialSearch({ onSelect, onBack }: TrialSearchProps) {
           )}
 
           {/* Pagination */}
-          {results.totalCount > results.pageSize && (
+          {totalCount > PAGE_SIZE && (
             <div className="flex items-center justify-center gap-2 pt-2">
               <button
-                onClick={() => handlePageChange(results.page - 1)}
-                disabled={results.page <= 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage <= 1}
                 className="px-3 py-1.5 text-sm border border-slate-200 rounded-md hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Previous
               </button>
               <span className="text-sm text-slate-500 px-2">
-                {results.page} / {Math.ceil(results.totalCount / results.pageSize)}
+                {currentPage} / {Math.ceil(totalCount / PAGE_SIZE)}
               </span>
               <button
-                onClick={() => handlePageChange(results.page + 1)}
-                disabled={results.page >= Math.ceil(results.totalCount / results.pageSize)}
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage >= Math.ceil(totalCount / PAGE_SIZE)}
                 className="px-3 py-1.5 text-sm border border-slate-200 rounded-md hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Next
