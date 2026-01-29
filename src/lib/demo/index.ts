@@ -10,6 +10,8 @@ export type {
 // Datasets
 export {
   datasets,
+  patientLevelDatasets,
+  metadataDatasets,
   heartDiseaseMetadata,
   heartDiseaseStats,
   heartDiseaseDemographicBias,
@@ -23,6 +25,8 @@ export {
   dropoutTimeline,
   depressionTrialSample,
   depressionTrialContext,
+  metadataExampleTrial,
+  metadataExampleAnalysis,
 } from "./datasets";
 
 // Analysis functions

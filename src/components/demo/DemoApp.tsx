@@ -4,19 +4,43 @@ import { useState } from "react";
 import { DatasetSelector } from "./DatasetSelector";
 import { DemographicBiasView } from "./DemographicBiasView";
 import { AttritionBiasView } from "./AttritionBiasView";
+import { MetadataBiasView } from "./MetadataBiasView";
+import { TrialSearch } from "./TrialSearch";
 
-type DemoState = "select" | "heart-disease-uci" | "depression-trial-synthetic";
+type DemoState =
+  | "select"
+  | "heart-disease-uci"
+  | "depression-trial-synthetic"
+  | "metadata-ctgov-example"
+  | "metadata-search"
+  | "metadata-analysis";
 
 export function DemoApp() {
   const [state, setState] = useState<DemoState>("select");
   const [showIntro, setShowIntro] = useState(true);
+  const [selectedNctId, setSelectedNctId] = useState<string | null>(null);
 
   const handleSelectDataset = (datasetId: string) => {
-    setState(datasetId as DemoState);
+    if (datasetId === "metadata-ctgov-example") {
+      setState("metadata-search");
+    } else {
+      setState(datasetId as DemoState);
+    }
+  };
+
+  const handleTrialSelected = (nctId: string) => {
+    setSelectedNctId(nctId);
+    setState("metadata-analysis");
   };
 
   const handleBack = () => {
     setState("select");
+    setSelectedNctId(null);
+  };
+
+  const handleBackToSearch = () => {
+    setState("metadata-search");
+    setSelectedNctId(null);
   };
 
   return (
@@ -47,7 +71,7 @@ export function DemoApp() {
               </h2>
               <p className="text-slate-600 mb-6">
                 Explore how bias affects clinical trial data using real-world dataset patterns.
-                This preview demonstrates our bias detection capabilities on sample datasets.
+                This preview demonstrates our bias detection capabilities at two different data depths.
               </p>
               <div className="bg-slate-50 rounded-lg p-4 mb-6 text-left">
                 <p className="text-sm text-slate-600">
@@ -70,7 +94,7 @@ export function DemoApp() {
                     <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Quantified impact on study conclusions
+                    Live trial lookup from ClinicalTrials.gov registry
                   </li>
                 </ul>
               </div>
@@ -100,6 +124,18 @@ export function DemoApp() {
 
         {state === "depression-trial-synthetic" && (
           <AttritionBiasView onBack={handleBack} />
+        )}
+
+        {state === "metadata-ctgov-example" && (
+          <MetadataBiasView onBack={handleBack} />
+        )}
+
+        {state === "metadata-search" && (
+          <TrialSearch onSelect={handleTrialSelected} onBack={handleBack} />
+        )}
+
+        {state === "metadata-analysis" && selectedNctId && (
+          <MetadataBiasView onBack={handleBackToSearch} nctId={selectedNctId} />
         )}
       </div>
     </div>

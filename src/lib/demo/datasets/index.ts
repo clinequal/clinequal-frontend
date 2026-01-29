@@ -17,8 +17,13 @@ export {
   depressionTrialContext,
 } from "./depression-trial";
 
+export {
+  metadataExampleTrial,
+  metadataExampleAnalysis,
+} from "./metadata-example";
+
 // Dataset registry for the demo selector
-export const datasets = [
+export const patientLevelDatasets = [
   {
     id: "heart-disease-uci",
     name: "Cardiovascular Phase III",
@@ -27,6 +32,7 @@ export const datasets = [
     phase: "Phase III",
     patients: 920,
     icon: "heart",
+    dataSource: "patient-level" as const,
   },
   {
     id: "depression-trial-synthetic",
@@ -36,5 +42,21 @@ export const datasets = [
     phase: "Phase II/III",
     patients: 200,
     icon: "brain",
+    dataSource: "patient-level" as const,
   },
 ];
+
+export const metadataDatasets = [
+  {
+    id: "metadata-ctgov-example",
+    name: "ClinicalTrials.gov Registry Lookup",
+    biasType: "selection" as const,
+    shortDescription: "Publication & selection bias from trial design metadata",
+    phase: "Phase III",
+    icon: "search",
+    dataSource: "metadata" as const,
+  },
+];
+
+// Combined for backwards compatibility
+export const datasets = [...patientLevelDatasets, ...metadataDatasets];
