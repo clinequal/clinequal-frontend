@@ -7,8 +7,8 @@ const stats = [
     label: "of clinical trials contain systematic bias",
   },
   {
-    value: "$17M-$200M",
-    label: "cost per protocol modification",
+    value: "~$0.5M",
+    label: "cost per Phase III trial amendment due to bias",
   },
   {
     value: "30%",
@@ -109,7 +109,7 @@ export function ProblemSection() {
             <div>
               <h4 className="font-semibold text-primary mb-2">Financial Risk</h4>
               <p className="text-slate-300">
-                Protocol modifications due to bias cost $17.3M (Phase I) to $200M (Phase III). Studies with high risk of bias show exaggerated treatment effects that fail to replicate, wasting development investment.
+                Clinical trials cost $17M (Phase I) to $200M (Phase III) on average. Bias-driven trial amendments add further costs, and studies with high risk of bias show exaggerated treatment effects that fail to replicate, wasting development investment.
               </p>
             </div>
             <div>

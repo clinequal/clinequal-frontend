@@ -33,6 +33,31 @@ export interface DepressionTrialPatient {
   remission: boolean;
 }
 
+// Benchmark types for demographic comparison
+export interface BenchmarkSource {
+  name: string;
+  citation: string;
+  doi?: string;
+  year: number;
+}
+
+export interface DemographicBenchmark {
+  id: string;
+  label: string;
+  description: string;
+  source: BenchmarkSource;
+  values: Record<string, number>;
+}
+
+export interface BenchmarkResult {
+  benchmarkId: string;
+  benchmarkLabel: string;
+  baselinePercentage: number;
+  representationRatio: number;
+  absoluteGap: number;
+  severity: "none" | "mild" | "moderate" | "severe";
+}
+
 // Analysis Results
 export interface DemographicBiasResult {
   category: string;
@@ -41,6 +66,7 @@ export interface DemographicBiasResult {
   populationPercentage: number;
   representationRatio: number; // < 1 means underrepresented
   absoluteGap: number;
+  benchmarks?: BenchmarkResult[];
 }
 
 export interface AttritionBiasResult {
@@ -63,4 +89,45 @@ export interface DatasetMetadata {
   biasType: "demographic" | "attrition" | "selection" | "other";
   sampleSize: number;
   variables: string[];
+}
+
+// Radar chart axis
+export interface RadarAxis {
+  key: string;
+  label: string;
+  trial: number;         // 0-100 score for this trial
+  benchmark: number;     // 0-100 ideal/benchmark score
+  description: string;
+}
+
+// Bias timeline
+export interface BiasStage {
+  id: string;
+  label: string;
+  order: number;
+}
+
+export interface ActiveBiasHighlight {
+  stageId: string;
+  biasType: string;
+  severity: "low" | "moderate" | "high";
+  description: string;
+}
+
+// Bias interactions
+export interface BiasInteraction {
+  from: string;
+  to: string;
+  description: string;
+  strength: "weak" | "moderate" | "strong";
+}
+
+// Prospective detection
+export interface ProspectiveMilestone {
+  id: string;
+  label: string;
+  timepoint: string;
+  description: string;
+  detected: boolean;     // true = Clinequal catches it here
+  traditional: boolean;  // true = traditionally found here
 }

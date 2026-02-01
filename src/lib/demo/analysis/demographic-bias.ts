@@ -41,6 +41,17 @@ export function describeDemographicBias(result: DemographicBiasResult): string {
 }
 
 /**
+ * Traffic light indicator for representation ratio
+ */
+export type TrafficLight = "green" | "amber" | "red";
+
+export function getTrafficLight(ratio: number): TrafficLight {
+  if (ratio >= 0.8 && ratio <= 1.2) return "green";
+  if (ratio >= 0.6 && ratio <= 1.4) return "amber";
+  return "red";
+}
+
+/**
  * Calculate overall dataset representativeness score (0-100)
  * 100 = perfectly representative, 0 = severely biased
  */

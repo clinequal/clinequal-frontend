@@ -1,4 +1,12 @@
-import type { DatasetMetadata, DemographicBiasResult } from "../types";
+import type {
+  DatasetMetadata,
+  DemographicBiasResult,
+  DemographicBenchmark,
+  RadarAxis,
+  ActiveBiasHighlight,
+  BiasInteraction,
+  ProspectiveMilestone,
+} from "../types";
 
 export const heartDiseaseMetadata: DatasetMetadata = {
   id: "heart-disease-uci",
@@ -50,16 +58,43 @@ export const heartDiseaseStats = {
     female: { count: 194, percentage: 21.1 },
   },
 
-  // Real-world heart disease prevalence for comparison
-  // Source: American Heart Association - roughly equal between sexes after age 65
+  // Epidemiological baseline for demographic comparison
+  // Source: GBD 2023 — IHD prevalence 137M male / 102M female of 239M total
   populationBaseline: {
-    male: { percentage: 50 },
-    female: { percentage: 50 },
+    male: { percentage: 57.3 },
+    female: { percentage: 42.7 },
   },
 
   heartDiseaseByGender: {
     male: { total: 726, withDisease: 459, rate: 63.2 },
     female: { total: 194, withDisease: 50, rate: 25.8 },
+  },
+
+  benchmarks: {
+    epidemiological: {
+      id: "epidemiological",
+      label: "Disease Epidemiology (IHD)",
+      description: "Global IHD prevalence by sex from the Global Burden of Disease study",
+      source: {
+        name: "GBD 2023 (JACC)",
+        citation: "Lindstrom et al. (2025) Global, Regional, and National Burden of Cardiovascular Diseases, 1990-2023. JACC.",
+        doi: "10.1016/j.jacc.2025.08.015",
+        year: 2025,
+      },
+      values: { male: 57.3, female: 42.7 },
+    } satisfies DemographicBenchmark,
+    peerTrial: {
+      id: "peer-trial",
+      label: "Peer CV Trial Average",
+      description: "Average sex distribution across 1,593 cardiovascular trials (2017-2023)",
+      source: {
+        name: "JAMA Network Open",
+        citation: "Haering et al. (2024) Participation of Women in Cardiovascular Trials, 2017-2023. JAMA Netw Open.",
+        doi: "10.1001/jamanetworkopen.2024.56498",
+        year: 2024,
+      },
+      values: { male: 61.5, female: 38.5 },
+    } satisfies DemographicBenchmark,
   },
 
   ageDistribution: {
@@ -74,34 +109,73 @@ export const heartDiseaseStats = {
   },
 };
 
-// Pre-computed demographic bias analysis
+// Pre-computed demographic bias analysis (vs epidemiological baseline)
 export const heartDiseaseDemographicBias: DemographicBiasResult[] = [
   {
     category: "Male",
     trialCount: 726,
     trialPercentage: 78.9,
-    populationPercentage: 50,
-    representationRatio: 1.58, // overrepresented
-    absoluteGap: 28.9,
+    populationPercentage: 57.3,
+    representationRatio: 1.38, // overrepresented vs epidemiology
+    absoluteGap: 21.6,
+    benchmarks: [
+      {
+        benchmarkId: "epidemiological",
+        benchmarkLabel: "Disease Epidemiology",
+        baselinePercentage: 57.3,
+        representationRatio: 1.38,
+        absoluteGap: 21.6,
+        severity: "moderate",
+      },
+      {
+        benchmarkId: "peer-trial",
+        benchmarkLabel: "Peer CV Trial Average",
+        baselinePercentage: 61.5,
+        representationRatio: 1.28,
+        absoluteGap: 17.4,
+        severity: "mild",
+      },
+    ],
   },
   {
     category: "Female",
     trialCount: 194,
     trialPercentage: 21.1,
-    populationPercentage: 50,
-    representationRatio: 0.42, // underrepresented
-    absoluteGap: -28.9,
+    populationPercentage: 42.7,
+    representationRatio: 0.49, // underrepresented vs epidemiology
+    absoluteGap: -21.6,
+    benchmarks: [
+      {
+        benchmarkId: "epidemiological",
+        benchmarkLabel: "Disease Epidemiology",
+        baselinePercentage: 42.7,
+        representationRatio: 0.49,
+        absoluteGap: -21.6,
+        severity: "moderate",
+      },
+      {
+        benchmarkId: "peer-trial",
+        benchmarkLabel: "Peer CV Trial Average",
+        baselinePercentage: 38.5,
+        representationRatio: 0.55,
+        absoluteGap: -17.4,
+        severity: "moderate",
+      },
+    ],
   },
 ];
 
 // Key insight for the demo
 export const heartDiseaseInsight = {
-  headline: "Women are underrepresented by 58%",
+  headline: "Women are underrepresented by 51%",
   detail:
-    "While heart disease affects men and women roughly equally, this dataset contains 79% male patients. Findings may not generalize to female patients.",
+    "Ischemic heart disease affects men more than women (57% vs 43% of prevalent cases globally), " +
+    "yet this trial's 21% female enrollment falls far below even that lower baseline. " +
+    "Women are also underrepresented relative to peer cardiovascular trials, which average 38.5% female enrollment.",
   implication:
-    "Treatment protocols developed from this data may miss female-specific symptoms and risk factors.",
-  biasScore: 0.42, // representation ratio for underrepresented group
+    "Treatment protocols developed from this data may miss female-specific symptoms and risk factors. " +
+    "The gap persists even when accounting for the higher male disease prevalence.",
+  biasScore: 0.49, // representation ratio for underrepresented group vs epidemiology
 };
 
 // Sample of raw data for drill-down visualizations (50 patients, maintaining proportions)
@@ -156,4 +230,119 @@ export const heartDiseaseSample = [
   { id: 48, age: 50, sex: "Male" as const, hasHeartDisease: true },
   { id: 49, age: 65, sex: "Male" as const, hasHeartDisease: true },
   { id: 50, age: 53, sex: "Male" as const, hasHeartDisease: true },
+];
+
+// Radar chart axes — multi-dimensional bias profile
+export const heartDiseaseRadarAxes: RadarAxis[] = [
+  {
+    key: "sex_balance",
+    label: "Sex Balance",
+    trial: 39,
+    benchmark: 80,
+    description: "21% female vs 43% epidemiological baseline",
+  },
+  {
+    key: "age_representation",
+    label: "Age Range",
+    trial: 72,
+    benchmark: 80,
+    description: "Age range 28-77, slightly narrow for CAD population",
+  },
+  {
+    key: "geographic_diversity",
+    label: "Geographic",
+    trial: 45,
+    benchmark: 80,
+    description: "3 countries, limited to Western populations",
+  },
+  {
+    key: "sample_size",
+    label: "Sample Size",
+    trial: 85,
+    benchmark: 80,
+    description: "920 patients — adequate for Phase III",
+  },
+  {
+    key: "endpoint_validity",
+    label: "Endpoint Validity",
+    trial: 90,
+    benchmark: 80,
+    description: "Standard primary endpoint with validated measures",
+  },
+];
+
+// Active bias highlights for the trial stage timeline
+export const heartDiseaseActiveBiases: ActiveBiasHighlight[] = [
+  {
+    stageId: "enrollment",
+    biasType: "Selection Bias",
+    severity: "high",
+    description: "Female enrollment 21% vs 43% disease prevalence",
+  },
+];
+
+// How biases cascade into downstream risks
+export const heartDiseaseInteractions: BiasInteraction[] = [
+  {
+    from: "Selection Bias",
+    to: "Generalizability Risk",
+    description: "Underrepresentation limits external validity",
+    strength: "strong",
+  },
+  {
+    from: "Generalizability Risk",
+    to: "Regulatory Delay",
+    description: "FDA/EMA may require post-hoc subgroup analysis",
+    strength: "moderate",
+  },
+  {
+    from: "Regulatory Delay",
+    to: "Market Limitation",
+    description: "Label restrictions may limit approved population",
+    strength: "moderate",
+  },
+];
+
+// Prospective detection milestones
+export const heartDiseaseProspective: ProspectiveMilestone[] = [
+  {
+    id: "enrollment-start",
+    label: "Enrollment Begins",
+    timepoint: "Week 0",
+    description: "First patients screened and randomized",
+    detected: false,
+    traditional: false,
+  },
+  {
+    id: "clinequal-detection",
+    label: "Clinequal Flags Imbalance",
+    timepoint: "Week 4",
+    description: "Automated monitoring detects sex ratio deviation from epidemiological baseline",
+    detected: true,
+    traditional: false,
+  },
+  {
+    id: "enrollment-complete",
+    label: "Enrollment Complete",
+    timepoint: "Month 18",
+    description: "920 patients enrolled across 4 sites",
+    detected: false,
+    traditional: false,
+  },
+  {
+    id: "analysis",
+    label: "Statistical Analysis",
+    timepoint: "Month 24",
+    description: "Primary endpoint analysis completed",
+    detected: false,
+    traditional: false,
+  },
+  {
+    id: "traditional-discovery",
+    label: "Bias Discovered at Submission",
+    timepoint: "NDA/MAA Filing",
+    description: "Reviewer flags inadequate female representation during regulatory review",
+    detected: false,
+    traditional: true,
+  },
 ];

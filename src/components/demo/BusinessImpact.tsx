@@ -8,6 +8,7 @@ interface BusinessImpactProps {
   detectionPoint: string;
   detectionComparison: string;
   regulatoryNote?: string;
+  prospectiveNote?: string;
 }
 
 const riskColors = {
@@ -30,6 +31,7 @@ export function BusinessImpact({
   detectionPoint,
   detectionComparison,
   regulatoryNote,
+  prospectiveNote,
 }: BusinessImpactProps) {
   return (
     <div className="bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-xl p-6">
@@ -73,6 +75,15 @@ export function BusinessImpact({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <span>{regulatoryNote}</span>
+        </div>
+      )}
+
+      {prospectiveNote && (
+        <div className="mt-4 flex items-start gap-2 text-xs text-green-700 bg-green-50 rounded-lg p-3 border border-green-200">
+          <svg className="w-4 h-4 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{prospectiveNote}</span>
         </div>
       )}
     </div>

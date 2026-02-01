@@ -12,3 +12,7 @@ export { PatientJourney } from "./PatientJourney";
 export { BusinessImpact } from "./BusinessImpact";
 export { DemoCTA } from "./DemoCTA";
 export { RegulatoryBadge, RegulatoryNote } from "./RegulatoryBadge";
+export { RadarChart } from "./RadarChart";
+export { BiasTimeline } from "./BiasTimeline";
+export { BiasInteractions } from "./BiasInteractions";
+export { ProspectiveTimeline } from "./ProspectiveTimeline";

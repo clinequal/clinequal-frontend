@@ -18,9 +18,16 @@ const team = [
     image: "/team/felicia.jpeg",
   },
   {
+    name: "Nicola Luigi Bragazzi",
+    role: "CSO",
+    expertise: "MD, PhD, 1,000+ publications, top 2% most cited scientists, Cochrane Reviewer",
+    linkedin: "https://www.linkedin.com/in/nicola-luigi-bragazzi-a3920049/",
+    image: null,
+  },
+  {
     name: "Pasquale Junior Montò",
     role: "CTO",
-    expertise: "Software engineer, Apple Developer Academy alumnus, AI module lead",
+    expertise: "BSc Computer Science, technical architect of the Clinequal platform",
     linkedin: "https://www.linkedin.com/in/pasqjr/",
     image: "/team/pasquale.jpeg",
   },
@@ -51,18 +58,26 @@ export function TeamSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
           {team.map((member) => (
             <div key={member.name} className="text-center group">
               {/* Photo */}
               <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-slate-100 border-2 border-slate-200 group-hover:border-primary transition-colors overflow-hidden relative">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className={`object-cover ${member.name === "Enrico De Cupertinis" ? "object-top" : ""}`}
-                  sizes="128px"
-                />
+                {member.image ? (
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className={`object-cover ${member.name === "Enrico De Cupertinis" ? "object-top" : ""}`}
+                    sizes="128px"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                    <span className="text-3xl font-bold text-primary">
+                      {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                    </span>
+                  </div>
+                )}
               </div>
               <h3 className="font-semibold text-slate-900">{member.name}</h3>
               <p className="text-primary text-sm font-medium">{member.role}</p>

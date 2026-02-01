@@ -7,6 +7,11 @@ import {
   depressionTrialInsight,
   depressionTrialSample,
   depressionTrialContext,
+  depressionTrialRadarAxes,
+  depressionTrialActiveBiases,
+  depressionTrialInteractions,
+  depressionTrialProspective,
+  trialStages,
 } from "@/lib/demo";
 import { ScrollReveal, WalkthroughSection } from "./ScrollReveal";
 import { DataTable } from "./DataTable";
@@ -16,6 +21,10 @@ import { BarChart } from "./BarChart";
 import { BusinessImpact } from "./BusinessImpact";
 import { DemoCTA } from "./DemoCTA";
 import { RegulatoryBadge, RegulatoryNote } from "./RegulatoryBadge";
+import { RadarChart } from "./RadarChart";
+import { BiasTimeline } from "./BiasTimeline";
+import { BiasInteractions } from "./BiasInteractions";
+import { ProspectiveTimeline } from "./ProspectiveTimeline";
 
 interface AttritionBiasViewProps {
   onBack: () => void;
@@ -218,7 +227,55 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         </ScrollReveal>
       </WalkthroughSection>
 
-      {/* Section 5: Business Impact */}
+      {/* Section 5: Multi-Dimensional Bias Profile */}
+      <WalkthroughSection
+        title="Multi-Dimensional Bias Profile"
+        subtitle="How does this trial score across key data quality dimensions?"
+      >
+        <div className="bg-white border border-slate-200 rounded-xl p-6">
+          <RadarChart
+            axes={depressionTrialRadarAxes}
+            trialLabel="This Trial"
+            benchmarkLabel="Target"
+          />
+        </div>
+      </WalkthroughSection>
+
+      {/* Section 6: Where Bias Enters */}
+      <WalkthroughSection
+        title="Where Bias Enters the Trial"
+        subtitle="Mapping detected biases to the trial lifecycle."
+      >
+        <div className="bg-white border border-slate-200 rounded-xl p-6">
+          <BiasTimeline
+            stages={trialStages}
+            activeHighlights={depressionTrialActiveBiases}
+            accentColor="purple"
+          />
+        </div>
+
+        <ScrollReveal delay={200} className="mt-6">
+          <div className="bg-white border border-slate-200 rounded-xl p-6">
+            <h4 className="font-medium text-slate-900 mb-4">How This Bias Cascades</h4>
+            <BiasInteractions
+              interactions={depressionTrialInteractions}
+              accentColor="purple"
+            />
+          </div>
+        </ScrollReveal>
+      </WalkthroughSection>
+
+      {/* Section 7: Early Detection Advantage */}
+      <WalkthroughSection
+        title="Early Detection Advantage"
+        subtitle="Clinequal's prospective monitoring catches attrition bias during the trial, not at review."
+      >
+        <div className="bg-white border border-slate-200 rounded-xl p-6">
+          <ProspectiveTimeline milestones={depressionTrialProspective} />
+        </div>
+      </WalkthroughSection>
+
+      {/* Section 8: Business Impact */}
       <WalkthroughSection
         title="Business Impact Assessment"
         subtitle="The cost of discovering attrition bias at submission."
@@ -231,6 +288,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
           detectionPoint="Week 6"
           detectionComparison="vs. discovered during FDA review (12-18 months delay)"
           regulatoryNote="The STAR*D trial's initial 67% remission rate was revised to 35% after ITT reanalysis — a difference that reshaped clinical guidelines. Early detection prevents such revisions."
+          prospectiveNote="With Clinequal's prospective monitoring, differential attrition would be flagged at Week 6 — allowing mid-trial interventions like retention programs for at-risk subgroups, rather than discovering the bias during FDA review."
         />
       </WalkthroughSection>
 

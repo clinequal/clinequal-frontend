@@ -107,7 +107,7 @@ export function PatientGrid({
             <strong className="text-slate-700">
               {((femaleCount / total) * 100).toFixed(0)}% are female
             </strong>{" "}
-            — expected ~50%.
+            — expected ~43% based on disease epidemiology.
           </span>
         ) : (
           <span>Loading patients...</span>

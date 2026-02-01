@@ -5,6 +5,10 @@ export {
   heartDiseaseInsight,
   heartDiseaseSample,
   heartDiseaseTrialContext,
+  heartDiseaseRadarAxes,
+  heartDiseaseActiveBiases,
+  heartDiseaseInteractions,
+  heartDiseaseProspective,
 } from "./heart-disease";
 
 export {
@@ -15,7 +19,13 @@ export {
   dropoutTimeline,
   depressionTrialSample,
   depressionTrialContext,
+  depressionTrialRadarAxes,
+  depressionTrialActiveBiases,
+  depressionTrialInteractions,
+  depressionTrialProspective,
 } from "./depression-trial";
+
+export { trialStages } from "./bias-framework";
 
 export {
   metadataExampleTrial,

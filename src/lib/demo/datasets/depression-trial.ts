@@ -1,4 +1,11 @@
-import type { DatasetMetadata, AttritionBiasResult } from "../types";
+import type {
+  DatasetMetadata,
+  AttritionBiasResult,
+  RadarAxis,
+  ActiveBiasHighlight,
+  BiasInteraction,
+  ProspectiveMilestone,
+} from "../types";
 
 export const depressionTrialMetadata: DatasetMetadata = {
   id: "depression-trial-synthetic",
@@ -145,4 +152,119 @@ export const depressionTrialSample = [
   { id: "P105", age: 49, gender: "Female" as const, incomeLevel: "High" as const, completed: true, remission: true },
   { id: "P116", age: 29, gender: "Male" as const, incomeLevel: "Low" as const, completed: false, remission: false },
   { id: "P121", age: 40, gender: "Female" as const, incomeLevel: "Middle" as const, completed: false, remission: false },
+];
+
+// Radar chart axes — multi-dimensional bias profile
+export const depressionTrialRadarAxes: RadarAxis[] = [
+  {
+    key: "retention_balance",
+    label: "Retention",
+    trial: 35,
+    benchmark: 80,
+    description: "47.6% low-SES dropout vs 0% high-SES",
+  },
+  {
+    key: "ses_representation",
+    label: "SES Balance",
+    trial: 40,
+    benchmark: 80,
+    description: "Completers skew heavily toward higher income",
+  },
+  {
+    key: "race_representation",
+    label: "Race Balance",
+    trial: 55,
+    benchmark: 80,
+    description: "53.6% Black and 42.3% Hispanic dropout rates",
+  },
+  {
+    key: "followup_completeness",
+    label: "Follow-up",
+    trial: 65,
+    benchmark: 80,
+    description: "77.5% overall completion rate",
+  },
+  {
+    key: "endpoint_reliability",
+    label: "Endpoint Reliability",
+    trial: 50,
+    benchmark: 80,
+    description: "15pp gap between completer and ITT analysis",
+  },
+];
+
+// Active bias highlights for the trial stage timeline
+export const depressionTrialActiveBiases: ActiveBiasHighlight[] = [
+  {
+    stageId: "treatment",
+    biasType: "Attrition Bias",
+    severity: "high",
+    description: "Differential dropout by SES inflates efficacy",
+  },
+];
+
+// How biases cascade into downstream risks
+export const depressionTrialInteractions: BiasInteraction[] = [
+  {
+    from: "Attrition Bias",
+    to: "Efficacy Inflation",
+    description: "Non-random dropout inflates apparent remission rate",
+    strength: "strong",
+  },
+  {
+    from: "Efficacy Inflation",
+    to: "Publication Bias",
+    description: "Inflated results shape clinical guidelines",
+    strength: "moderate",
+  },
+  {
+    from: "Publication Bias",
+    to: "Prescribing Errors",
+    description: "Overstated efficacy leads to inappropriate treatment decisions",
+    strength: "moderate",
+  },
+];
+
+// Prospective detection milestones
+export const depressionTrialProspective: ProspectiveMilestone[] = [
+  {
+    id: "enrollment-start",
+    label: "Enrollment Begins",
+    timepoint: "Week 0",
+    description: "200 patients randomized across 12 sites",
+    detected: false,
+    traditional: false,
+  },
+  {
+    id: "early-dropouts",
+    label: "Early Dropouts Begin",
+    timepoint: "Week 2",
+    description: "First wave of discontinuations, predominantly low-SES",
+    detected: false,
+    traditional: false,
+  },
+  {
+    id: "clinequal-detection",
+    label: "Clinequal Flags Differential Attrition",
+    timepoint: "Week 6",
+    description: "Automated monitoring detects SES-correlated dropout pattern exceeding threshold",
+    detected: true,
+    traditional: false,
+  },
+  {
+    id: "trial-complete",
+    label: "12-Week Trial Complete",
+    timepoint: "Week 12",
+    description: "155 of 200 patients complete study; 45 discontinued",
+    detected: false,
+    traditional: false,
+  },
+  {
+    id: "traditional-discovery",
+    label: "Bias Discovered During FDA Review",
+    timepoint: "FDA Review",
+    description: "Statistical reviewer identifies completer vs ITT discrepancy and requests reanalysis",
+    detected: false,
+    traditional: true,
+  },
 ];

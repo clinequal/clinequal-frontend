@@ -7,6 +7,11 @@ import {
   heartDiseaseInsight,
   heartDiseaseSample,
   heartDiseaseTrialContext,
+  heartDiseaseRadarAxes,
+  heartDiseaseActiveBiases,
+  heartDiseaseInteractions,
+  heartDiseaseProspective,
+  trialStages,
 } from "@/lib/demo";
 import { ScrollReveal, WalkthroughSection } from "./ScrollReveal";
 import { DataTable } from "./DataTable";
@@ -16,6 +21,10 @@ import { ComparisonChart } from "./ComparisonChart";
 import { BusinessImpact } from "./BusinessImpact";
 import { DemoCTA } from "./DemoCTA";
 import { RegulatoryBadge, RegulatoryNote } from "./RegulatoryBadge";
+import { RadarChart } from "./RadarChart";
+import { BiasTimeline } from "./BiasTimeline";
+import { BiasInteractions } from "./BiasInteractions";
+import { ProspectiveTimeline } from "./ProspectiveTimeline";
 
 interface DemographicBiasViewProps {
   onBack: () => void;
@@ -131,17 +140,31 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
               {
                 label: "Male",
                 trial: stats.genderDistribution.male.percentage,
-                population: stats.populationBaseline.male.percentage,
+                epidemiological: stats.benchmarks.epidemiological.values.male,
+                peerTrial: stats.benchmarks.peerTrial.values.male,
               },
               {
                 label: "Female",
                 trial: stats.genderDistribution.female.percentage,
-                population: stats.populationBaseline.female.percentage,
+                epidemiological: stats.benchmarks.epidemiological.values.female,
+                peerTrial: stats.benchmarks.peerTrial.values.female,
               },
             ]}
-            trialLabel="Trial Enrollment"
-            populationLabel="Disease Prevalence (Expected)"
+            trialLabel="This Trial"
+            epidemiologicalLabel="Disease Prevalence (GBD)"
+            peerTrialLabel="CV Trial Average"
           />
+
+          <div className="mt-4 pt-3 border-t border-slate-100 space-y-1">
+            <p className="text-xs text-slate-400">
+              <strong className="text-slate-500">Disease prevalence:</strong>{" "}
+              {stats.benchmarks.epidemiological.source.citation}
+            </p>
+            <p className="text-xs text-slate-400">
+              <strong className="text-slate-500">Peer trial average:</strong>{" "}
+              {stats.benchmarks.peerTrial.source.citation}
+            </p>
+          </div>
         </div>
 
         <ScrollReveal delay={300} className="mt-6">
@@ -205,7 +228,55 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         </div>
       </WalkthroughSection>
 
-      {/* Section 5: Business Impact */}
+      {/* Section 5: Multi-Dimensional Bias Profile */}
+      <WalkthroughSection
+        title="Multi-Dimensional Bias Profile"
+        subtitle="How does this trial score across key representativeness dimensions?"
+      >
+        <div className="bg-white border border-slate-200 rounded-xl p-6">
+          <RadarChart
+            axes={heartDiseaseRadarAxes}
+            trialLabel="This Trial"
+            benchmarkLabel="Target"
+          />
+        </div>
+      </WalkthroughSection>
+
+      {/* Section 6: Where Bias Enters */}
+      <WalkthroughSection
+        title="Where Bias Enters the Trial"
+        subtitle="Mapping detected biases to the trial lifecycle."
+      >
+        <div className="bg-white border border-slate-200 rounded-xl p-6">
+          <BiasTimeline
+            stages={trialStages}
+            activeHighlights={heartDiseaseActiveBiases}
+            accentColor="amber"
+          />
+        </div>
+
+        <ScrollReveal delay={200} className="mt-6">
+          <div className="bg-white border border-slate-200 rounded-xl p-6">
+            <h4 className="font-medium text-slate-900 mb-4">How This Bias Cascades</h4>
+            <BiasInteractions
+              interactions={heartDiseaseInteractions}
+              accentColor="amber"
+            />
+          </div>
+        </ScrollReveal>
+      </WalkthroughSection>
+
+      {/* Section 7: Early Detection Advantage */}
+      <WalkthroughSection
+        title="Early Detection Advantage"
+        subtitle="Clinequal's prospective monitoring catches bias during enrollment, not at submission."
+      >
+        <div className="bg-white border border-slate-200 rounded-xl p-6">
+          <ProspectiveTimeline milestones={heartDiseaseProspective} />
+        </div>
+      </WalkthroughSection>
+
+      {/* Section 8: Business Impact */}
       <WalkthroughSection
         title="Business Impact Assessment"
         subtitle="The cost of discovering this issue late in development."
@@ -218,6 +289,7 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
           detectionPoint="Week 4"
           detectionComparison="vs. discovered at NDA/MAA submission"
           regulatoryNote="In 2023, EMA flagged 23% of submissions for inadequate demographic representation. Early detection enables protocol amendments during enrollment."
+          prospectiveNote="With Clinequal's prospective monitoring, this imbalance would be flagged at Week 4 of enrollment — enabling a protocol amendment before recruitment closes, rather than a costly post-submission response."
         />
       </WalkthroughSection>
 
@@ -247,10 +319,10 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
             ))}
             <div className="text-center">
               <div className="text-3xl font-bold text-primary">
-                29pp
+                {Math.abs(heartDiseaseDemographicBias[1].absoluteGap).toFixed(0)}pp
               </div>
               <div className="text-slate-400 text-sm mt-1">
-                Gap from expected
+                Gap from epidemiology
               </div>
               <div className="text-xs text-slate-500 mt-2">
                 percentage points
