@@ -11,13 +11,15 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <ProblemSection />
-      <SolutionSection />
-      <DemoCTASection />
-      <HowItWorksSection />
-      <TrustSection />
-      <TeamSection />
-      <CTASection />
+      <div className="relative z-30 -mt-[60vh]">
+        <ProblemSection />
+        <SolutionSection />
+        <DemoCTASection />
+        <HowItWorksSection />
+        <TrustSection />
+        <TeamSection />
+        <CTASection />
+      </div>
     </>
   );
 }
