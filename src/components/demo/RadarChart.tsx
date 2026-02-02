@@ -63,8 +63,10 @@ export function RadarChart({
   benchmarkLabel = "Target",
   size = 300,
 }: RadarChartProps) {
-  const cx = size / 2;
-  const cy = size / 2;
+  const pad = 50;
+  const full = size + pad * 2;
+  const cx = full / 2;
+  const cy = full / 2;
   const radius = size * 0.36;
   const n = axes.length;
   const maxValue = 100;
@@ -74,9 +76,9 @@ export function RadarChart({
   return (
     <div className="flex flex-col items-center">
       <svg
-        viewBox={`0 0 ${size} ${size}`}
-        width={size}
-        height={size}
+        viewBox={`0 0 ${full} ${full}`}
+        width={full}
+        height={full}
         className="max-w-full h-auto"
       >
         {/* Grid rings */}
