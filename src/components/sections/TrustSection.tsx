@@ -71,6 +71,11 @@ const collaborators = [
     logo: "/academic_logos/logo_university_Karolinska_Institute_128.png",
     url: "https://ki.se/",
   },
+  {
+    name: "University of Oxford",
+    logo: "/academic_logos/logo_oxford.svg",
+    url: "https://www.ox.ac.uk/",
+  },
 ];
 
 export function TrustSection() {
