@@ -57,6 +57,11 @@ const collaborators = [
     url: "https://liu.se/",
   },
   {
+    name: "University of Oxford",
+    logo: "/academic_logos/logo_oxford.svg",
+    url: "https://www.ox.ac.uk/",
+  },
+  {
     name: "University of Luxembourg",
     logo: "/academic_logos/logo_university_Universite_du_Luxembourg_128.png",
     url: "https://uni.lu/",
@@ -70,11 +75,6 @@ const collaborators = [
     name: "Karolinska Institute",
     logo: "/academic_logos/logo_university_Karolinska_Institute_128.png",
     url: "https://ki.se/",
-  },
-  {
-    name: "University of Oxford",
-    logo: "/academic_logos/logo_oxford.svg",
-    url: "https://www.ox.ac.uk/",
   },
 ];
 
