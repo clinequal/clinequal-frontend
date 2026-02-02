@@ -37,7 +37,7 @@ export function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight whitespace-nowrap">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight md:whitespace-nowrap">
             <span className="bg-gradient-to-r from-white via-white to-slate-400 bg-clip-text text-transparent">Clinical Trials</span>
             <span className="bg-gradient-to-r from-primary via-primary-light to-white bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(47,128,237,0.4)]"> Without Bias</span>
           </h1>
