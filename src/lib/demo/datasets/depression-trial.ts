@@ -154,42 +154,43 @@ export const depressionTrialSample = [
   { id: "P121", age: 40, gender: "Female" as const, incomeLevel: "Middle" as const, completed: false, remission: false },
 ];
 
-// Radar chart axes — multi-dimensional bias profile
+// Radar chart axes — this trial vs peer MDD trial average
+// Values are normalized 0-100. Peer benchmarks based on published MDD trial meta-analyses.
 export const depressionTrialRadarAxes: RadarAxis[] = [
   {
-    key: "retention_balance",
-    label: "Retention",
+    key: "completion_rate",
+    label: "Completion",
+    trial: 78,
+    benchmark: 85,
+    description: "This trial: 77.5% completion. Peer MDD trials: ~85%.",
+  },
+  {
+    key: "racial_diversity",
+    label: "Racial Diversity",
+    trial: 31,
+    benchmark: 25,
+    description: "This trial: 31% non-white. Peer MDD trials: ~25%.",
+  },
+  {
+    key: "sample_size",
+    label: "Sample Size",
     trial: 35,
-    benchmark: 80,
-    description: "47.6% low-SES dropout vs 0% high-SES",
+    benchmark: 55,
+    description: "This trial: 200 patients. Peer Phase II/III median: ~350.",
   },
   {
-    key: "ses_representation",
-    label: "SES Balance",
-    trial: 40,
-    benchmark: 80,
-    description: "Completers skew heavily toward higher income",
-  },
-  {
-    key: "race_representation",
-    label: "Race Balance",
-    trial: 55,
-    benchmark: 80,
-    description: "53.6% Black and 42.3% Hispanic dropout rates",
-  },
-  {
-    key: "followup_completeness",
-    label: "Follow-up",
-    trial: 65,
-    benchmark: 80,
-    description: "77.5% overall completion rate",
-  },
-  {
-    key: "endpoint_reliability",
-    label: "Endpoint Reliability",
+    key: "trial_duration",
+    label: "Duration",
     trial: 50,
-    benchmark: 80,
-    description: "15pp gap between completer and ITT analysis",
+    benchmark: 65,
+    description: "This trial: 12 weeks. Peer MDD avg: ~16 weeks.",
+  },
+  {
+    key: "uniform_attrition",
+    label: "Uniform Attrition",
+    trial: 20,
+    benchmark: 65,
+    description: "This trial: 5x differential dropout. Peer avg: ~1.5x.",
   },
 ];
 

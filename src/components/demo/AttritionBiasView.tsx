@@ -227,16 +227,16 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         </ScrollReveal>
       </WalkthroughSection>
 
-      {/* Section 5: Multi-Dimensional Bias Profile */}
+      {/* Section 5: Trial vs Peer Comparison */}
       <WalkthroughSection
-        title="Multi-Dimensional Bias Profile"
-        subtitle="How does this trial score across key data quality dimensions?"
+        title="Trial vs Peer Comparison"
+        subtitle="How does this trial compare to the average MDD Phase II/III trial?"
       >
         <div className="bg-white border border-slate-200 rounded-xl p-6">
           <RadarChart
             axes={depressionTrialRadarAxes}
             trialLabel="This Trial"
-            benchmarkLabel="Target"
+            benchmarkLabel="Peer MDD Trial Avg"
           />
         </div>
       </WalkthroughSection>

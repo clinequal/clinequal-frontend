@@ -228,16 +228,16 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         </div>
       </WalkthroughSection>
 
-      {/* Section 5: Multi-Dimensional Bias Profile */}
+      {/* Section 5: Trial vs Peer Comparison */}
       <WalkthroughSection
-        title="Multi-Dimensional Bias Profile"
-        subtitle="How does this trial score across key representativeness dimensions?"
+        title="Trial vs Peer Comparison"
+        subtitle="How does this trial compare to the average cardiovascular Phase III trial?"
       >
         <div className="bg-white border border-slate-200 rounded-xl p-6">
           <RadarChart
             axes={heartDiseaseRadarAxes}
             trialLabel="This Trial"
-            benchmarkLabel="Target"
+            benchmarkLabel="Peer CV Trial Avg"
           />
         </div>
       </WalkthroughSection>

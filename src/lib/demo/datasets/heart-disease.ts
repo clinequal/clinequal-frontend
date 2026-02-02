@@ -232,42 +232,43 @@ export const heartDiseaseSample = [
   { id: 50, age: 53, sex: "Male" as const, hasHeartDisease: true },
 ];
 
-// Radar chart axes — multi-dimensional bias profile
+// Radar chart axes — this trial vs peer CV trial average
+// Values are normalized 0-100. Sources: Haering et al. (2024) JAMA Netw Open for peer trial benchmarks.
 export const heartDiseaseRadarAxes: RadarAxis[] = [
   {
-    key: "sex_balance",
-    label: "Sex Balance",
-    trial: 39,
-    benchmark: 80,
-    description: "21% female vs 43% epidemiological baseline",
+    key: "female_enrollment",
+    label: "Female %",
+    trial: 21,
+    benchmark: 39,
+    description: "This trial: 21% female. Peer CV trials: 38.5% female.",
   },
   {
-    key: "age_representation",
+    key: "age_range",
     label: "Age Range",
-    trial: 72,
-    benchmark: 80,
-    description: "Age range 28-77, slightly narrow for CAD population",
+    trial: 70,
+    benchmark: 58,
+    description: "This trial: 28-77 yrs. Peer CV trials typically 40-75.",
   },
   {
-    key: "geographic_diversity",
-    label: "Geographic",
-    trial: 45,
-    benchmark: 80,
-    description: "3 countries, limited to Western populations",
+    key: "geographic_spread",
+    label: "Regions",
+    trial: 30,
+    benchmark: 55,
+    description: "This trial: 3 countries. Peer Phase III avg: ~8 countries.",
   },
   {
     key: "sample_size",
     label: "Sample Size",
-    trial: 85,
-    benchmark: 80,
-    description: "920 patients — adequate for Phase III",
+    trial: 75,
+    benchmark: 50,
+    description: "This trial: 920 patients. Peer CV median: ~450.",
   },
   {
-    key: "endpoint_validity",
-    label: "Endpoint Validity",
-    trial: 90,
-    benchmark: 80,
-    description: "Standard primary endpoint with validated measures",
+    key: "completion_rate",
+    label: "Completion",
+    trial: 88,
+    benchmark: 85,
+    description: "This trial: ~88% completion. Peer CV avg: ~85%.",
   },
 ];
 
