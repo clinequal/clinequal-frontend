@@ -1,6 +1,6 @@
 import type { MetadataAnalysisResult } from "@/lib/demo/datasets/metadata-example";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
 
 export interface TrialSummary {
   nctId: string;
