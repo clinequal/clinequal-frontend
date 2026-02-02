@@ -36,8 +36,11 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <Section background="white" id="how-it-works">
-      <Container>
+    <Section background="white" id="how-it-works" className="relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary/5 via-primary/3 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+      <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             From Dataset Upload to Regulatory Submission
@@ -51,18 +54,22 @@ export function HowItWorksSection() {
           {steps.map((step, index) => (
             <div
               key={step.number}
-              className="relative p-6 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors group"
+              className="relative p-6 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
             >
               {/* Step number */}
-              <div className="text-5xl font-bold text-primary/20 group-hover:text-primary/30 transition-colors mb-2">
+              <div className="text-5xl font-bold bg-gradient-to-br from-primary/25 to-primary/5 bg-clip-text text-transparent group-hover:from-primary/40 group-hover:to-primary/15 transition-all mb-2">
                 {step.number}
               </div>
               <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-              <p className="text-slate-600">{step.description}</p>
+              <p className="text-slate-600 text-sm">{step.description}</p>
 
-              {/* Connector line (except last in row) */}
+              {/* Connector arrow (desktop, except last in row) */}
               {index % 3 !== 2 && index !== steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-slate-200" />
+                <div className="hidden lg:flex absolute top-1/2 -right-3 w-6 items-center justify-center">
+                  <svg className="w-4 h-4 text-primary/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               )}
             </div>
           ))}

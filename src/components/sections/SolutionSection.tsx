@@ -46,8 +46,11 @@ const features = [
 
 export function SolutionSection() {
   return (
-    <Section background="gray" id="solution">
-      <Container>
+    <Section background="gray" id="solution" className="relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-primary/5 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
+
+      <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             The First End-to-End Bias Management Platform
@@ -61,9 +64,9 @@ export function SolutionSection() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="bg-white p-6 rounded-xl border border-slate-200 hover:border-primary/50 transition-colors"
+              className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
             >
-              <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary/25 transition-all duration-300">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>

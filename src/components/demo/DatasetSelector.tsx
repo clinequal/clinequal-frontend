@@ -73,14 +73,14 @@ export function DatasetSelector({ onSelect }: DatasetSelectorProps) {
       {/* Patient-Level Data Section */}
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-3 mb-3">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
             </svg>
           </div>
           <div>
             <h3 className="font-semibold text-slate-900">Patient-Level Data Analysis</h3>
-            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
+            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary">
               Deep Analysis
             </span>
           </div>
@@ -97,7 +97,7 @@ export function DatasetSelector({ onSelect }: DatasetSelectorProps) {
               <button
                 key={dataset.id}
                 onClick={() => onSelect(dataset.id)}
-                className="group p-6 rounded-xl border-2 border-slate-200 bg-white hover:border-primary hover:shadow-lg transition-all text-left border-l-emerald-400 border-l-4"
+                className="group p-6 rounded-xl border-2 border-slate-200 bg-white hover:border-primary hover:shadow-lg transition-all text-left border-l-primary border-l-4"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">

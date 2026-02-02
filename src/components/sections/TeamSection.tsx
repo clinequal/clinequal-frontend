@@ -49,8 +49,11 @@ const team = [
 
 export function TeamSection() {
   return (
-    <Section background="white" id="team">
-      <Container>
+    <Section background="gray" id="team" className="relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-primary/5 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
+
+      <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Leadership Team</h2>
           <p className="text-lg text-slate-600">
@@ -58,35 +61,38 @@ export function TeamSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           {team.map((member) => (
-            <div key={member.name} className="text-center group">
+            <div
+              key={member.name}
+              className="text-center group bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300"
+            >
               {/* Photo */}
-              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-slate-100 border-2 border-slate-200 group-hover:border-primary transition-colors overflow-hidden relative">
+              <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-slate-100 border-2 border-slate-200 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 overflow-hidden relative">
                 {member.image ? (
                   <Image
                     src={member.image}
                     alt={member.name}
                     fill
                     className={`object-cover ${member.name === "Enrico De Cupertinis" ? "object-top" : ""}`}
-                    sizes="128px"
+                    sizes="96px"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                    <span className="text-3xl font-bold text-primary">
+                    <span className="text-2xl font-bold text-primary">
                       {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
                     </span>
                   </div>
                 )}
               </div>
-              <h3 className="font-semibold text-slate-900">{member.name}</h3>
+              <h3 className="font-semibold text-slate-900 text-sm">{member.name}</h3>
               <p className="text-primary text-sm font-medium">{member.role}</p>
-              <p className="text-slate-500 text-xs mt-1">{member.expertise}</p>
+              <p className="text-slate-500 text-xs mt-1 leading-relaxed">{member.expertise}</p>
               <a
                 href={member.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-2 text-slate-400 hover:text-primary transition-colors"
+                className="inline-block mt-3 text-slate-400 hover:text-primary transition-colors"
                 aria-label={`${member.name} LinkedIn`}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

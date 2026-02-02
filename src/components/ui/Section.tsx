@@ -16,6 +16,13 @@ const backgroundStyles: Record<SectionBackground, string> = {
   primary: "bg-primary text-white",
 };
 
+const hasTexture: Record<SectionBackground, boolean> = {
+  white: true,
+  gray: true,
+  dark: false,
+  primary: false,
+};
+
 export function Section({
   children,
   background = "white",
@@ -25,8 +32,18 @@ export function Section({
   return (
     <section
       id={id}
-      className={`py-16 md:py-24 ${backgroundStyles[background]} ${className}`}
+      className={`py-16 md:py-24 relative ${backgroundStyles[background]} ${className}`}
     >
+      {hasTexture[background] && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle, #94A3B8 0.6px, transparent 0.6px)",
+            backgroundSize: "18px 18px",
+            opacity: 0.4,
+          }}
+        />
+      )}
       {children}
     </section>
   );

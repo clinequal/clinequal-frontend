@@ -75,8 +75,24 @@ const collaborators = [
 
 export function TrustSection() {
   return (
-    <Section background="dark" id="trust">
-      <Container>
+    <Section background="dark" id="trust" className="relative overflow-hidden">
+      {/* Grid texture */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="trust-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+              <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#trust-grid)" />
+        </svg>
+      </div>
+
+      {/* Glowing orbs */}
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
+      <Container className="relative">
         {/* Achievements */}
         <div className="mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
@@ -90,7 +106,7 @@ export function TrustSection() {
             {achievements.map((achievement) => (
               <div
                 key={achievement.title}
-                className="p-6 rounded-xl bg-slate-800 border border-slate-700"
+                className="p-6 rounded-xl bg-gradient-to-br from-slate-800 to-slate-800/50 border border-slate-700/50 hover:border-primary/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group"
               >
                 <div className="text-primary font-semibold text-sm mb-2">
                   {achievement.date}
@@ -130,7 +146,7 @@ export function TrustSection() {
                 href={collaborator.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block opacity-70 hover:opacity-100 transition-opacity"
+                className="block opacity-60 hover:opacity-100 hover:-translate-y-1 transition-all duration-300"
                 title={collaborator.name}
               >
                 <Image
