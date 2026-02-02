@@ -55,7 +55,7 @@ export function TeamSection() {
 
       <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Leadership Team</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#1a3a6b] to-primary bg-clip-text text-transparent">Leadership Team</h2>
           <p className="text-lg text-slate-600">
             Expertise spanning AI/ML, bioinformatics, healthcare data science, software engineering, and regulatory compliance. Advised by scientists in the top 2% most cited globally.
           </p>
@@ -65,7 +65,7 @@ export function TeamSection() {
           {team.map((member) => (
             <div
               key={member.name}
-              className="text-center group bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300"
+              className="text-center group bg-white rounded-xl p-5 border border-primary/20 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-1 hover:border-primary/40 transition-all duration-300"
             >
               {/* Photo */}
               <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-slate-100 border-2 border-slate-200 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 overflow-hidden relative">
