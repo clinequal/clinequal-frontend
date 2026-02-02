@@ -15,9 +15,9 @@ interface PatientJourneyProps {
 }
 
 const incomeColors = {
-  Low: { bg: "bg-red-100", dot: "bg-red-500", text: "text-red-700" },
-  Middle: { bg: "bg-amber-100", dot: "bg-amber-500", text: "text-amber-700" },
-  High: { bg: "bg-green-100", dot: "bg-green-500", text: "text-green-700" },
+  Low: { bg: "bg-red-100 dark:bg-red-900/30", dot: "bg-red-500", text: "text-red-700 dark:text-red-400" },
+  Middle: { bg: "bg-amber-100 dark:bg-amber-900/30", dot: "bg-amber-500", text: "text-amber-700 dark:text-amber-400" },
+  High: { bg: "bg-green-100 dark:bg-green-900/30", dot: "bg-green-500", text: "text-green-700 dark:text-green-400" },
 };
 
 export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps) {
@@ -92,7 +92,7 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
   return (
     <div>
       {/* Week controls */}
-      <div className="flex items-center gap-3 mb-4 p-3 bg-slate-50 rounded-lg">
+      <div className="flex items-center gap-3 mb-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
         {/* Play/Pause */}
         <button
           onClick={togglePlayPause}
@@ -115,7 +115,7 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
         <button
           onClick={handlePrevWeek}
           disabled={currentWeek === 0}
-          className="w-7 h-7 flex items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="w-7 h-7 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           aria-label="Previous week"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,9 +131,9 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
             max={maxWeeks}
             value={currentWeek}
             onChange={handleSliderChange}
-            className="flex-1 h-2 bg-slate-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
+            className="flex-1 h-2 bg-slate-200 dark:bg-slate-700 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
           />
-          <span className="text-sm font-medium text-slate-700 w-24 text-right">
+          <span className="text-sm font-medium text-slate-700 dark:text-slate-300 w-24 text-right">
             Week {currentWeek} / {maxWeeks}
           </span>
         </div>
@@ -142,7 +142,7 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
         <button
           onClick={handleNextWeek}
           disabled={currentWeek === maxWeeks}
-          className="w-7 h-7 flex items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="w-7 h-7 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           aria-label="Next week"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,23 +154,23 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
       {/* Stats bar */}
       <div className="flex items-center justify-between mb-4">
         <div className="text-sm">
-          <span className="text-slate-500">Dropped: </span>
-          <span className="font-medium text-red-600">{statsAtWeek.dropped}</span>
+          <span className="text-slate-500 dark:text-slate-400">Dropped: </span>
+          <span className="font-medium text-red-600 dark:text-red-400">{statsAtWeek.dropped}</span>
           <span className="text-slate-400"> / {patients.length}</span>
         </div>
         <div className="text-sm">
-          <span className="text-slate-500">Remaining: </span>
-          <span className="font-medium text-green-600">{statsAtWeek.remaining}</span>
+          <span className="text-slate-500 dark:text-slate-400">Remaining: </span>
+          <span className="font-medium text-green-600 dark:text-green-400">{statsAtWeek.remaining}</span>
         </div>
       </div>
 
       {/* Legend */}
       <div className="flex items-center gap-4 mb-4 text-xs">
-        <span className="text-slate-500">Income level:</span>
+        <span className="text-slate-500 dark:text-slate-400">Income level:</span>
         {(["High", "Middle", "Low"] as const).map((level) => (
           <div key={level} className="flex items-center gap-1.5">
             <div className={`w-2.5 h-2.5 rounded-full ${incomeColors[level].dot}`} />
-            <span className="text-slate-600">{level}</span>
+            <span className="text-slate-600 dark:text-slate-300">{level}</span>
           </div>
         ))}
       </div>
@@ -185,7 +185,7 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
           return (
             <div key={patient.id} className="flex items-center gap-2 group">
               {/* Patient ID */}
-              <span className="text-xs text-slate-400 w-10 shrink-0">
+              <span className="text-xs text-slate-400 dark:text-slate-500 w-10 shrink-0">
                 {patient.id.slice(0, 4)}
               </span>
 
@@ -193,7 +193,7 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
               <div className="flex-1 flex items-center h-5 relative">
                 {/* Background track */}
                 <div className="absolute inset-y-0 left-0 right-0 flex items-center">
-                  <div className="w-full h-0.5 bg-slate-200" />
+                  <div className="w-full h-0.5 bg-slate-200 dark:bg-slate-700" />
                 </div>
 
                 {/* Progress line */}
@@ -205,7 +205,7 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
                 >
                   <div
                     className={`w-full h-1 rounded-full ${
-                      isDroppedNow ? "bg-slate-300" : colors.dot
+                      isDroppedNow ? "bg-slate-300 dark:bg-slate-600" : colors.dot
                     }`}
                   />
                 </div>
@@ -246,16 +246,16 @@ export function PatientJourney({ patients, maxWeeks = 12 }: PatientJourneyProps)
 
       {/* Summary */}
       {animationWeek >= maxWeeks && (
-        <div className="mt-4 p-3 bg-slate-50 rounded-lg text-sm">
-          <div className="flex justify-between text-slate-600">
+        <div className="mt-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-sm">
+          <div className="flex justify-between text-slate-600 dark:text-slate-300">
             <span>Low income dropouts:</span>
-            <span className="font-medium text-red-600">
+            <span className="font-medium text-red-600 dark:text-red-400">
               {statsAtWeek.droppedLow} patients
             </span>
           </div>
-          <div className="flex justify-between text-slate-600 mt-1">
+          <div className="flex justify-between text-slate-600 dark:text-slate-300 mt-1">
             <span>High income dropouts:</span>
-            <span className="font-medium text-green-600">
+            <span className="font-medium text-green-600 dark:text-green-400">
               {statsAtWeek.droppedHigh} patients
             </span>
           </div>

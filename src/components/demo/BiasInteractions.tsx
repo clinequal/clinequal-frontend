@@ -8,9 +8,9 @@ interface BiasInteractionsProps {
 }
 
 const accentStyles = {
-  amber: { node: "bg-amber-100 border-amber-300 text-amber-900" },
-  purple: { node: "bg-purple-100 border-purple-300 text-purple-900" },
-  red: { node: "bg-red-100 border-red-300 text-red-900" },
+  amber: { node: "bg-amber-100 border-amber-300 text-amber-900 dark:bg-amber-900/30 dark:border-amber-700 dark:text-amber-300" },
+  purple: { node: "bg-purple-100 border-purple-300 text-purple-900 dark:bg-purple-900/30 dark:border-purple-700 dark:text-purple-300" },
+  red: { node: "bg-red-100 border-red-300 text-red-900 dark:bg-red-900/30 dark:border-red-700 dark:text-red-300" },
 };
 
 const strengthWidth: Record<string, string> = {
@@ -48,8 +48,8 @@ export function BiasInteractions({
                   isFirst
                     ? styles.node
                     : isLast
-                    ? "bg-red-50 border-red-300 text-red-900"
-                    : "bg-slate-50 border-slate-200 text-slate-700"
+                    ? "bg-red-50 border-red-300 text-red-900 dark:bg-red-900/30 dark:border-red-700 dark:text-red-300"
+                    : "bg-slate-50 border-slate-200 text-slate-700 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300"
                 }`}
               >
                 {node}
@@ -58,14 +58,14 @@ export function BiasInteractions({
               {/* Arrow + description */}
               {edge && (
                 <div className="flex flex-col items-center mx-1 flex-shrink-0">
-                  <p className="text-[10px] text-slate-500 text-center max-w-[120px] leading-tight mb-1">
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 text-center max-w-[120px] leading-tight mb-1">
                     {edge.description}
                   </p>
                   <div className="flex items-center w-12">
                     <div
-                      className={`flex-1 ${strengthWidth[edge.strength]} border-slate-400`}
+                      className={`flex-1 ${strengthWidth[edge.strength]} border-slate-400 dark:border-slate-500`}
                     />
-                    <svg className="w-2.5 h-2.5 text-slate-400 flex-shrink-0 -ml-0.5" viewBox="0 0 10 10">
+                    <svg className="w-2.5 h-2.5 text-slate-400 dark:text-slate-500 flex-shrink-0 -ml-0.5" viewBox="0 0 10 10">
                       <path d="M1 2 L8 5 L1 8" fill="none" stroke="currentColor" strokeWidth={1.5} />
                     </svg>
                   </div>

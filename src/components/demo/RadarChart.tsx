@@ -87,7 +87,7 @@ export function RadarChart({
             key={level}
             points={gridPolygon(cx, cy, (level / maxValue) * radius, n)}
             fill="none"
-            stroke="#e2e8f0"
+            className="stroke-slate-200 dark:stroke-slate-700"
             strokeWidth={level === 100 ? 1 : 0.5}
           />
         ))}
@@ -102,7 +102,7 @@ export function RadarChart({
               y1={cy}
               x2={x}
               y2={y}
-              stroke="#e2e8f0"
+              className="stroke-slate-200 dark:stroke-slate-700"
               strokeWidth={0.5}
             />
           );
@@ -112,7 +112,7 @@ export function RadarChart({
         <polygon
           points={polygonPoints(cx, cy, radius, axes.map((a) => a.benchmark), maxValue)}
           fill="none"
-          stroke="#94a3b8"
+          className="stroke-slate-400 dark:stroke-slate-500"
           strokeWidth={1.5}
           strokeDasharray="6 3"
           opacity={0.7}
@@ -138,7 +138,7 @@ export function RadarChart({
               cy={y}
               r={4}
               fill={scoreColor(axis.trial)}
-              stroke="white"
+              className="stroke-white dark:stroke-slate-900"
               strokeWidth={1.5}
             />
           );
@@ -158,7 +158,7 @@ export function RadarChart({
               y={y}
               textAnchor={isLeft ? "end" : isRight ? "start" : "middle"}
               dominantBaseline={Math.sin(angle) < -0.1 ? "auto" : Math.sin(angle) > 0.1 ? "hanging" : "central"}
-              className="fill-slate-600"
+              className="fill-slate-600 dark:fill-slate-300"
               fontSize={11}
               fontWeight={500}
             >
@@ -179,7 +179,7 @@ export function RadarChart({
               textAnchor="middle"
               fontSize={9}
               fontWeight={600}
-              className="fill-slate-700"
+              className="fill-slate-700 dark:fill-slate-200"
             >
               {axis.trial}
             </text>
@@ -191,16 +191,16 @@ export function RadarChart({
       <div className="flex items-center gap-6 mt-3 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-6 h-0.5 bg-primary" />
-          <span className="text-slate-600">{trialLabel}</span>
+          <span className="text-slate-600 dark:text-slate-300">{trialLabel}</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-6 h-0.5 border-t-2 border-dashed border-slate-400" />
-          <span className="text-slate-600">{benchmarkLabel}</span>
+          <div className="w-6 h-0.5 border-t-2 border-dashed border-slate-400 dark:border-slate-500" />
+          <span className="text-slate-600 dark:text-slate-300">{benchmarkLabel}</span>
         </div>
       </div>
 
       {/* Score key */}
-      <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
+      <div className="flex items-center gap-4 mt-2 text-xs text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-green-500" />
           Good (70+)

@@ -60,18 +60,18 @@ export function PatientGrid({
         <div className="flex items-center gap-6 text-sm">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-sky-500" />
-            <span className="text-slate-600">Male</span>
+            <span className="text-slate-600 dark:text-slate-300">Male</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-pink-500" />
-            <span className="text-slate-600">Female</span>
+            <span className="text-slate-600 dark:text-slate-300">Female</span>
           </div>
         </div>
 
         <div className="text-sm font-medium">
-          <span className="text-sky-600">{visibleMale}</span>
+          <span className="text-sky-600 dark:text-sky-400">{visibleMale}</span>
           <span className="text-slate-400 mx-1">/</span>
-          <span className="text-pink-600">{visibleFemale}</span>
+          <span className="text-pink-600 dark:text-pink-400">{visibleFemale}</span>
           <span className="text-slate-400 ml-2">
             ({((visibleMale / (visibleMale + visibleFemale || 1)) * 100).toFixed(0)}% male)
           </span>
@@ -79,7 +79,7 @@ export function PatientGrid({
       </div>
 
       {/* Patient Grid */}
-      <div className="bg-slate-50 rounded-xl p-4 overflow-hidden">
+      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 overflow-hidden">
         <div className="flex flex-wrap gap-1">
           {shuffled.map((patient, index) => (
             <div
@@ -89,7 +89,7 @@ export function PatientGrid({
                   ? patient.gender === "male"
                     ? "bg-sky-500"
                     : "bg-pink-500"
-                  : "bg-slate-200"
+                  : "bg-slate-200 dark:bg-slate-700"
               }`}
               style={{
                 opacity: index < visibleCount ? 1 : 0.3,
@@ -100,11 +100,11 @@ export function PatientGrid({
       </div>
 
       {/* Summary */}
-      <div className="mt-4 text-center text-sm text-slate-500">
+      <div className="mt-4 text-center text-sm text-slate-500 dark:text-slate-400">
         {visibleCount >= total ? (
           <span>
             Each dot represents one patient in the dataset.{" "}
-            <strong className="text-slate-700">
+            <strong className="text-slate-700 dark:text-slate-200">
               {((femaleCount / total) * 100).toFixed(0)}% are female
             </strong>{" "}
             — expected ~43% based on disease epidemiology.

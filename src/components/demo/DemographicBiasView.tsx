@@ -46,24 +46,24 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
   return (
     <div className="space-y-4">
       {/* Header - Always visible */}
-      <div className="flex items-start justify-between sticky top-0 bg-white/95 backdrop-blur-sm py-4 -mx-4 px-4 z-10 border-b border-slate-100">
+      <div className="flex items-start justify-between sticky top-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm py-4 -mx-4 px-4 z-10 border-b border-slate-100 dark:border-slate-800">
         <div>
           <button
             onClick={onBack}
-            className="text-sm text-slate-500 hover:text-primary mb-1 flex items-center gap-1"
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary mb-1 flex items-center gap-1"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back
           </button>
-          <h1 className="text-xl font-bold text-slate-900">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-slate-50">
             {heartDiseaseMetadata.name}
           </h1>
-          <p className="text-sm text-slate-500">{context.indication}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">{context.indication}</p>
         </div>
         <div className="flex flex-col items-end gap-1">
-          <span className="px-3 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">
+          <span className="px-3 py-1 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 rounded-full">
             Demographic Bias Detected
           </span>
           <span className="text-xs text-slate-400">{context.phase} • {context.therapeuticArea}</span>
@@ -82,7 +82,7 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
           <StatCard label="Regulatory Target" value={context.regulatoryTarget} />
         </div>
 
-        <p className="text-slate-600 text-sm mb-4">
+        <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">
           Review a sample of the enrolled patient population:
         </p>
 
@@ -96,8 +96,8 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
           data={tableData}
           highlightColumn="sex"
           highlightValues={{
-            Male: "bg-sky-100 text-sky-700",
-            Female: "bg-pink-100 text-pink-700",
+            Male: "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300",
+            Female: "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300",
           }}
           maxRows={10}
         />
@@ -108,7 +108,7 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         title="Population Visualization"
         subtitle="Each dot represents one enrolled patient."
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <PatientGrid
             maleCount={stats.genderDistribution.male.count}
             femaleCount={stats.genderDistribution.female.count}
@@ -134,7 +134,7 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
           <RegulatoryBadge type="ema" text="Guideline on subgroup analysis" />
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <ComparisonChart
             data={[
               {
@@ -155,31 +155,31 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
             peerTrialLabel="CV Trial Average"
           />
 
-          <div className="mt-4 pt-3 border-t border-slate-100 space-y-1">
+          <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 space-y-1">
             <p className="text-xs text-slate-400">
-              <strong className="text-slate-500">Disease prevalence:</strong>{" "}
+              <strong className="text-slate-500 dark:text-slate-300">Disease prevalence:</strong>{" "}
               {stats.benchmarks.epidemiological.source.citation}
             </p>
             <p className="text-xs text-slate-400">
-              <strong className="text-slate-500">Peer trial average:</strong>{" "}
+              <strong className="text-slate-500 dark:text-slate-300">Peer trial average:</strong>{" "}
               {stats.benchmarks.peerTrial.source.citation}
             </p>
           </div>
         </div>
 
         <ScrollReveal delay={300} className="mt-6">
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
+          <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-5">
             <div className="flex gap-3">
               <div className="shrink-0 mt-0.5">
-                <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <p className="text-amber-900 font-medium">
+                <p className="text-amber-900 dark:text-amber-200 font-medium">
                   {insight.headline}
                 </p>
-                <p className="text-amber-800 text-sm mt-1">
+                <p className="text-amber-800 dark:text-amber-300 text-sm mt-1">
                   {insight.detail}
                 </p>
               </div>
@@ -194,33 +194,33 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         subtitle="What this imbalance means for your trial conclusions."
       >
         <div className="space-y-4">
-          <div className="bg-white border border-slate-200 rounded-xl p-6">
-            <h4 className="font-medium text-slate-900 mb-3">Endpoint Rates by Sex</h4>
+          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+            <h4 className="font-medium text-slate-900 dark:text-slate-50 mb-3">Endpoint Rates by Sex</h4>
             <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-4 bg-slate-50 rounded-lg">
-                <div className="text-3xl font-bold text-sky-600">
+              <div className="text-center p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                <div className="text-3xl font-bold text-sky-600 dark:text-sky-400">
                   {stats.heartDiseaseByGender.male.rate.toFixed(0)}%
                 </div>
-                <div className="text-sm text-slate-600 mt-1">Male event rate</div>
+                <div className="text-sm text-slate-600 dark:text-slate-300 mt-1">Male event rate</div>
                 <div className="text-xs text-slate-400">n={stats.heartDiseaseByGender.male.total}</div>
               </div>
-              <div className="text-center p-4 bg-slate-50 rounded-lg">
-                <div className="text-3xl font-bold text-pink-600">
+              <div className="text-center p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                <div className="text-3xl font-bold text-pink-600 dark:text-pink-400">
                   {stats.heartDiseaseByGender.female.rate.toFixed(0)}%
                 </div>
-                <div className="text-sm text-slate-600 mt-1">Female event rate</div>
+                <div className="text-sm text-slate-600 dark:text-slate-300 mt-1">Female event rate</div>
                 <div className="text-xs text-slate-400">n={stats.heartDiseaseByGender.female.total}</div>
               </div>
             </div>
           </div>
 
           <ScrollReveal delay={200}>
-            <div className="bg-red-50 border border-red-200 rounded-xl p-5">
-              <h4 className="font-medium text-red-900 mb-2">Generalizability Risk</h4>
-              <p className="text-red-800 text-sm">
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-5">
+              <h4 className="font-medium text-red-900 dark:text-red-200 mb-2">Generalizability Risk</h4>
+              <p className="text-red-800 dark:text-red-300 text-sm">
                 {insight.implication}
               </p>
-              <p className="text-red-700 text-xs mt-2">
+              <p className="text-red-700 dark:text-red-400 text-xs mt-2">
                 Regulators may require label restrictions or post-marketing studies to address this gap.
               </p>
             </div>
@@ -233,7 +233,7 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         title="Trial vs Peer Comparison"
         subtitle="How does this trial compare to the average cardiovascular Phase III trial?"
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <RadarChart
             axes={heartDiseaseRadarAxes}
             trialLabel="This Trial"
@@ -247,7 +247,7 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         title="Where Bias Enters the Trial"
         subtitle="Mapping detected biases to the trial lifecycle."
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <BiasTimeline
             stages={trialStages}
             activeHighlights={heartDiseaseActiveBiases}
@@ -256,8 +256,8 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         </div>
 
         <ScrollReveal delay={200} className="mt-6">
-          <div className="bg-white border border-slate-200 rounded-xl p-6">
-            <h4 className="font-medium text-slate-900 mb-4">How This Bias Cascades</h4>
+          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+            <h4 className="font-medium text-slate-900 dark:text-slate-50 mb-4">How This Bias Cascades</h4>
             <BiasInteractions
               interactions={heartDiseaseInteractions}
               accentColor="amber"
@@ -271,7 +271,7 @@ export function DemographicBiasView({ onBack }: DemographicBiasViewProps) {
         title="Early Detection Advantage"
         subtitle="Clinequal's prospective monitoring catches bias during enrollment, not at submission."
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <ProspectiveTimeline milestones={heartDiseaseProspective} />
         </div>
       </WalkthroughSection>

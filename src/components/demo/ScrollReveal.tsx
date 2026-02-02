@@ -62,10 +62,10 @@ export function WalkthroughSection({
       {(title || subtitle) && (
         <div className="mb-8">
           {title && (
-            <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">{title}</h2>
           )}
           {subtitle && (
-            <p className="text-slate-600 mt-1">{subtitle}</p>
+            <p className="text-slate-600 dark:text-slate-300 mt-1">{subtitle}</p>
           )}
         </div>
       )}

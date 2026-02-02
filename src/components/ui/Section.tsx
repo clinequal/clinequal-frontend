@@ -10,8 +10,8 @@ interface SectionProps {
 }
 
 const backgroundStyles: Record<SectionBackground, string> = {
-  white: "bg-white text-slate-900",
-  gray: "bg-slate-50 text-slate-900",
+  white: "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50",
+  gray: "bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50",
   dark: "bg-slate-900 text-slate-50",
   primary: "bg-primary text-white",
 };
@@ -36,11 +36,10 @@ export function Section({
     >
       {hasTexture[background] && (
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none opacity-[0.4] dark:opacity-[0.15]"
           style={{
             backgroundImage: "radial-gradient(circle, #94A3B8 0.6px, transparent 0.6px)",
             backgroundSize: "18px 18px",
-            opacity: 0.4,
           }}
         />
       )}

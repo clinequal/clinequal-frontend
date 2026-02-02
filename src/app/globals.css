@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================
    CLINEQUAL DESIGN SYSTEM
    ============================================ */
@@ -41,6 +44,13 @@
   --section-primary: var(--primary);
 }
 
+.dark {
+  --background: var(--slate-900);
+  --background-alt: var(--slate-800);
+  --foreground: var(--slate-50);
+  --foreground-muted: var(--slate-400);
+}
+
 @theme inline {
   /* Colors */
   --color-primary: var(--primary);
@@ -71,16 +81,6 @@
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
-/* Dark mode preparation (not active yet, but ready) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: var(--slate-900);
-    --background-alt: var(--slate-800);
-    --foreground: var(--slate-50);
-    --foreground-muted: var(--slate-400);
-  }
-}
-
 /* Base Styles */
 body {
   background: var(--background);
@@ -97,5 +97,27 @@ html {
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: var(--slate-800);
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--slate-600);
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--slate-500);
+}
+/* Firefox dark scrollbar */
+.dark * {
+  scrollbar-color: var(--slate-600) var(--slate-800);
+  scrollbar-width: thin;
 }
 

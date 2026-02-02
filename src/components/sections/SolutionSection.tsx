@@ -52,10 +52,10 @@ export function SolutionSection() {
 
       <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#1a3a6b] to-primary bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-dark to-primary-light dark:from-slate-300 dark:to-primary-light bg-clip-text text-transparent">
             The First End-to-End Bias Management Platform
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-slate-600 dark:text-slate-300">
             Clinequal integrates detection, quantification, explanation, and correction into a single workflow. Unlike EDC systems or generic data cleaning tools, we address systematic bias at its source with regulatory-ready outputs.
           </p>
         </div>
@@ -64,13 +64,13 @@ export function SolutionSection() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
+              className="bg-white dark:bg-slate-800/80 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
             >
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary/25 transition-all duration-300">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-slate-600">{feature.description}</p>
+              <p className="text-slate-600 dark:text-slate-300">{feature.description}</p>
             </div>
           ))}
         </div>

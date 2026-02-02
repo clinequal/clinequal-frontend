@@ -73,11 +73,11 @@ export function PilotRequestModal({ isOpen, onClose }: PilotRequestModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 transition-colors"
+          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
           aria-label="Close"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,13 +88,13 @@ export function PilotRequestModal({ isOpen, onClose }: PilotRequestModalProps) {
         <div className="p-6 md:p-8">
           {status === "success" ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Request Received</h3>
-              <p className="text-slate-600 mb-6">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 mb-2">Request Received</h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-6">
                 Thank you for your interest in Clinequal. We&apos;ll be in touch within 24 hours.
               </p>
               <Button onClick={handleClose}>Close</Button>
@@ -102,15 +102,15 @@ export function PilotRequestModal({ isOpen, onClose }: PilotRequestModalProps) {
           ) : (
             <>
               <div className="mb-6">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Request a Pilot</h3>
-                <p className="text-slate-600 text-sm">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 mb-2">Request a Pilot</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">
                   Tell us about your trial and we&apos;ll set up a personalized pilot program.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
+                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Name *
                   </label>
                   <input
@@ -120,13 +120,13 @@ export function PilotRequestModal({ isOpen, onClose }: PilotRequestModalProps) {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                    className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                     placeholder="Your name"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Work Email *
                   </label>
                   <input
@@ -136,13 +136,13 @@ export function PilotRequestModal({ isOpen, onClose }: PilotRequestModalProps) {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                    className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                     placeholder="you@company.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-1">
+                  <label htmlFor="company" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Company
                   </label>
                   <input
@@ -151,19 +151,19 @@ export function PilotRequestModal({ isOpen, onClose }: PilotRequestModalProps) {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                    className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                     placeholder="Company name (optional)"
                   />
                 </div>
 
                 {status === "error" && (
-                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                  <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-sm">
                     {errorMessage}
                   </div>
                 )}
 
                 <div className="flex items-center justify-between pt-2">
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     * Required fields
                   </p>
                   <Button type="submit" disabled={status === "submitting"}>

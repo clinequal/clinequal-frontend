@@ -56,24 +56,24 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
   return (
     <div className="space-y-4">
       {/* Header - Always visible */}
-      <div className="flex items-start justify-between sticky top-0 bg-white/95 backdrop-blur-sm py-4 -mx-4 px-4 z-10 border-b border-slate-100">
+      <div className="flex items-start justify-between sticky top-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm py-4 -mx-4 px-4 z-10 border-b border-slate-100 dark:border-slate-800">
         <div>
           <button
             onClick={onBack}
-            className="text-sm text-slate-500 hover:text-primary mb-1 flex items-center gap-1"
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary mb-1 flex items-center gap-1"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back
           </button>
-          <h1 className="text-xl font-bold text-slate-900">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-slate-50">
             {depressionTrialMetadata.name}
           </h1>
-          <p className="text-sm text-slate-500">{context.indication}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">{context.indication}</p>
         </div>
         <div className="flex flex-col items-end gap-1">
-          <span className="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
+          <span className="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 rounded-full">
             Attrition Bias Detected
           </span>
           <span className="text-xs text-slate-400">{context.phase} • {context.therapeuticArea}</span>
@@ -92,7 +92,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
           <StatCard label="Regulatory Target" value={context.regulatoryTarget} />
         </div>
 
-        <p className="text-slate-600 text-sm mb-4">
+        <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">
           Review patient disposition and outcomes:
         </p>
 
@@ -108,8 +108,8 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
           data={tableData}
           highlightColumn="status"
           highlightValues={{
-            Completed: "bg-green-100 text-green-700",
-            Discontinued: "bg-red-100 text-red-700",
+            Completed: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+            Discontinued: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
           }}
           maxRows={10}
         />
@@ -120,7 +120,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         title="Patient Disposition Over Time"
         subtitle="Visualize when and which patients discontinue the study."
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <PatientJourney patients={journeyPatients} maxWeeks={12} />
         </div>
 
@@ -142,7 +142,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
           <RegulatoryBadge type="cochrane" text="High risk - attrition bias" />
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <BarChart
             data={[
               { label: "Low SES", value: stats.byIncomeLevel.low.dropoutRate, color: "#ef4444" },
@@ -154,18 +154,18 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         </div>
 
         <ScrollReveal delay={300} className="mt-6">
-          <div className="bg-purple-50 border border-purple-200 rounded-xl p-5">
+          <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-5">
             <div className="flex gap-3">
               <div className="shrink-0 mt-0.5">
-                <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <p className="text-purple-900 font-medium">
+                <p className="text-purple-900 dark:text-purple-200 font-medium">
                   Low-SES patients discontinue at ~5x the rate of high-SES patients.
                 </p>
-                <p className="text-purple-800 text-sm mt-1">
+                <p className="text-purple-800 dark:text-purple-300 text-sm mt-1">
                   This non-random attrition introduces systematic bias that inflates apparent treatment efficacy.
                 </p>
               </div>
@@ -179,32 +179,32 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         title="Impact on Efficacy Conclusions"
         subtitle="How differential attrition inflates reported treatment effectiveness."
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* Completers Only */}
             <div className="text-center">
-              <div className="text-xs text-slate-500 uppercase tracking-wide mb-2">Completers Analysis</div>
-              <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-green-100 mb-3">
-                <span className="text-4xl font-bold text-green-700">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Completers Analysis</div>
+              <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-green-100 dark:bg-green-900/30 mb-3">
+                <span className="text-4xl font-bold text-green-700 dark:text-green-400">
                   {insight.reportedRate.toFixed(0)}%
                 </span>
               </div>
-              <div className="text-slate-700 font-medium">Remission Rate</div>
-              <div className="text-sm text-slate-500 mt-1">
+              <div className="text-slate-700 dark:text-slate-200 font-medium">Remission Rate</div>
+              <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                 {stats.remissionRates.completersOnly.remitted}/{stats.remissionRates.completersOnly.total} patients
               </div>
             </div>
 
             {/* ITT */}
             <div className="text-center">
-              <div className="text-xs text-slate-500 uppercase tracking-wide mb-2">Intention-to-Treat</div>
-              <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-amber-100 mb-3">
-                <span className="text-4xl font-bold text-amber-700">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Intention-to-Treat</div>
+              <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-3">
+                <span className="text-4xl font-bold text-amber-700 dark:text-amber-400">
                   {insight.actualRate.toFixed(0)}%
                 </span>
               </div>
-              <div className="text-slate-700 font-medium">Remission Rate</div>
-              <div className="text-sm text-slate-500 mt-1">
+              <div className="text-slate-700 dark:text-slate-200 font-medium">Remission Rate</div>
+              <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                 {stats.remissionRates.intentionToTreat.remitted}/{stats.remissionRates.intentionToTreat.total} patients
               </div>
             </div>
@@ -212,14 +212,14 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         </div>
 
         <ScrollReveal delay={300} className="mt-6">
-          <div className="bg-red-50 border border-red-200 rounded-xl p-5">
-            <h4 className="font-medium text-red-900 mb-2">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-5">
+            <h4 className="font-medium text-red-900 dark:text-red-200 mb-2">
               {stats.remissionRates.difference.toFixed(0)} percentage point efficacy inflation
             </h4>
-            <p className="text-red-800 text-sm">
+            <p className="text-red-800 dark:text-red-300 text-sm">
               {insight.implication}
             </p>
-            <p className="text-red-700 text-xs mt-2">
+            <p className="text-red-700 dark:text-red-400 text-xs mt-2">
               FDA reviewers routinely request ITT analyses and sensitivity analyses for missing data.
               Unexplained discrepancies between completer and ITT results raise regulatory concerns.
             </p>
@@ -232,7 +232,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         title="Trial vs Peer Comparison"
         subtitle="How does this trial compare to the average MDD Phase II/III trial?"
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <RadarChart
             axes={depressionTrialRadarAxes}
             trialLabel="This Trial"
@@ -246,7 +246,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         title="Where Bias Enters the Trial"
         subtitle="Mapping detected biases to the trial lifecycle."
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <BiasTimeline
             stages={trialStages}
             activeHighlights={depressionTrialActiveBiases}
@@ -255,8 +255,8 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         </div>
 
         <ScrollReveal delay={200} className="mt-6">
-          <div className="bg-white border border-slate-200 rounded-xl p-6">
-            <h4 className="font-medium text-slate-900 mb-4">How This Bias Cascades</h4>
+          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+            <h4 className="font-medium text-slate-900 dark:text-slate-50 mb-4">How This Bias Cascades</h4>
             <BiasInteractions
               interactions={depressionTrialInteractions}
               accentColor="purple"
@@ -270,7 +270,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         title="Early Detection Advantage"
         subtitle="Clinequal's prospective monitoring catches attrition bias during the trial, not at review."
       >
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
           <ProspectiveTimeline milestones={depressionTrialProspective} />
         </div>
       </WalkthroughSection>
@@ -297,36 +297,36 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         title="Subgroup Analysis"
         subtitle="Efficacy estimates by socioeconomic stratum."
       >
-        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left py-3 px-4 font-medium text-slate-600">Subgroup</th>
-                <th className="text-right py-3 px-4 font-medium text-slate-600">N</th>
-                <th className="text-right py-3 px-4 font-medium text-slate-600">Completed</th>
-                <th className="text-right py-3 px-4 font-medium text-slate-600">Attrition</th>
-                <th className="text-right py-3 px-4 font-medium text-green-600">Completers</th>
-                <th className="text-right py-3 px-4 font-medium text-amber-600">ITT</th>
+              <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+                <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-300">Subgroup</th>
+                <th className="text-right py-3 px-4 font-medium text-slate-600 dark:text-slate-300">N</th>
+                <th className="text-right py-3 px-4 font-medium text-slate-600 dark:text-slate-300">Completed</th>
+                <th className="text-right py-3 px-4 font-medium text-slate-600 dark:text-slate-300">Attrition</th>
+                <th className="text-right py-3 px-4 font-medium text-green-600 dark:text-green-400">Completers</th>
+                <th className="text-right py-3 px-4 font-medium text-amber-600 dark:text-amber-400">ITT</th>
               </tr>
             </thead>
             <tbody>
               {depressionTrialAttritionBias.map((row) => (
-                <tr key={row.group} className="border-b border-slate-100">
-                  <td className="py-3 px-4 font-medium">{row.group}</td>
-                  <td className="py-3 px-4 text-right text-slate-600">{row.totalPatients}</td>
-                  <td className="py-3 px-4 text-right text-slate-600">{row.completedPatients}</td>
+                <tr key={row.group} className="border-b border-slate-100 dark:border-slate-700/50">
+                  <td className="py-3 px-4 font-medium text-slate-900 dark:text-slate-50">{row.group}</td>
+                  <td className="py-3 px-4 text-right text-slate-600 dark:text-slate-300">{row.totalPatients}</td>
+                  <td className="py-3 px-4 text-right text-slate-600 dark:text-slate-300">{row.completedPatients}</td>
                   <td className="py-3 px-4 text-right">
                     <span className={`font-medium ${
-                      row.dropoutRate > 30 ? "text-red-600" :
-                      row.dropoutRate > 15 ? "text-amber-600" : "text-green-600"
+                      row.dropoutRate > 30 ? "text-red-600 dark:text-red-400" :
+                      row.dropoutRate > 15 ? "text-amber-600 dark:text-amber-400" : "text-green-600 dark:text-green-400"
                     }`}>
                       {row.dropoutRate.toFixed(0)}%
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-right text-green-600">
+                  <td className="py-3 px-4 text-right text-green-600 dark:text-green-400">
                     {row.remissionRateCompleters.toFixed(0)}%
                   </td>
-                  <td className="py-3 px-4 text-right text-amber-600 font-medium">
+                  <td className="py-3 px-4 text-right text-amber-600 dark:text-amber-400 font-medium">
                     {row.remissionRateITT.toFixed(0)}%
                   </td>
                 </tr>
@@ -335,7 +335,7 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
           </table>
         </div>
 
-        <p className="text-sm text-slate-500 mt-4">
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-4">
           <strong>ITT (Intention-to-Treat):</strong> Conservative estimate treating all discontinuations
           as treatment failures. Required by FDA for primary efficacy analysis per ICH E9 guidelines.
         </p>

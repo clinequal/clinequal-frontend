@@ -42,10 +42,10 @@ export function HowItWorksSection() {
 
       <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#1a3a6b] to-primary bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-dark to-primary-light dark:from-slate-300 dark:to-primary-light bg-clip-text text-transparent">
             From Dataset Upload to Regulatory Submission
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-slate-600 dark:text-slate-300">
             Six integrated modules transform biased trial data into defensible, representative datasets with full documentation for submission.
           </p>
         </div>
@@ -54,14 +54,14 @@ export function HowItWorksSection() {
           {steps.map((step, index) => (
             <div
               key={step.number}
-              className="relative p-6 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
+              className="relative p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
             >
               {/* Step number */}
               <div className="text-5xl font-bold bg-gradient-to-br from-primary/25 to-primary/5 bg-clip-text text-transparent group-hover:from-primary/40 group-hover:to-primary/15 transition-all mb-2">
                 {step.number}
               </div>
               <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-              <p className="text-slate-600 text-sm">{step.description}</p>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">{step.description}</p>
 
               {/* Connector arrow (desktop, except last in row) */}
               {index % 3 !== 2 && index !== steps.length - 1 && (

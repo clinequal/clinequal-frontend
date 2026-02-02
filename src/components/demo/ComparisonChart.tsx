@@ -25,16 +25,16 @@ function BarRow({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="text-xs text-slate-500 w-32 text-right shrink-0 hidden sm:block">
+      <span className="text-xs text-slate-500 dark:text-slate-400 w-32 text-right shrink-0 hidden sm:block">
         {label}
       </span>
-      <div className="flex-1 h-5 bg-slate-100 rounded overflow-hidden">
+      <div className="flex-1 h-5 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden">
         <div
           className={`h-full ${color} rounded transition-all duration-500`}
           style={{ width: `${value}%` }}
         />
       </div>
-      <span className="text-xs font-medium text-slate-700 w-12 text-right">
+      <span className="text-xs font-medium text-slate-700 dark:text-slate-200 w-12 text-right">
         {value.toFixed(1)}%
       </span>
     </div>
@@ -42,9 +42,9 @@ function BarRow({
 }
 
 const trafficLightColors = {
-  green: { dot: "bg-green-500", text: "text-green-600" },
-  amber: { dot: "bg-amber-500", text: "text-amber-600" },
-  red: { dot: "bg-red-500", text: "text-red-600" },
+  green: { dot: "bg-green-500", text: "text-green-600 dark:text-green-400" },
+  amber: { dot: "bg-amber-500", text: "text-amber-600 dark:text-amber-400" },
+  red: { dot: "bg-red-500", text: "text-red-600 dark:text-red-400" },
 };
 
 export function ComparisonChart({
@@ -61,16 +61,16 @@ export function ComparisonChart({
       <div className="flex flex-wrap gap-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-primary" />
-          <span className="text-slate-600">{trialLabel}</span>
+          <span className="text-slate-600 dark:text-slate-300">{trialLabel}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-slate-400" />
-          <span className="text-slate-600">{epidemiologicalLabel}</span>
+          <span className="text-slate-600 dark:text-slate-300">{epidemiologicalLabel}</span>
         </div>
         {hasPeerTrial && (
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-amber-400" />
-            <span className="text-slate-600">{peerTrialLabel}</span>
+            <span className="text-slate-600 dark:text-slate-300">{peerTrialLabel}</span>
           </div>
         )}
       </div>
@@ -86,10 +86,10 @@ export function ComparisonChart({
           return (
             <div
               key={item.label}
-              className="space-y-1.5 pb-5 border-b border-slate-100 last:border-0 last:pb-0"
+              className="space-y-1.5 pb-5 border-b border-slate-100 dark:border-slate-700/50 last:border-0 last:pb-0"
             >
               <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-slate-700">
+                <span className="font-medium text-slate-700 dark:text-slate-200">
                   {item.label}
                 </span>
                 <div className="flex items-center gap-2">

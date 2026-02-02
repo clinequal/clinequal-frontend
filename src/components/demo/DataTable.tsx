@@ -26,15 +26,15 @@ export function DataTable({
   const hasMore = data.length > maxRows;
 
   return (
-    <div className="border border-slate-200 rounded-xl overflow-hidden">
+    <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200">
+            <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className={`text-left py-3 px-4 font-medium text-slate-600 whitespace-nowrap ${
+                  className={`text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-300 whitespace-nowrap ${
                     col.highlight ? "bg-primary/5" : ""
                   }`}
                 >
@@ -50,7 +50,7 @@ export function DataTable({
             {displayData.map((row, index) => (
               <tr
                 key={index}
-                className="border-b border-slate-100 hover:bg-slate-50 transition-colors"
+                className="border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
               >
                 {columns.map((col) => {
                   const value = row[col.key];
@@ -74,7 +74,7 @@ export function DataTable({
                           {stringValue}
                         </span>
                       ) : (
-                        <span className="text-slate-700">{stringValue}</span>
+                        <span className="text-slate-700 dark:text-slate-200">{stringValue}</span>
                       )}
                     </td>
                   );
@@ -86,7 +86,7 @@ export function DataTable({
       </div>
 
       {hasMore && (
-        <div className="bg-slate-50 px-4 py-3 border-t border-slate-200">
+        <div className="bg-slate-50 dark:bg-slate-800 px-4 py-3 border-t border-slate-200 dark:border-slate-700">
           <button
             onClick={() => setShowAll(!showAll)}
             className="text-sm text-primary hover:text-primary-dark font-medium"
@@ -96,7 +96,7 @@ export function DataTable({
               : `Show all ${data.length} rows`}
           </button>
           {!showAll && (
-            <span className="text-sm text-slate-500 ml-2">
+            <span className="text-sm text-slate-500 dark:text-slate-400 ml-2">
               Showing {maxRows} of {data.length}
             </span>
           )}

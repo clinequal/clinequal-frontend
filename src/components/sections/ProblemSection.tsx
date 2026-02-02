@@ -55,10 +55,10 @@ export function ProblemSection() {
 
       <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#1a3a6b] to-primary bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-dark to-primary-light dark:from-slate-300 dark:to-primary-light bg-clip-text text-transparent">
             Bias Threatens Trial Validity
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-slate-600 dark:text-slate-300">
             From demographic underrepresentation to methodological flaws, bias compromises scientific validity, distorts treatment effects, and triggers regulatory rejection. Most issues remain invisible until submission—when it&apos;s too late.
           </p>
         </div>
@@ -68,12 +68,12 @@ export function ProblemSection() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="text-center p-6 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              className="text-center p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
               <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
                 {stat.value}
               </div>
-              <p className="text-slate-600">{stat.label}</p>
+              <p className="text-slate-600 dark:text-slate-300">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -87,17 +87,17 @@ export function ProblemSection() {
             {biasTypes.map((bias, index) => (
               <div
                 key={bias.name}
-                className="p-6 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
+                className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
               >
                 <div className="flex items-start gap-4">
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     {index + 1}
                   </span>
                   <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-slate-50 mb-2">
                       {bias.name}
                     </h4>
-                    <p className="text-slate-600 text-sm">{bias.description}</p>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm">{bias.description}</p>
                   </div>
                 </div>
               </div>

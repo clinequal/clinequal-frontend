@@ -24,13 +24,13 @@ export function BarChart({
       {data.map((item, index) => (
         <div key={item.label}>
           <div className="flex justify-between text-sm mb-1">
-            <span className="font-medium text-slate-700">{item.label}</span>
-            <span className="text-slate-600">
+            <span className="font-medium text-slate-700 dark:text-slate-200">{item.label}</span>
+            <span className="text-slate-600 dark:text-slate-300">
               {showPercentage ? `${item.value.toFixed(1)}%` : item.value}
             </span>
           </div>
           <div
-            className="w-full bg-slate-100 rounded-full overflow-hidden"
+            className="w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden"
             style={{ height }}
           >
             <div

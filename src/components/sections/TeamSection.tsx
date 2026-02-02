@@ -55,8 +55,8 @@ export function TeamSection() {
 
       <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#1a3a6b] to-primary bg-clip-text text-transparent">Leadership Team</h2>
-          <p className="text-lg text-slate-600">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-dark to-primary-light dark:from-slate-300 dark:to-primary-light bg-clip-text text-transparent">Leadership Team</h2>
+          <p className="text-lg text-slate-600 dark:text-slate-300">
             Expertise spanning AI/ML, bioinformatics, healthcare data science, software engineering, and regulatory compliance. Advised by scientists in the top 2% most cited globally.
           </p>
         </div>
@@ -65,10 +65,10 @@ export function TeamSection() {
           {team.map((member) => (
             <div
               key={member.name}
-              className="text-center group bg-white rounded-xl p-5 border border-primary/20 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-1 hover:border-primary/40 transition-all duration-300"
+              className="text-center group bg-white dark:bg-slate-800/80 rounded-xl p-5 border border-primary/20 dark:border-primary/30 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-1 hover:border-primary/40 transition-all duration-300"
             >
               {/* Photo */}
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-slate-100 border-2 border-slate-200 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 overflow-hidden relative">
+              <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-slate-100 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300 overflow-hidden relative">
                 {member.image ? (
                   <Image
                     src={member.image}
@@ -85,9 +85,9 @@ export function TeamSection() {
                   </div>
                 )}
               </div>
-              <h3 className="font-semibold text-slate-900 text-sm">{member.name}</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-sm">{member.name}</h3>
               <p className="text-primary text-sm font-medium">{member.role}</p>
-              <p className="text-slate-500 text-xs mt-1 leading-relaxed">{member.expertise}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1 leading-relaxed">{member.expertise}</p>
               <a
                 href={member.linkedin}
                 target="_blank"

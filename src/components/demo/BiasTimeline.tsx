@@ -12,19 +12,19 @@ const accentStyles = {
   amber: {
     ring: "ring-amber-400",
     bg: "bg-amber-500",
-    badge: "bg-amber-100 text-amber-800 border-amber-200",
+    badge: "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800",
     pulse: "bg-amber-400",
   },
   purple: {
     ring: "ring-purple-400",
     bg: "bg-purple-500",
-    badge: "bg-purple-100 text-purple-800 border-purple-200",
+    badge: "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800",
     pulse: "bg-purple-400",
   },
   red: {
     ring: "ring-red-400",
     bg: "bg-red-500",
-    badge: "bg-red-100 text-red-800 border-red-200",
+    badge: "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800",
     pulse: "bg-red-400",
   },
 };
@@ -66,7 +66,7 @@ export function BiasTimeline({
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold relative z-10 ${
                       isActive
                         ? `${styles.bg} text-white ring-4 ${styles.ring} ring-opacity-30`
-                        : "bg-slate-200 text-slate-500"
+                        : "bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     {i + 1}
@@ -76,7 +76,7 @@ export function BiasTimeline({
                 {/* Stage label */}
                 <span
                   className={`text-xs mt-2 text-center leading-tight ${
-                    isActive ? "font-semibold text-slate-900" : "text-slate-500"
+                    isActive ? "font-semibold text-slate-900 dark:text-slate-50" : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {stage.label}
@@ -91,7 +91,7 @@ export function BiasTimeline({
 
                 {/* Description */}
                 {highlight && (
-                  <p className="text-xs text-slate-500 mt-1 text-center max-w-[120px]">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 text-center max-w-[120px]">
                     {highlight.description}
                   </p>
                 )}
@@ -100,8 +100,8 @@ export function BiasTimeline({
               {/* Connector line */}
               {!isLast && (
                 <div className="flex items-center h-8 flex-shrink-0 -mx-1">
-                  <div className="w-full h-0.5 bg-slate-200 min-w-[20px]" />
-                  <svg className="w-3 h-3 text-slate-300 flex-shrink-0 -ml-1" viewBox="0 0 12 12">
+                  <div className="w-full h-0.5 bg-slate-200 dark:bg-slate-700 min-w-[20px]" />
+                  <svg className="w-3 h-3 text-slate-300 dark:text-slate-600 flex-shrink-0 -ml-1" viewBox="0 0 12 12">
                     <path d="M2 2 L10 6 L2 10" fill="none" stroke="currentColor" strokeWidth={2} />
                   </svg>
                 </div>
