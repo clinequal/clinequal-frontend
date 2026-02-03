@@ -11,9 +11,9 @@ export default function TermsAndConditionsPage() {
   return (
     <Section background="white">
       <Container>
-        <div className="max-w-3xl mx-auto prose prose-slate">
+        <div className="max-w-3xl mx-auto prose prose-slate dark:prose-invert">
           <h1>Terms and Conditions</h1>
-          <p className="text-slate-500">Last Updated: August 11, 2025</p>
+          <p className="text-slate-500 dark:text-slate-400">Last Updated: August 11, 2025</p>
 
           <h2>1. Introduction</h2>
           <p>

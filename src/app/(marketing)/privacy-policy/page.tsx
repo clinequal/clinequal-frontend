@@ -11,7 +11,7 @@ export default function PrivacyPolicyPage() {
   return (
     <Section background="white">
       <Container>
-        <div className="max-w-3xl mx-auto prose prose-slate">
+        <div className="max-w-3xl mx-auto prose prose-slate dark:prose-invert">
           <h1>Privacy Policy</h1>
 
           <h2>1. Introduction</h2>
