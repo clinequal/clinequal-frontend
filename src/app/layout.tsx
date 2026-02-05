@@ -24,6 +24,31 @@ export const metadata: Metadata = {
   icons: {
     icon: "/Payoff.svg",
   },
+  metadataBase: new URL("https://clinequal.com"),
+  openGraph: {
+    title: "Clinequal",
+    description:
+      "Detect and correct bias in clinical trial data. Ensure equitable healthcare outcomes for all populations.",
+    url: "https://clinequal.com",
+    siteName: "Clinequal",
+    images: [
+      {
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Clinequal - Clinical Trial Bias Detection",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Clinequal",
+    description:
+      "Detect and correct bias in clinical trial data. Ensure equitable healthcare outcomes for all populations.",
+    images: ["/preview.png"],
+  },
 };
 
 export default function RootLayout({
@@ -33,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
