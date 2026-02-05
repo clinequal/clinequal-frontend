@@ -6,7 +6,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
     setIsMobile(mq.matches);
@@ -185,6 +185,31 @@ export function BiasScrollSection() {
             {biasTypes.map((bias) => (
               <StaticBiasPill key={bias.name} name={bias.name} category={bias.category} />
             ))}
+          </div>
+          <div className="text-center mt-4 md:mt-8">
+            <p className="text-primary font-semibold text-base md:text-lg">
+              Detected automatically. Explained clearly.
+            </p>
+          </div>
+        </Container>
+      </Section>
+    );
+  }
+
+  // SSR/initial render: show static version until we know mobile/desktop
+  if (isMobile === null) {
+    return (
+      <Section background="dark" className="relative overflow-hidden">
+        <Container>
+          <div className="text-center mb-4 md:mb-8">
+            <div className="text-5xl md:text-7xl font-bold text-white mb-1 md:mb-2">67</div>
+            <h2 className="text-xl md:text-3xl font-bold mb-2 md:mb-4 text-white">
+              Documented Bias Types
+            </h2>
+            <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
+              Your team checks for a handful. Regulators catch a few more.
+              We systematically detect all of them.
+            </p>
           </div>
           <div className="text-center mt-4 md:mt-8">
             <p className="text-primary font-semibold text-base md:text-lg">
