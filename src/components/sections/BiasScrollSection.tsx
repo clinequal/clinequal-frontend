@@ -1,9 +1,21 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion, MotionValue } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useReducedMotion, MotionValue, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
 
 const biasTypes = [
   // Population & Selection (blue)
@@ -142,6 +154,8 @@ function StaticBiasPill({ name, category }: { name: string; category: string }) 
 export function BiasScrollSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -182,6 +196,84 @@ export function BiasScrollSection() {
     );
   }
 
+  // Mobile: collapsible view
+  if (isMobile) {
+    return (
+      <Section background="dark" className="relative overflow-hidden">
+        {/* Grid texture */}
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="bias-grid-mobile" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#bias-grid-mobile)" />
+          </svg>
+        </div>
+
+        <Container className="relative">
+          {/* Header */}
+          <div className="text-center mb-4">
+            <div className="text-5xl font-bold text-white mb-1">67</div>
+            <h2 className="text-xl font-bold mb-2 text-white">
+              Documented Bias Types
+            </h2>
+            <p className="text-base text-slate-400 max-w-2xl mx-auto">
+              Your team checks for a handful. Regulators catch a few more.
+              We systematically detect all of them.
+            </p>
+          </div>
+
+          {/* Expand/collapse button */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center justify-center gap-2 mx-auto mb-4 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium hover:bg-white/20 transition-colors"
+          >
+            <span>{isExpanded ? "Hide all biases" : "View all 67 biases"}</span>
+            <motion.svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </motion.svg>
+          </button>
+
+          {/* Collapsible bias pills */}
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="flex flex-wrap justify-center gap-1.5 max-w-5xl mx-auto pb-4">
+                  {biasTypes.map((bias) => (
+                    <StaticBiasPill key={bias.name} name={bias.name} category={bias.category} />
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Footer message */}
+          <div className="text-center mt-4">
+            <p className="text-primary font-semibold text-base">
+              Detected automatically. Explained clearly.
+            </p>
+          </div>
+        </Container>
+      </Section>
+    );
+  }
+
+  // Desktop: scroll-driven animation
   return (
     <div ref={containerRef} className="relative">
       <Section background="dark" className="relative overflow-hidden">
@@ -203,24 +295,24 @@ export function BiasScrollSection() {
 
         <Container className="relative">
           {/* Header */}
-          <div className="text-center mb-4 md:mb-8">
+          <div className="text-center mb-8">
             <motion.div
-              className="text-5xl md:text-7xl font-bold text-white mb-1 md:mb-2"
+              className="text-7xl font-bold text-white mb-2"
               style={{ opacity: useTransform(scrollYProgress, [0, 0.2], [0.3, 1]) }}
             >
               <motion.span>{roundedCount}</motion.span>
             </motion.div>
-            <h2 className="text-xl md:text-3xl font-bold mb-2 md:mb-4 text-white">
+            <h2 className="text-3xl font-bold mb-4 text-white">
               Documented Bias Types
             </h2>
-            <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
               Your team checks for a handful. Regulators catch a few more.
               We systematically detect all of them.
             </p>
           </div>
 
           {/* Bias pills grid */}
-          <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 max-w-5xl mx-auto md:min-h-[300px]">
+          <div className="flex flex-wrap justify-center gap-2 max-w-5xl mx-auto min-h-[300px]">
             {biasTypes.map((bias, index) => (
               <BiasPill
                 key={bias.name}
@@ -234,12 +326,12 @@ export function BiasScrollSection() {
 
           {/* Footer message */}
           <motion.div
-            className="text-center mt-4 md:mt-8"
+            className="text-center mt-8"
             style={{
               opacity: useTransform(scrollYProgress, [0.5, 0.8], [0, 1])
             }}
           >
-            <p className="text-primary font-semibold text-base md:text-lg">
+            <p className="text-primary font-semibold text-lg">
               Detected automatically. Explained clearly.
             </p>
           </motion.div>
