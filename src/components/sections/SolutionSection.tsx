@@ -3,9 +3,9 @@ import { Container } from "@/components/ui/Container";
 
 const features = [
   {
-    title: "Bias Scanner",
+    title: "Detect",
     description:
-      "Automated detection of demographic imbalances and methodological flaws: population underrepresentation, randomization issues, blinding gaps, attrition patterns, and selective reporting.",
+      "Continuous scanning across all 67 bias types. Issues surface as they emerge, not at submission.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -13,9 +13,9 @@ const features = [
     ),
   },
   {
-    title: "Quantification & Explainability",
+    title: "Explain",
     description:
-      "Fairness metrics quantify bias magnitude and statistical significance. Explainable AI (XAI) traces root causes to specific enrollment sites, inclusion criteria, or protocol design decisions.",
+      "Explainable AI traces each bias to its root cause—site selection, protocol design, or enrollment patterns.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -23,9 +23,9 @@ const features = [
     ),
   },
   {
-    title: "Correction & Simulation",
+    title: "Simulate",
     description:
-      "Evidence-based correction strategies: statistical weighting, subsampling, targeted enrollment recommendations. What-if simulations model outcome changes before protocol amendments.",
+      "Model corrections before implementing them. See how changes affect bias metrics in real time.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -33,9 +33,9 @@ const features = [
     ),
   },
   {
-    title: "Regulatory Compliance",
+    title: "Report",
     description:
-      "Audit-ready reports for EMA and FDA submission, aligned with Cochrane standards. Full audit trails, GDPR/MDR compliance, ISO 27001 security. Documentation in 24+ languages.",
+      "Audit-ready documentation for regulatory submission, aligned with Cochrane methodology.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -53,10 +53,10 @@ export function SolutionSection() {
       <Container className="relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-dark to-primary-light dark:from-slate-300 dark:to-primary-light bg-clip-text text-transparent">
-            The First End-to-End Bias Management Platform
+            How It Works
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-300">
-            Clinequal integrates detection, quantification, explanation, and correction into a single workflow. Unlike EDC systems or generic data cleaning tools, we address systematic bias at its source with regulatory-ready outputs.
+            Your trial data flows through four stages. Bias is caught early, explained clearly, and corrected before it becomes a regulatory problem.
           </p>
         </div>
 

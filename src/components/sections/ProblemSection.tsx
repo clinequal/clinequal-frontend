@@ -16,37 +16,6 @@ const stats = [
   },
 ];
 
-const biasTypes = [
-  {
-    name: "Demographic Bias",
-    description:
-      "Underrepresentation of women, elderly, children, and ethnic minorities in trial populations",
-  },
-  {
-    name: "Selection Bias",
-    description:
-      "Flawed randomization or allocation concealment affecting group assignment",
-  },
-  {
-    name: "Performance Bias",
-    description:
-      "Inadequate blinding causing behavioral differences between groups",
-  },
-  {
-    name: "Detection Bias",
-    description:
-      "Outcome measurement influenced by knowledge of treatment assignment",
-  },
-  {
-    name: "Attrition Bias",
-    description: "Non-random patient withdrawals skewing study results",
-  },
-  {
-    name: "Reporting Bias",
-    description: "Selective reporting of statistically significant outcomes only",
-  },
-];
-
 export function ProblemSection() {
   return (
     <Section background="white" id="problem" className="relative overflow-hidden">
@@ -76,33 +45,6 @@ export function ProblemSection() {
               <p className="text-slate-600 dark:text-slate-300">{stat.label}</p>
             </div>
           ))}
-        </div>
-
-        {/* Bias Types */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-center mb-8">
-            Types of Bias We Detect
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {biasTypes.map((bias, index) => (
-              <div
-                key={bias.name}
-                className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/30 transition-all duration-300 group"
-              >
-                <div className="flex items-start gap-4">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                    {index + 1}
-                  </span>
-                  <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-slate-50 mb-2">
-                      {bias.name}
-                    </h4>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm">{bias.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Impact */}

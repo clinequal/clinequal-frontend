@@ -33,9 +33,8 @@ function HeroContent() {
           </span>
         </h1>
         <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
-          The first end-to-end platform for clinical trial bias management.
-          From demographic underrepresentation to methodological flaws, detect
-          issues early and correct them before regulatory submission.
+          Continuous bias monitoring for your trial data. Issues detected
+          automatically, explained clearly, corrected before submission.
         </p>
       </div>
     </Container>
