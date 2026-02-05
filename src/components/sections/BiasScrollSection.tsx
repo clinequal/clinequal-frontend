@@ -162,9 +162,11 @@ export function BiasScrollSection() {
     offset: ["start 0.75", "start start"],
   });
 
-  // Counter animation
+  // All transforms must be at top level (hooks rules)
   const count = useTransform(scrollYProgress, [0.1, 0.7], [6, 67]);
   const roundedCount = useTransform(count, (v) => Math.round(v));
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [0.3, 1]);
+  const footerOpacity = useTransform(scrollYProgress, [0.5, 0.8], [0, 1]);
 
   // Reduced motion: show all biases statically
   if (prefersReducedMotion) {
@@ -323,7 +325,7 @@ export function BiasScrollSection() {
           <div className="text-center mb-8">
             <motion.div
               className="text-7xl font-bold text-white mb-2"
-              style={{ opacity: useTransform(scrollYProgress, [0, 0.2], [0.3, 1]) }}
+              style={{ opacity: headerOpacity }}
             >
               <motion.span>{roundedCount}</motion.span>
             </motion.div>
@@ -352,9 +354,7 @@ export function BiasScrollSection() {
           {/* Footer message */}
           <motion.div
             className="text-center mt-8"
-            style={{
-              opacity: useTransform(scrollYProgress, [0.5, 0.8], [0, 1])
-            }}
+            style={{ opacity: footerOpacity }}
           >
             <p className="text-primary font-semibold text-lg">
               Detected automatically. Explained clearly.
