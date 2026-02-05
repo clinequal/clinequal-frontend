@@ -121,7 +121,7 @@ function BiasPill({ name, category, index, progress }: {
 
   return (
     <motion.span
-      className={`inline-flex px-3 py-1.5 rounded-full text-sm font-medium border ${categoryColors[category]} whitespace-nowrap`}
+      className={`inline-flex px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium border ${categoryColors[category]} whitespace-nowrap`}
       style={{ opacity, scale }}
     >
       {name}
@@ -132,7 +132,7 @@ function BiasPill({ name, category, index, progress }: {
 function StaticBiasPill({ name, category }: { name: string; category: string }) {
   return (
     <span
-      className={`inline-flex px-3 py-1.5 rounded-full text-sm font-medium border ${categoryColors[category]} whitespace-nowrap`}
+      className={`inline-flex px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium border ${categoryColors[category]} whitespace-nowrap`}
     >
       {name}
     </span>
@@ -157,22 +157,23 @@ export function BiasScrollSection() {
     return (
       <Section background="dark" className="relative overflow-hidden">
         <Container>
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              67 Documented Bias Types
+          <div className="text-center mb-4 md:mb-8">
+            <div className="text-5xl md:text-7xl font-bold text-white mb-1 md:mb-2">67</div>
+            <h2 className="text-xl md:text-3xl font-bold mb-2 md:mb-4 text-white">
+              Documented Bias Types
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
               Your team checks for a handful. Regulators catch a few more.
               We systematically detect all of them.
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-2 max-w-5xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 max-w-5xl mx-auto">
             {biasTypes.map((bias) => (
               <StaticBiasPill key={bias.name} name={bias.name} category={bias.category} />
             ))}
           </div>
-          <div className="text-center mt-8">
-            <p className="text-primary font-semibold text-lg">
+          <div className="text-center mt-4 md:mt-8">
+            <p className="text-primary font-semibold text-base md:text-lg">
               Detected automatically. Explained clearly.
             </p>
           </div>
@@ -202,24 +203,24 @@ export function BiasScrollSection() {
 
         <Container className="relative">
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-4 md:mb-8">
             <motion.div
-              className="text-6xl md:text-7xl font-bold text-white mb-2"
+              className="text-5xl md:text-7xl font-bold text-white mb-1 md:mb-2"
               style={{ opacity: useTransform(scrollYProgress, [0, 0.2], [0.3, 1]) }}
             >
               <motion.span>{roundedCount}</motion.span>
             </motion.div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+            <h2 className="text-xl md:text-3xl font-bold mb-2 md:mb-4 text-white">
               Documented Bias Types
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
               Your team checks for a handful. Regulators catch a few more.
               We systematically detect all of them.
             </p>
           </div>
 
           {/* Bias pills grid */}
-          <div className="flex flex-wrap justify-center gap-2 max-w-5xl mx-auto min-h-[300px]">
+          <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 max-w-5xl mx-auto md:min-h-[300px]">
             {biasTypes.map((bias, index) => (
               <BiasPill
                 key={bias.name}
@@ -233,12 +234,12 @@ export function BiasScrollSection() {
 
           {/* Footer message */}
           <motion.div
-            className="text-center mt-8"
+            className="text-center mt-4 md:mt-8"
             style={{
               opacity: useTransform(scrollYProgress, [0.5, 0.8], [0, 1])
             }}
           >
-            <p className="text-primary font-semibold text-lg">
+            <p className="text-primary font-semibold text-base md:text-lg">
               Detected automatically. Explained clearly.
             </p>
           </motion.div>
