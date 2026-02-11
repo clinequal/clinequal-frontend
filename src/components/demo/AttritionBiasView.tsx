@@ -25,6 +25,7 @@ import { RadarChart } from "./RadarChart";
 import { BiasTimeline } from "./BiasTimeline";
 import { BiasInteractions } from "./BiasInteractions";
 import { ProspectiveTimeline } from "./ProspectiveTimeline";
+import { BackButton } from "./BackButton";
 
 interface AttritionBiasViewProps {
   onBack: () => void;
@@ -58,15 +59,9 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
       {/* Header - Always visible */}
       <div className="flex items-start justify-between sticky top-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm py-4 -mx-4 px-4 z-10 border-b border-slate-100 dark:border-slate-800">
         <div>
-          <button
-            onClick={onBack}
-            className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary mb-1 flex items-center gap-1"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back
-          </button>
+          <div className="mb-2">
+            <BackButton onClick={onBack} />
+          </div>
           <h1 className="text-xl font-bold text-slate-900 dark:text-slate-50">
             {depressionTrialMetadata.name}
           </h1>

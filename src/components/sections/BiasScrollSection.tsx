@@ -1,125 +1,131 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, MotionValue, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return isMobile;
-}
+// Categories for bias classification
+const categories = {
+  selection: { name: "Selection & Sampling", color: "bg-blue-500/20 text-blue-300 border-blue-500/30", legendColor: "bg-blue-500" },
+  information: { name: "Information & Measurement", color: "bg-amber-500/20 text-amber-300 border-amber-500/30", legendColor: "bg-amber-500" },
+  confounding: { name: "Confounding & Causation", color: "bg-red-500/20 text-red-300 border-red-500/30", legendColor: "bg-red-500" },
+  temporal: { name: "Time-Related", color: "bg-purple-500/20 text-purple-300 border-purple-500/30", legendColor: "bg-purple-500" },
+  analysis: { name: "Analysis & Statistical", color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", legendColor: "bg-emerald-500" },
+  publication: { name: "Publication & Reporting", color: "bg-slate-400/20 text-slate-300 border-slate-400/30", legendColor: "bg-slate-400" },
+  design: { name: "Study Design", color: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30", legendColor: "bg-cyan-500" },
+  demographic: { name: "Demographic", color: "bg-pink-500/20 text-pink-300 border-pink-500/30", legendColor: "bg-pink-500" },
+  other: { name: "Other", color: "bg-orange-500/20 text-orange-300 border-orange-500/30", legendColor: "bg-orange-500" },
+};
 
-const biasTypes = [
-  // Population & Selection (blue)
-  { name: "Selection bias", category: "population" },
-  { name: "Volunteer bias", category: "population" },
-  { name: "Admission rate bias (Berkson's)", category: "population" },
-  { name: "Referral filter bias", category: "population" },
-  { name: "Prevalence-incidence (Neyman) bias", category: "population" },
-  { name: "Racial bias", category: "population" },
-  { name: "Spectrum bias", category: "population" },
-  { name: "Centripetal bias", category: "population" },
-  { name: "Non-response bias", category: "population" },
-  { name: "Diagnostic access bias", category: "population" },
+type CategoryKey = keyof typeof categories;
 
-  // Measurement & Detection (amber)
-  { name: "Detection bias", category: "measurement" },
-  { name: "Observer bias", category: "measurement" },
-  { name: "Recall bias", category: "measurement" },
-  { name: "Information bias", category: "measurement" },
-  { name: "Misclassification bias", category: "measurement" },
-  { name: "Ascertainment bias", category: "measurement" },
-  { name: "Diagnostic suspicion bias", category: "measurement" },
-  { name: "Verification bias", category: "measurement" },
-  { name: "Incorporation bias", category: "measurement" },
-  { name: "Insensitive measure bias", category: "measurement" },
-  { name: "Perception bias", category: "measurement" },
-  { name: "Hawthorne effect", category: "measurement" },
-  { name: "Apprehension bias", category: "measurement" },
+// 74 biases from Nicola's list, categorized
+const biasTypes: { name: string; category: CategoryKey }[] = [
+  // Selection & Sampling (blue)
+  { name: "Selection bias", category: "selection" },
+  { name: "Sampling bias", category: "selection" },
+  { name: "Sample bias", category: "selection" },
+  { name: "Volunteer (self-selection) bias", category: "selection" },
+  { name: "Recruitment bias", category: "selection" },
+  { name: "Participation bias", category: "selection" },
+  { name: "Admission rate (Berkson) bias", category: "selection" },
+  { name: "Healthy worker bias", category: "selection" },
+  { name: "Membership bias", category: "selection" },
+  { name: "Consent/non-consent bias", category: "selection" },
+  { name: "Response/non-response bias", category: "selection" },
+  { name: "Loss-to-follow-up bias", category: "selection" },
+  { name: "Attrition bias", category: "selection" },
+  { name: "Survival/survivor(ship) bias", category: "selection" },
 
-  // Protocol & Design (green)
-  { name: "Allocation bias", category: "protocol" },
-  { name: "Performance bias", category: "protocol" },
-  { name: "Lack of blinding", category: "protocol" },
-  { name: "Non-contemporaneous control bias", category: "protocol" },
-  { name: "Wrong sample size bias", category: "protocol" },
-  { name: "Early stopping bias", category: "protocol" },
-  { name: "Starting time bias", category: "protocol" },
-  { name: "Chronological bias", category: "protocol" },
+  // Information & Measurement (amber)
+  { name: "Information bias", category: "information" },
+  { name: "Measurement bias", category: "information" },
+  { name: "Observer bias", category: "information" },
+  { name: "Interviewer bias", category: "information" },
+  { name: "Investigator bias", category: "information" },
+  { name: "Detection bias", category: "information" },
+  { name: "Ascertainment bias", category: "information" },
+  { name: "Recall bias", category: "information" },
+  { name: "Respondent bias", category: "information" },
+  { name: "Perception bias", category: "information" },
+  { name: "Social desirability bias", category: "information" },
+  { name: "Apprehension bias", category: "information" },
+  { name: "Acceptability/unacceptability bias", category: "information" },
 
-  // Attrition & Compliance (purple)
-  { name: "Attrition bias", category: "attrition" },
-  { name: "Adherence bias", category: "attrition" },
-  { name: "Compliance bias", category: "attrition" },
+  // Confounding & Causation (red)
+  { name: "Confounding bias", category: "confounding" },
+  { name: "Confounding by indication bias", category: "confounding" },
+  { name: "Collider bias", category: "confounding" },
+  { name: "Collider-stratification bias", category: "confounding" },
+  { name: "Simpson's paradox", category: "confounding" },
+  { name: "Channeling bias", category: "confounding" },
+  { name: "Indication bias", category: "confounding" },
+  { name: "Protopathic bias", category: "confounding" },
 
-  // Analysis & Statistical (red)
-  { name: "Confounding", category: "analysis" },
-  { name: "Confounding by indication", category: "analysis" },
-  { name: "Collider bias", category: "analysis" },
-  { name: "Immortal time bias", category: "analysis" },
-  { name: "Lead time bias", category: "analysis" },
-  { name: "Length time bias", category: "analysis" },
+  // Time-Related (purple)
+  { name: "Immortal time bias", category: "temporal" },
+  { name: "Lead-time bias", category: "temporal" },
+  { name: "Length time bias", category: "temporal" },
+  { name: "Temporal bias", category: "temporal" },
+  { name: "Chronological bias", category: "temporal" },
+  { name: "Disease latency bias", category: "temporal" },
+  { name: "Prevalence-incidence (Neyman) bias", category: "temporal" },
+  { name: "Wash-in/wash-out effect bias", category: "temporal" },
+
+  // Analysis & Statistical (emerald)
   { name: "Data-dredging bias", category: "analysis" },
-  { name: "Differential reference bias", category: "analysis" },
-  { name: "Partial reference bias", category: "analysis" },
-  { name: "Informed presence bias", category: "analysis" },
+  { name: "Overfitting bias", category: "analysis" },
+  { name: "Regression dilution bias", category: "analysis" },
+  { name: "Small-study effect bias", category: "analysis" },
+  { name: "Missing data bias", category: "analysis" },
+  { name: "Stratification bias", category: "analysis" },
+  { name: "Population stratification bias", category: "analysis" },
+  { name: "Baseline imbalance bias", category: "analysis" },
 
-  // Reporting & Publication (slate)
-  { name: "Reporting biases", category: "reporting" },
-  { name: "Publication bias", category: "reporting" },
-  { name: "Outcome reporting bias", category: "reporting" },
-  { name: "Positive results bias", category: "reporting" },
-  { name: "Language bias", category: "reporting" },
-  { name: "One-sided reference bias", category: "reporting" },
-  { name: "Spin bias", category: "reporting" },
-  { name: "All's well literature bias", category: "reporting" },
-  { name: "Hot stuff bias", category: "reporting" },
-  { name: "Novelty bias", category: "reporting" },
-  { name: "Popularity bias", category: "reporting" },
-  { name: "Review biases", category: "reporting" },
-  { name: "Biases of rhetoric", category: "reporting" },
+  // Publication & Reporting (slate)
+  { name: "Publication bias", category: "publication" },
+  { name: "Language bias", category: "publication" },
+  { name: "Reporting bias", category: "publication" },
 
-  // Other/Contextual (cyan)
-  { name: "Industry sponsorship bias", category: "other" },
-  { name: "Confirmation bias", category: "other" },
-  { name: "Previous opinion bias", category: "other" },
+  // Study Design (cyan)
+  { name: "Allocation bias", category: "design" },
+  { name: "Intervention bias", category: "design" },
+  { name: "Non-contemporaneous/non-concurrent control bias", category: "design" },
+  { name: "Testing bias", category: "design" },
+  { name: "Verification bias", category: "design" },
+  { name: "Incorporation bias", category: "design" },
+  { name: "Spectrum effect bias", category: "design" },
+  { name: "Diagnostic suspicion bias", category: "design" },
+  { name: "Detection signal (unmasking) bias", category: "design" },
+  { name: "Exposure bias", category: "design" },
+  { name: "Exposure suspicion bias", category: "design" },
+
+  // Demographic (pink)
+  { name: "Gender bias", category: "demographic" },
+  { name: "Racial(ized)/ethnic bias", category: "demographic" },
+  { name: "Age mimicry bias", category: "demographic" },
+  { name: "Sociodemographic bias", category: "demographic" },
+  { name: "Family information bias", category: "demographic" },
+
+  // Other (orange)
+  { name: "Algorithmic bias", category: "other" },
   { name: "Availability bias", category: "other" },
-  { name: "Hypothetical bias", category: "other" },
-  { name: "Mimicry bias", category: "other" },
-  { name: "Unacceptability bias", category: "other" },
-  { name: "Unacceptable disease bias", category: "other" },
-  { name: "Unmasking (detection signal) bias", category: "other" },
-  { name: "Substitution game bias", category: "other" },
+  { name: "Risk perception bias", category: "other" },
+  { name: "Unknown bias", category: "other" },
+  { name: "Adherence/compliance bias", category: "other" },
 ];
 
-const categoryColors: Record<string, string> = {
-  population: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  measurement: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-  protocol: "bg-green-500/20 text-green-300 border-green-500/30",
-  attrition: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  analysis: "bg-red-500/20 text-red-300 border-red-500/30",
-  reporting: "bg-slate-500/20 text-slate-300 border-slate-500/30",
-  other: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
-};
+const TOTAL_BIASES = biasTypes.length;
 
 function BiasPill({ name, category, index, progress }: {
   name: string;
-  category: string;
+  category: CategoryKey;
   index: number;
   progress: MotionValue<number>;
 }) {
-  // Stagger the appearance based on index
-  // First 6 are always visible, rest fade in progressively
-  const isInitiallyVisible = index < 6;
-  const appearAt = isInitiallyVisible ? 0 : 0.1 + (index - 6) * 0.012;
+  const isInitiallyVisible = index < 8;
+  const appearAt = isInitiallyVisible ? 0 : 0.1 + (index - 8) * 0.012;
   const opacity = useTransform(
     progress,
     [appearAt, Math.min(appearAt + 0.08, 1)],
@@ -133,7 +139,7 @@ function BiasPill({ name, category, index, progress }: {
 
   return (
     <motion.span
-      className={`inline-flex px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium border ${categoryColors[category]} whitespace-nowrap`}
+      className={`inline-flex px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium border ${categories[category].color} whitespace-nowrap`}
       style={{ opacity, scale }}
     >
       {name}
@@ -141,20 +147,32 @@ function BiasPill({ name, category, index, progress }: {
   );
 }
 
-function StaticBiasPill({ name, category }: { name: string; category: string }) {
+function StaticBiasPill({ name, category }: { name: string; category: CategoryKey }) {
   return (
     <span
-      className={`inline-flex px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium border ${categoryColors[category]} whitespace-nowrap`}
+      className={`inline-flex px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium border ${categories[category].color} whitespace-nowrap`}
     >
       {name}
     </span>
   );
 }
 
+function Legend() {
+  return (
+    <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-6 pt-4 border-t border-white/10">
+      {Object.entries(categories).map(([key, { name, legendColor }]) => (
+        <div key={key} className="flex items-center gap-1.5">
+          <span className={`w-2.5 h-2.5 rounded-full ${legendColor}`} />
+          <span className="text-xs text-slate-400">{name}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function BiasScrollSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const isMobile = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { scrollYProgress } = useScroll({
@@ -162,8 +180,7 @@ export function BiasScrollSection() {
     offset: ["start 0.75", "start start"],
   });
 
-  // All transforms must be at top level (hooks rules)
-  const count = useTransform(scrollYProgress, [0.1, 0.7], [6, 67]);
+  const count = useTransform(scrollYProgress, [0.1, 0.7], [8, TOTAL_BIASES]);
   const roundedCount = useTransform(count, (v) => Math.round(v));
   const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [0.3, 1]);
   const footerOpacity = useTransform(scrollYProgress, [0.5, 0.8], [0, 1]);
@@ -174,13 +191,13 @@ export function BiasScrollSection() {
       <Section background="dark" className="relative overflow-hidden">
         <Container>
           <div className="text-center mb-4 md:mb-8">
-            <div className="text-5xl md:text-7xl font-bold text-white mb-1 md:mb-2">67</div>
+            <div className="text-5xl md:text-7xl font-bold text-white mb-1 md:mb-2">{TOTAL_BIASES}</div>
             <h2 className="text-xl md:text-3xl font-bold mb-2 md:mb-4 text-white">
               Documented Bias Types
             </h2>
             <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
-              Your team checks for a handful. Regulators catch a few more.
-              We systematically detect all of them.
+              Manual review catches some. Regulatory checklists flag a few more.
+              Clinequal systematically detects all of them.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 max-w-5xl mx-auto">
@@ -188,6 +205,7 @@ export function BiasScrollSection() {
               <StaticBiasPill key={bias.name} name={bias.name} category={bias.category} />
             ))}
           </div>
+          <Legend />
           <div className="text-center mt-4 md:mt-8">
             <p className="text-primary font-semibold text-base md:text-lg">
               Detected automatically. Explained clearly.
@@ -198,36 +216,10 @@ export function BiasScrollSection() {
     );
   }
 
-  // SSR/initial render: show static version until we know mobile/desktop
-  if (isMobile === null) {
-    return (
-      <Section background="dark" className="relative overflow-hidden">
-        <Container>
-          <div className="text-center mb-4 md:mb-8">
-            <div className="text-5xl md:text-7xl font-bold text-white mb-1 md:mb-2">67</div>
-            <h2 className="text-xl md:text-3xl font-bold mb-2 md:mb-4 text-white">
-              Documented Bias Types
-            </h2>
-            <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
-              Your team checks for a handful. Regulators catch a few more.
-              We systematically detect all of them.
-            </p>
-          </div>
-          <div className="text-center mt-4 md:mt-8">
-            <p className="text-primary font-semibold text-base md:text-lg">
-              Detected automatically. Explained clearly.
-            </p>
-          </div>
-        </Container>
-      </Section>
-    );
-  }
-
-  // Mobile: collapsible view
-  if (isMobile) {
-    return (
-      <Section background="dark" className="relative overflow-hidden">
-        {/* Grid texture */}
+  return (
+    <>
+      {/* Mobile: collapsible view */}
+      <Section background="dark" className="relative overflow-hidden md:hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -240,24 +232,22 @@ export function BiasScrollSection() {
         </div>
 
         <Container className="relative">
-          {/* Header */}
           <div className="text-center mb-4">
-            <div className="text-5xl font-bold text-white mb-1">67</div>
+            <div className="text-5xl font-bold text-white mb-1">{TOTAL_BIASES}</div>
             <h2 className="text-xl font-bold mb-2 text-white">
               Documented Bias Types
             </h2>
             <p className="text-base text-slate-400 max-w-2xl mx-auto">
-              Your team checks for a handful. Regulators catch a few more.
-              We systematically detect all of them.
+              Manual review catches some. Regulatory checklists flag a few more.
+              Clinequal systematically detects all of them.
             </p>
           </div>
 
-          {/* Expand/collapse button */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="flex items-center justify-center gap-2 mx-auto mb-4 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium hover:bg-white/20 transition-colors"
           >
-            <span>{isExpanded ? "Hide all biases" : "View all 67 biases"}</span>
+            <span>{isExpanded ? "Hide all biases" : `View all ${TOTAL_BIASES} biases`}</span>
             <motion.svg
               className="w-4 h-4"
               fill="none"
@@ -270,7 +260,6 @@ export function BiasScrollSection() {
             </motion.svg>
           </button>
 
-          {/* Collapsible bias pills */}
           <AnimatePresence>
             {isExpanded && (
               <motion.div
@@ -285,11 +274,11 @@ export function BiasScrollSection() {
                     <StaticBiasPill key={bias.name} name={bias.name} category={bias.category} />
                   ))}
                 </div>
+                <Legend />
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Footer message */}
           <div className="text-center mt-4">
             <p className="text-primary font-semibold text-base">
               Detected automatically. Explained clearly.
@@ -297,71 +286,68 @@ export function BiasScrollSection() {
           </div>
         </Container>
       </Section>
-    );
-  }
 
-  // Desktop: scroll-driven animation
-  return (
-    <div ref={containerRef} className="relative">
-      <Section background="dark" className="relative overflow-hidden">
-        {/* Grid texture */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="bias-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-                <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#bias-grid)" />
-          </svg>
-        </div>
+      {/* Desktop: scroll-driven animation */}
+      <div ref={containerRef} className="relative hidden md:block">
+        <Section background="dark" className="relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
+            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="bias-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#bias-grid)" />
+            </svg>
+          </div>
 
-        {/* Glowing orbs */}
-        <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-1/4 right-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <Container className="relative">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <motion.div
-              className="text-7xl font-bold text-white mb-2"
-              style={{ opacity: headerOpacity }}
-            >
-              <motion.span>{roundedCount}</motion.span>
+          <Container className="relative">
+            <div className="text-center mb-8">
+              <motion.div
+                className="text-7xl font-bold text-white mb-2"
+                style={{ opacity: headerOpacity }}
+              >
+                <motion.span>{roundedCount}</motion.span>
+              </motion.div>
+              <h2 className="text-3xl font-bold mb-4 text-white">
+                Documented Bias Types
+              </h2>
+              <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                Manual review catches some. Regulatory checklists flag a few more.
+                Clinequal systematically detects all of them.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-2 max-w-5xl mx-auto min-h-[300px]">
+              {biasTypes.map((bias, index) => (
+                <BiasPill
+                  key={bias.name}
+                  name={bias.name}
+                  category={bias.category}
+                  index={index}
+                  progress={scrollYProgress}
+                />
+              ))}
+            </div>
+
+            <motion.div style={{ opacity: footerOpacity }}>
+              <Legend />
             </motion.div>
-            <h2 className="text-3xl font-bold mb-4 text-white">
-              Documented Bias Types
-            </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Your team checks for a handful. Regulators catch a few more.
-              We systematically detect all of them.
-            </p>
-          </div>
 
-          {/* Bias pills grid */}
-          <div className="flex flex-wrap justify-center gap-2 max-w-5xl mx-auto min-h-[300px]">
-            {biasTypes.map((bias, index) => (
-              <BiasPill
-                key={bias.name}
-                name={bias.name}
-                category={bias.category}
-                index={index}
-                progress={scrollYProgress}
-              />
-            ))}
-          </div>
-
-          {/* Footer message */}
-          <motion.div
-            className="text-center mt-8"
-            style={{ opacity: footerOpacity }}
-          >
-            <p className="text-primary font-semibold text-lg">
-              Detected automatically. Explained clearly.
-            </p>
-          </motion.div>
-        </Container>
-      </Section>
-    </div>
+            <motion.div
+              className="text-center mt-6"
+              style={{ opacity: footerOpacity }}
+            >
+              <p className="text-primary font-semibold text-lg">
+                Detected automatically. Explained clearly.
+              </p>
+            </motion.div>
+          </Container>
+        </Section>
+      </div>
+    </>
   );
 }

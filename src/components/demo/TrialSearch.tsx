@@ -1,11 +1,15 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { searchTrials, type TrialSummary, type SearchResponse } from "@/lib/api/trials";
+import { BackButton } from "./BackButton";
 
 interface TrialSearchProps {
   onSelect: (nctId: string) => void;
   onBack: () => void;
+  initialQuery?: string;
+  initialResults?: SearchResponse | null;
+  onStateChange?: (query: string, results: SearchResponse | null) => void;
 }
 
 const PAGE_SIZE = 10;
@@ -56,13 +60,20 @@ function TrialCard({ trial, onSelect }: { trial: TrialSummary; onSelect: (nctId:
   );
 }
 
-export function TrialSearch({ onSelect, onBack }: TrialSearchProps) {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResponse | null>(null);
+export function TrialSearch({ onSelect, onBack, initialQuery = "", initialResults = null, onStateChange }: TrialSearchProps) {
+  const [query, setQuery] = useState(initialQuery);
+  const [results, setResults] = useState<SearchResponse | null>(initialResults);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(initialResults?.page || 1);
+  const [totalCount, setTotalCount] = useState(initialResults?.totalCount || 0);
+
+  // Report state changes to parent
+  useEffect(() => {
+    if (onStateChange) {
+      onStateChange(query, results);
+    }
+  }, [query, results, onStateChange]);
 
   const handleSearch = useCallback(async (searchQuery: string, page: number = 1) => {
     if (!searchQuery.trim()) return;
@@ -100,15 +111,9 @@ export function TrialSearch({ onSelect, onBack }: TrialSearchProps) {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <button
-          onClick={onBack}
-          className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary mb-2 flex items-center gap-1"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back
-        </button>
+        <div className="mb-3">
+          <BackButton onClick={onBack} />
+        </div>
         <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-1">
           Search ClinicalTrials.gov
         </h2>

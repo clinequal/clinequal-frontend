@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { DatasetSelector } from "./DatasetSelector";
 import { DemographicBiasView } from "./DemographicBiasView";
 import { AttritionBiasView } from "./AttritionBiasView";
 import { MetadataBiasView } from "./MetadataBiasView";
 import { TrialSearch } from "./TrialSearch";
+import type { SearchResponse } from "@/lib/api/trials";
 
 type DemoState =
   | "select"
@@ -19,6 +20,15 @@ export function DemoApp() {
   const [state, setState] = useState<DemoState>("select");
   const [showIntro, setShowIntro] = useState(true);
   const [selectedNctId, setSelectedNctId] = useState<string | null>(null);
+
+  // Preserve search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchResponse | null>(null);
+
+  const handleSearchStateChange = useCallback((query: string, results: SearchResponse | null) => {
+    setSearchQuery(query);
+    setSearchResults(results);
+  }, []);
 
   const handleSelectDataset = (datasetId: string) => {
     if (datasetId === "metadata-ctgov-example") {
@@ -131,7 +141,13 @@ export function DemoApp() {
         )}
 
         {state === "metadata-search" && (
-          <TrialSearch onSelect={handleTrialSelected} onBack={handleBack} />
+          <TrialSearch
+            onSelect={handleTrialSelected}
+            onBack={handleBack}
+            initialQuery={searchQuery}
+            initialResults={searchResults}
+            onStateChange={handleSearchStateChange}
+          />
         )}
 
         {state === "metadata-analysis" && selectedNctId && (

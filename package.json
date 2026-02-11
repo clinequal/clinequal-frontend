@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "branch=$(git rev-parse --abbrev-ref HEAD) && echo \"\\n🌿 Branch: $branch\" && echo \"🔗 Preview: https://clinequal-frontend-git-${branch}-clinequal.vercel.app\\n\" && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

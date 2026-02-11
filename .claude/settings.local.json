@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npx create-next-app@latest:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(npm run build:*)"
     ]
   }
 }
