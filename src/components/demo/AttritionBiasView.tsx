@@ -278,8 +278,8 @@ export function AttritionBiasView({ onBack }: AttritionBiasViewProps) {
         <BusinessImpact
           riskLevel="high"
           riskDescription="FDA may issue Complete Response Letter requesting additional analyses or new studies in underrepresented populations."
-          costRange="$5M - $15M"
-          costDescription="Post-hoc analyses, advisory committee prep, potential bridging studies"
+          costRange="$2M - $10M"
+          costDescription="Delay costs, reanalyses, advisory committee prep, potential bridging study"
           detectionPoint="Week 6"
           detectionComparison="vs. discovered during FDA review (12-18 months delay)"
           regulatoryNote="The STAR*D trial's initial 67% remission rate was revised to 35% after ITT reanalysis — a difference that reshaped clinical guidelines. Early detection prevents such revisions."

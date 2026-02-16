@@ -12,6 +12,7 @@ export interface TrialSummary {
   enrollment: number | null;
   startDate: string | null;
   completionDate: string | null;
+  leadSponsor: string | null;
 }
 
 export interface SearchResponse {
