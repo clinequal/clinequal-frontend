@@ -22,7 +22,7 @@ const team = [
     role: "CSO",
     expertise: "MD, PhD, 1,000+ publications, top 2% most cited scientists, Cochrane Reviewer",
     linkedin: "https://www.linkedin.com/in/nicola-luigi-bragazzi-a3920049/",
-    image: null,
+    image: "/team/nicola.jpeg",
   },
   {
     name: "Pasquale Junior Montò",
