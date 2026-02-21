@@ -75,6 +75,7 @@ export function TeamSection() {
                     alt={member.name}
                     fill
                     className={`object-cover ${member.name === "Enrico De Cupertinis" ? "object-top" : ""}`}
+                    style={member.name === "Nicola Luigi Bragazzi" ? { objectPosition: "center 1%" } : undefined}
                     sizes="96px"
                   />
                 ) : (
