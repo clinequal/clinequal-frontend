@@ -6,6 +6,7 @@ import { DemoCTASection } from "@/components/sections/DemoCTASection";
 import { TrustSection } from "@/components/sections/TrustSection";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { CTASection } from "@/components/sections/CTASection";
+import { ArticlesPreviewSection } from "@/components/sections/ArticlesPreviewSection";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
         <DemoCTASection />
         <TrustSection />
         <TeamSection />
+        <ArticlesPreviewSection />
         <CTASection />
       </div>
     </>

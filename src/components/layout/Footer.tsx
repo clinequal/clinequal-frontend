@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 const footerLinks = {
   company: [
     { label: "About", href: "#team" },
+    { label: "Articles", href: "/articles" },
     { label: "Contact", href: "#contact" },
   ],
   legal: [
@@ -124,6 +125,12 @@ export function Footer() {
           <p className="text-slate-500 text-sm text-center md:text-left">
             &copy; {currentYear} Clinequal. All rights reserved.
           </p>
+          <a
+            href="/admin/login"
+            className="text-slate-700 hover:text-slate-500 text-xs transition-colors mt-2 md:mt-0"
+          >
+            Admin
+          </a>
         </div>
       </Container>
     </footer>
