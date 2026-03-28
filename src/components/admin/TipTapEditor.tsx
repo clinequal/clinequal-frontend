@@ -10,6 +10,7 @@ import { useCallback, useRef } from "react";
 interface TipTapEditorProps {
   content: string;
   onChange: (html: string) => void;
+  getAuthToken: () => string;
 }
 
 function ToolbarButton({
@@ -39,12 +40,15 @@ function ToolbarButton({
   );
 }
 
-async function uploadImage(file: File): Promise<string> {
+async function uploadImage(file: File, token: string): Promise<string> {
+  const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch("/api/admin/uploads", {
+  // Upload directly to the backend to bypass Vercel's 4.5MB body limit
+  const res = await fetch(`${apiBase}/api/uploads`, {
     method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
     body: formData,
   });
 
@@ -54,12 +58,11 @@ async function uploadImage(file: File): Promise<string> {
 
   const data = await res.json();
   // The backend returns a relative URL like /uploads/uuid.ext
-  // Prepend the API base so images resolve correctly
-  const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
+  if (data.url.startsWith("http")) return data.url;
   return `${apiBase}${data.url}`;
 }
 
-export function TipTapEditor({ content, onChange }: TipTapEditorProps) {
+export function TipTapEditor({ content, onChange, getAuthToken }: TipTapEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
@@ -101,7 +104,7 @@ export function TipTapEditor({ content, onChange }: TipTapEditorProps) {
       if (!file) return;
 
       try {
-        const url = await uploadImage(file);
+        const url = await uploadImage(file, getAuthToken());
         editor.chain().focus().setImage({ src: url }).run();
       } catch {
         alert("Failed to upload image. Please try again.");
@@ -110,7 +113,7 @@ export function TipTapEditor({ content, onChange }: TipTapEditorProps) {
       // Reset input so the same file can be selected again
       e.target.value = "";
     },
-    [editor]
+    [editor, getAuthToken]
   );
 
   if (!editor) return null;

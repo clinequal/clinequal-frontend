@@ -2,6 +2,14 @@
 
 import { useState, useRef } from "react";
 import { TipTapEditor } from "./TipTapEditor";
+import { AUTH_COOKIE_NAME } from "@/lib/auth";
+
+function getAuthToken(): string {
+  const match = document.cookie.match(
+    new RegExp(`(?:^|; )${AUTH_COOKIE_NAME}=([^;]*)`)
+  );
+  return match ? decodeURIComponent(match[1]) : "";
+}
 
 export interface ArticleFormData {
   title: string;
@@ -29,12 +37,15 @@ const defaultData: ArticleFormData = {
   publishedAt: null,
 };
 
-async function uploadImage(file: File): Promise<string> {
+async function uploadImage(file: File, token: string): Promise<string> {
+  const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch("/api/admin/uploads", {
+  // Upload directly to the backend to bypass Vercel's 4.5MB body limit
+  const res = await fetch(`${apiBase}/api/uploads`, {
     method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
     body: formData,
   });
 
@@ -43,7 +54,7 @@ async function uploadImage(file: File): Promise<string> {
   }
 
   const data = await res.json();
-  const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
+  if (data.url.startsWith("http")) return data.url;
   return `${apiBase}${data.url}`;
 }
 
@@ -68,7 +79,7 @@ export function ArticleForm({
 
     setUploading(true);
     try {
-      const url = await uploadImage(file);
+      const url = await uploadImage(file, getAuthToken());
       update("imageUrl", url);
     } catch {
       setError("Failed to upload cover image");
@@ -193,6 +204,7 @@ export function ArticleForm({
         <TipTapEditor
           content={data.content}
           onChange={(html) => update("content", html)}
+          getAuthToken={getAuthToken}
         />
       </div>
 

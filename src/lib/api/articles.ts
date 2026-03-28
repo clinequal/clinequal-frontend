@@ -1,4 +1,29 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
+export const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
+
+/** Ensure image URLs from the backend are absolute */
+function resolveImageUrl(url: string | null): string | null {
+  if (!url) return null;
+  if (url.startsWith("http")) return url;
+  return `${API_BASE}${url}`;
+}
+
+/** Resolve relative /uploads/ URLs inside HTML content */
+function resolveContentUrls(html: string): string {
+  if (!html) return html;
+  return html.replace(
+    /src="\/uploads\//g,
+    `src="${API_BASE}/uploads/`
+  );
+}
+
+function resolveArticle(article: Article): Article {
+  return {
+    ...article,
+    imageUrl: resolveImageUrl(article.imageUrl),
+    content: resolveContentUrls(article.content),
+  };
+}
 
 export interface Article {
   id: string;
@@ -27,27 +52,36 @@ export async function getArticles(
     params.set("published", String(published));
   }
   const qs = params.toString();
-  const res = await fetch(`${API_BASE}/api/articles${qs ? `?${qs}` : ""}`);
+  const res = await fetch(`${API_BASE}/api/articles${qs ? `?${qs}` : ""}`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch articles: ${res.status} ${res.statusText}`);
   }
-  return res.json();
+  const data: ArticlesResponse = await res.json();
+  return { ...data, articles: data.articles.map(resolveArticle) };
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article> {
-  const res = await fetch(`${API_BASE}/api/articles/${slug}`);
+  const res = await fetch(`${API_BASE}/api/articles/${slug}`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch article: ${res.status} ${res.statusText}`);
   }
-  return res.json();
+  const article: Article = await res.json();
+  return resolveArticle(article);
 }
 
 export async function getArticleById(id: string): Promise<Article> {
-  const res = await fetch(`${API_BASE}/api/articles/by-id/${id}`);
+  const res = await fetch(`${API_BASE}/api/articles/by-id/${id}`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch article: ${res.status} ${res.statusText}`);
   }
-  return res.json();
+  const article: Article = await res.json();
+  return resolveArticle(article);
 }
 
 export async function createArticle(
