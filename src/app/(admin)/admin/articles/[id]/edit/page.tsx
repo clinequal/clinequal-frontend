@@ -3,7 +3,7 @@
 import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import { ArticleForm, type ArticleFormData } from "@/components/admin/ArticleForm";
-import { getArticleById, type Article } from "@/lib/api/articles";
+import type { Article } from "@/lib/api/articles";
 
 export default function EditArticlePage({
   params,
@@ -17,7 +17,11 @@ export default function EditArticlePage({
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getArticleById(id)
+    fetch(`/api/admin/articles/${id}`)
+      .then(async (res) => {
+        if (!res.ok) throw new Error("Failed to load");
+        return res.json();
+      })
       .then(setArticle)
       .catch(() => setError("Failed to load article"))
       .finally(() => setLoading(false));

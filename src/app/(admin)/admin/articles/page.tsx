@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getArticles, type Article } from "@/lib/api/articles";
+import type { Article } from "@/lib/api/articles";
 
 export default function AdminArticlesPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -14,7 +14,9 @@ export default function AdminArticlesPage() {
 
   async function fetchArticles() {
     try {
-      const data = await getArticles();
+      const res = await fetch("/api/admin/articles");
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
       setArticles(data.articles ?? []);
     } catch {
       // Backend not yet available — show empty state
