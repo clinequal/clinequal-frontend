@@ -10,7 +10,6 @@ import { useCallback, useRef } from "react";
 interface TipTapEditorProps {
   content: string;
   onChange: (html: string) => void;
-  getAuthToken: () => string;
 }
 
 function ToolbarButton({
@@ -40,15 +39,19 @@ function ToolbarButton({
   );
 }
 
-async function uploadImage(file: File, token: string): Promise<string> {
+const MAX_UPLOAD_SIZE = 4 * 1024 * 1024; // 4MB — Vercel proxy limit is 4.5MB
+
+async function uploadImage(file: File): Promise<string> {
+  if (file.size > MAX_UPLOAD_SIZE) {
+    throw new Error(`Image too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum is 4MB.`);
+  }
+
   const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
   const formData = new FormData();
   formData.append("file", file);
 
-  // Upload directly to the backend to bypass Vercel's 4.5MB body limit
-  const res = await fetch(`${apiBase}/api/uploads`, {
+  const res = await fetch("/api/admin/uploads", {
     method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
     body: formData,
   });
 
@@ -57,12 +60,11 @@ async function uploadImage(file: File, token: string): Promise<string> {
   }
 
   const data = await res.json();
-  // The backend returns a relative URL like /uploads/uuid.ext
   if (data.url.startsWith("http")) return data.url;
   return `${apiBase}${data.url}`;
 }
 
-export function TipTapEditor({ content, onChange, getAuthToken }: TipTapEditorProps) {
+export function TipTapEditor({ content, onChange }: TipTapEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
@@ -104,7 +106,7 @@ export function TipTapEditor({ content, onChange, getAuthToken }: TipTapEditorPr
       if (!file) return;
 
       try {
-        const url = await uploadImage(file, getAuthToken());
+        const url = await uploadImage(file);
         editor.chain().focus().setImage({ src: url }).run();
       } catch {
         alert("Failed to upload image. Please try again.");
@@ -113,7 +115,7 @@ export function TipTapEditor({ content, onChange, getAuthToken }: TipTapEditorPr
       // Reset input so the same file can be selected again
       e.target.value = "";
     },
-    [editor, getAuthToken]
+    [editor]
   );
 
   if (!editor) return null;
