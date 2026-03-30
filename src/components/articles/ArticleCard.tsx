@@ -8,43 +8,40 @@ interface ArticleCardProps {
 export function ArticleCard({ article }: ArticleCardProps) {
   const date = article.publishedAt
     ? new Date(article.publishedAt).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
         day: "numeric",
+        month: "short",
+        year: "numeric",
       })
     : null;
 
   return (
-    <Link
-      href={`/articles/${article.slug}`}
-      className="group bg-white dark:bg-slate-800/80 rounded-xl overflow-hidden border border-primary/20 dark:border-primary/30 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-1 hover:border-primary/40 transition-all duration-300"
-    >
+    <Link href={`/articles/${article.slug}`} className="group">
       {/* Cover Image */}
-      {article.imageUrl && (
-        <div className="aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-700">
+      {article.imageUrl ? (
+        <div className="aspect-[16/9] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 mb-4">
           <img
             src={article.imageUrl}
             alt={article.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
+        </div>
+      ) : (
+        <div className="aspect-[16/9] rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 mb-4 flex items-center justify-center">
+          <span className="text-slate-500 text-sm">No cover image</span>
         </div>
       )}
 
-      <div className="p-5">
-        {/* Date */}
+      {/* Metadata */}
+      <div className="space-y-2">
         {date && (
-          <p className="text-xs text-primary font-medium mb-2">{date}</p>
+          <p className="text-sm text-slate-400">{date}</p>
         )}
-
-        {/* Title */}
-        <h3 className="font-semibold text-slate-900 dark:text-slate-50 line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 line-clamp-2 group-hover:text-primary transition-colors">
           {article.title}
         </h3>
-
-        {/* Summary */}
-        {article.summary && (
-          <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">
-            {article.summary}
+        {article.author && (
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            {article.author}
           </p>
         )}
       </div>

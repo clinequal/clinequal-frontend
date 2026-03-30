@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { useTheme } from "@/components/ui/ThemeProvider";
 
 const navLinks = [
@@ -20,7 +19,7 @@ export function Header() {
   const { theme, toggle } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700">
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
       <Container>
         <nav className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -41,7 +40,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium transition-colors"
+                className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-colors"
               >
                 {link.label}
               </Link>
@@ -51,7 +50,7 @@ export function Header() {
             <button
               onClick={toggle}
               aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
-              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
             >
               {theme === "light" ? (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,18 +63,20 @@ export function Header() {
               )}
             </button>
 
-            <Button size="sm" href="/demo">
+            <Link
+              href="/demo"
+              className="px-5 py-2 text-sm font-semibold text-slate-900 dark:text-white border border-slate-300 dark:border-slate-500 rounded-lg hover:border-slate-900 dark:hover:border-white transition-colors"
+            >
               Try Demo
-            </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
-            {/* Mobile Theme Toggle */}
             <button
               onClick={toggle}
               aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
-              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
             >
               {theme === "light" ? (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,21 +122,25 @@ export function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-slate-200 dark:border-slate-700">
+          <div className="md:hidden py-4 border-t border-slate-200 dark:border-slate-700/50">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium py-2"
+                  className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium py-2 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Button size="sm" href="/demo" className="w-full">
+              <Link
+                href="/demo"
+                className="text-center px-5 py-2 text-sm font-semibold text-white border border-slate-500 rounded-lg hover:border-white transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 Try Demo
-              </Button>
+              </Link>
             </div>
           </div>
         )}

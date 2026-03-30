@@ -1,4 +1,3 @@
-import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { ArticleCard } from "@/components/articles/ArticleCard";
 import { NewsletterSignup } from "@/components/articles/NewsletterSignup";
@@ -22,41 +21,60 @@ export default async function ArticlesPage() {
   }
 
   return (
-    <Section background="gray">
-      <Container className="relative">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-dark to-primary-light dark:from-slate-300 dark:to-primary-light bg-clip-text text-transparent">
-            Articles & Insights
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300">
-            Perspectives on clinical trial equity, AI-driven bias detection, and
-            the future of inclusive healthcare research.
-          </p>
-        </div>
+    <>
+      {/* Hero */}
+      <section className="relative bg-slate-900 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-primary/15 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-primary/10 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        {articles.length === 0 ? (
-          <div className="max-w-xl mx-auto space-y-8">
-            <div className="text-center py-12">
-              <p className="text-slate-500 dark:text-slate-400">
-                No articles published yet. Check back soon!
+        <Container className="relative py-20 md:py-28">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl leading-tight">
+              <span className="font-light text-white">What&apos;s new at</span><br />
+              <span className="font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
+                Clinequal
+              </span>
+            </h1>
+            <div className="md:text-right max-w-sm">
+              <p className="text-sm font-semibold text-primary-light tracking-wide uppercase mb-2">
+                Articles & Insights
+              </p>
+              <p className="text-slate-400 leading-relaxed">
+                Perspectives on clinical trial equity, bias detection, and the
+                future of inclusive healthcare research.
               </p>
             </div>
-            <NewsletterSignup />
           </div>
-        ) : (
-          <>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {articles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
-            </div>
+        </Container>
+      </section>
 
-            <div className="max-w-xl mx-auto">
+      {/* Articles Grid */}
+      <section className="relative bg-white dark:bg-slate-900 py-16 md:py-20">
+        <Container>
+          {articles.length === 0 ? (
+            <div className="max-w-xl mx-auto space-y-8">
+              <div className="text-center py-12">
+                <p className="text-slate-500 dark:text-slate-400">
+                  No articles published yet. Check back soon!
+                </p>
+              </div>
               <NewsletterSignup />
             </div>
-          </>
-        )}
-      </Container>
-    </Section>
+          ) : (
+            <>
+              <div className="grid md:grid-cols-2 gap-8 mb-16">
+                {articles.map((article) => (
+                  <ArticleCard key={article.id} article={article} />
+                ))}
+              </div>
+
+              <div className="max-w-xl mx-auto">
+                <NewsletterSignup />
+              </div>
+            </>
+          )}
+        </Container>
+      </section>
+    </>
   );
 }
